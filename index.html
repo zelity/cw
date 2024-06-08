@@ -6,7 +6,31 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
+            background: linear-gradient(
+                to right,
+                #6f7280,
+                #2a2c3c,
+                #181827,
+                #833ab4,
+                #fd1d1d,
+                #fcb045
+            );
+            background-size: 400% 400%;
+            animation: body 10s infinite ease-in-out;
         }
+        
+        @keyframes body {
+            0% {
+                background-position: 0 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0 50%;
+            }
+        }
+        
         #game-selecter {
             background-color: #4CAF50;
             color: #fff;
@@ -15,6 +39,7 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        
         #game-selecter:hover {
             background-color: #3e8e41;
         }
@@ -23,7 +48,7 @@
 <body>
     <h1>Game Selecter</h1>
     <a href="games.html" id="game-selecter">Click to play games!</a>
-     <a href="games.html" id="game-selecter">Download The Game Site - goguarden cant see this unlike normal site!</a>
+    <a href="games.html" id="game-selecter">Download The Game Site - goguarden cant see this unlike normal site!</a>
     <p><a href="sms-clock1212.html">SMS Clock</a></p>
 
     <script>
