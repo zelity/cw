@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game Selecter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #game-selecter {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #game-selecter:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+<body>
+    <h1>Game Selecter</h1>
+    <a href="games.html" id="game-selecter">Click to play games!</a>
+    <p><a href="sms-clock1212.html">SMS Clock</a></p>
+
+    <script>
+        const gameSelecter = document.getElementById('game-selecter');
+        gameSelecter.addEventListener('click', () => {
+            location.href = 'games.html';
+        });
+    </script>
+</body>
+</html>
