@@ -5,10 +5,13 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <script>
+        const randomColor = Math.floor(Math.random() * 360);
+        document.body.style.background = `linear-gradient(to bottom, hsl(${randomColor}, 50%, 50%), hsl(${randomColor}, 70%, 70%), hsl(${randomColor}, 90%, 90%));`;
+    </script>
     <div class="background">
         <h1 class="heading">Game Selecter</h1>
         <a href="games.html" id="game-selecter">Click to play games!</a>
-        <script src="script.js"></script>
     </div>
 </body>
 </html>
