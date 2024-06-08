@@ -6,35 +6,31 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: transparent;
-            transition: background-position 0.5s;
-            background-image: linear-gradient(to bottom, hsl(0, 50%, 50%), hsl(250, 50%, 50%), hsl(180, 50%, 50%));
-            background-size: 100% 100vh;
-            background-position: 0% 100%;
-            background-repeat: no-repeat;
         }
-        body:hover {
-            background-position: 100% 100%;
+        #game-selecter {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
-        body::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: radial-gradient(farthest-corner at 0% 0%, hsl(240, 70%, 70%), hsl(270, 80%, 80%), hsl(300, 90%, 90%));
-            background-size: 100% 100vh;
-            background-position: 0% 0%;
-            background-repeat: no-repeat;
-        }
-        body:hover::after {
-            background-position: 100% 0%;
+        #game-selecter:hover {
+            background-color: #3e8e41;
         }
     </style>
 </head>
 <body>
-    <h1 class="heading">Game Selecter</h1>
+    <h1>Game Selecter</h1>
     <a href="games.html" id="game-selecter">Click to play games!</a>
+     <a href="games.html" id="game-selecter">Download The Game Site - goguarden cant see this unlike normal site!</a>
+    <p><a href="sms-clock1212.html">SMS Clock</a></p>
+
+    <script>
+        const gameSelecter = document.getElementById('game-selecter');
+        gameSelecter.addEventListener('click', () => {
+            location.href = 'games.html';
+        });
+    </script>
 </body>
 </html>
