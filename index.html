@@ -2,35 +2,13 @@
 <html>
 <head>
     <title>Game Selecter</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        #game-selecter {
-            background-color: #4CAF50;
-            color: #fff;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        #game-selecter:hover {
-            background-color: #3e8e41;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Game Selecter</h1>
-    <a href="games.html" id="game-selecter">Click to play games!</a>
-     <a href="games.html" id="game-selecter">Download The Game Site - goguarden cant see this unlike normal site!</a>
-    <p><a href="sms-clock1212.html">SMS Clock</a></p>
-
-    <script>
-        const gameSelecter = document.getElementById('game-selecter');
-        gameSelecter.addEventListener('click', () => {
-            location.href = 'games.html';
-        });
-    </script>
+    <div class="background">
+        <h1 class="heading">Game Selecter</h1>
+        <a href="games.html" id="game-selecter">Click to play games!</a>
+        <script src="script.js"></script>
+    </div>
 </body>
 </html>
