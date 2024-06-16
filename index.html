@@ -3,6 +3,7 @@
 <head>
     <title>Game Selecter</title>
     <style>
+        /* Use a consistent spacing between elements for better readability */
         body {
             font-family: Arial, sans-serif;
             text-align: center;
@@ -18,7 +19,7 @@
             background-size: 400% 400%;
             animation: body 10s infinite ease-in-out;
         }
-        
+
         @keyframes body {
             0% {
                 background-position: 0 50%;
@@ -30,8 +31,9 @@
                 background-position: 0 50%;
             }
         }
-        
-        #game-selecter {
+
+        /* Add a class to the styles to avoid inline styles */
+        .game-selecter-button {
             background-color: #4CAF50;
             color: #fff;
             padding: 10px;
@@ -39,19 +41,30 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        
-        #game-selecter:hover {
+
+        .game-selecter-button:hover {
             background-color: #3e8e41;
         }
-     #download:hover {
+
+        /* Add a separate class for the download button */
+        .download-button {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .download-button:hover {
             background-color: #3e8e41;
         }
     </style>
 </head>
 <body>
     <h1>Game Selecter</h1>
-    <a href="games.html" id="game-selecter">Click to play games!</a>
-    <a href="games.html" id="download">Download The Game Site - goguarden cant see this unlike normal site!</a>
+    <a href="games.html" class="game-selecter-button">Click to play games!</a>
+    <a href="games.html" class="download-button">Download The Game Site - goguarden cant see this unlike normal site!</a>
     <p><a href="sms-clock1212.html">SMS Clock</a></p>
 
     <script>
