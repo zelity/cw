@@ -30,10 +30,18 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 24px; /* Increased font size */
         }
         
         .button:hover {
             background-color: #3e8e41;
+        }
+        
+        #popup-button {
+            position: absolute; /* Position the button in the middle of the page */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Center the button */
         }
     </style>
 </head>
@@ -42,8 +50,8 @@
     
     <!-- rest of your content here -->
     
-    <div class="button-container">
-        <button onclick="checkPassword()">Enter</button>
+    <div id="popup-button">
+        <button onclick="checkPassword()" style="font-size: 24px;">ENTER</button>
     </div>
 
     <script>
@@ -51,15 +59,20 @@
             var password = prompt("Enter the password:");
             if (password === "z0nyy") {
                 alert("Correct password! Here is the page:");
-                window.location.href = "index.html"; // Replace with your actual page
-                // Load the content of your page here
-                // For example:
-                document.write("<h1>Welcome to z0nyy's site!</h1>");
-                document.write("<p>This is the main page.</p>");
-                document.write("<a href='games.html'>Play Games</a>");
-                document.write("<a href='download.html'>Download game site</a>");
-                document.write("<a href='sms-clock1212.html'>SMS Clock</a>");
-                document.write("<a href='download-sms-clock.html'>download SMS Clock</a>");
+                document.write(""); // Clear any existing content
+                document.write("<h1>/.</h1>");
+                document.write("<div class='button-container'>");
+                document.write("<a href='games.html' class='button'>Play Games</a>");
+                document.write("<a href='download.html' class='button'>Download game site</a>");
+                document.write("<a href='sms-clock1212.html' class='button'>SMS Clock</a>");
+                document.write("<a href='download-sms-clock.html' class='button'>download SMS Clock</a>");
+                document.write("</div>");
+                // Load the original page content
+                document.body.style.backgroundImage = "url('https://i.redd.it/0k6meqvps4h91.gif')";
+                document.body.style.backgroundSize = "cover";
+                document.body.style.backgroundPosition = "center";
+                document.body.style.backgroundRepeat = "no-repeat";
+                document.body.style.backgroundAttachment = "fixed";
             } else {
                 alert("Incorrect password. Please try again.");
             }
