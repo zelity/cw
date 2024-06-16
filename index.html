@@ -43,17 +43,25 @@
     <!-- rest of your content here -->
     
     <div class="button-container">
-        <a href="#" onclick="checkPassword()">Enter</a>
+        <button onclick="checkPassword()">Enter</button>
     </div>
 
     <script>
         function checkPassword() {
             var password = prompt("Enter the password:");
             if (password === "z0nyy") {
-                window.location.href = "games.html";
+                alert("Correct password! Here is the page:");
+                window.location.href = "index.html"; // Replace with your actual page
+                // Load the content of your page here
+                // For example:
+                document.write("<h1>Welcome to z0nyy's site!</h1>");
+                document.write("<p>This is the main page.</p>");
+                document.write("<a href='games.html'>Play Games</a>");
+                document.write("<a href='download.html'>Download game site</a>");
+                document.write("<a href='sms-clock1212.html'>SMS Clock</a>");
+                document.write("<a href='download-sms-clock.html'>download SMS Clock</a>");
             } else {
                 alert("Incorrect password. Please try again.");
-                checkPassword();
             }
         }
     </script>
