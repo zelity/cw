@@ -18,7 +18,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .game-selecter-button:hover {
@@ -43,17 +43,12 @@
     <div class="container">
         <h1>Game Selecter</h1>
         <a href="games.html" class="game-selecter-button">Click to play games!</a>
-        <a href="games.html" class="download-button">Download The Game Site - goguarden cant see this unlike normal site!</a>
-        <p><a href="sms-clock1212.html">SMS Clock</a></p>
+        <a href="games.html" class="game-selecter-button">Download The Game Site - goguarden cant see this unlike normal site!</a>
+        <a href="sms-clock1212.html" class="game-selecter-button">SMS Clock</a>
     </div>
 
     <script>
-        // Add an event listener to each button
-        document.querySelectorAll('.game-selecter-button').forEach(button => {
-            button.addEventListener('click', () => {
-                location.href = 'games.html';
-            });
-        });
+        // No need for an event listener as you can directly link to the href
     </script>
 </body>
 </html>
