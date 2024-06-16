@@ -3,36 +3,14 @@
 <head>
     <title>Game Selecter</title>
     <style>
-        /* Use a consistent spacing between elements for better readability */
-        body {
-            font-family: Arial, sans-serif;
+        /* Add a container to hold the selection buttons */
+        .container {
+            max-width: 300px;
+            margin: 40px auto;
             text-align: center;
-            background: linear-gradient(
-                to right,
-                #6f7280,
-                #2a2c3c,
-                #181827,
-                #833ab4,
-                #fd1d1d,
-                #fcb045
-            );
-            background-size: 400% 400%;
-            animation: body 10s infinite ease-in-out;
         }
 
-        @keyframes body {
-            0% {
-                background-position: 0 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0 50%;
-            }
-        }
-
-        /* Add a class to the styles to avoid inline styles */
+        /* Style the game selection buttons */
         .game-selecter-button {
             background-color: #4CAF50;
             color: #fff;
@@ -40,13 +18,13 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin-bottom: 20px;
         }
 
         .game-selecter-button:hover {
             background-color: #3e8e41;
         }
 
-        /* Add a separate class for the download button */
         .download-button {
             background-color: #4CAF50;
             color: #fff;
@@ -62,15 +40,19 @@
     </style>
 </head>
 <body>
-    <h1>Game Selecter</h1>
-    <a href="games.html" class="game-selecter-button">Click to play games!</a>
-    <a href="games.html" class="download-button">Download The Game Site - goguarden cant see this unlike normal site!</a>
-    <p><a href="sms-clock1212.html">SMS Clock</a></p>
+    <div class="container">
+        <h1>Game Selecter</h1>
+        <a href="games.html" class="game-selecter-button">Click to play games!</a>
+        <a href="games.html" class="download-button">Download The Game Site - goguarden cant see this unlike normal site!</a>
+        <p><a href="sms-clock1212.html">SMS Clock</a></p>
+    </div>
 
     <script>
-        const gameSelecter = document.getElementById('game-selecter');
-        gameSelecter.addEventListener('click', () => {
-            location.href = 'games.html';
+        // Add an event listener to each button
+        document.querySelectorAll('.game-selecter-button').forEach(button => {
+            button.addEventListener('click', () => {
+                location.href = 'games.html';
+            });
         });
     </script>
 </body>
