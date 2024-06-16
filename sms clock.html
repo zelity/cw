@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>sms clock</title>
+<link rel="icon" type="image/x-icon" href="http://middle.somersetschools.org/images/logo.png">
+<style>
+body {
+  background-image: url('https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_1280.jpg');
+  background-color: #5f8df7;
+  background-size: cover;
+}
+
+#remaining-time {
+  font-size: 2.5vw;
+  color: #ff0000;
+}
+
+.corner-image {
+  width: 19.01%;
+  height: auto;
+}
+
+.image-links img {
+  width: 5.51%;
+  height: auto;
+}
+
+.text {
+  color: #44ff00;
+  font-size: 1.32vw;
+}
+
+h1 {
+  color: #66ff00;
+  text-align: center;
+  font-size: 2.64vw;
+}
+#remaining-time {
+  font-size: 2.5vw;
+  color: #ff0000;
+}
+
+.corner-image {
+  width: 33.01%;
+  height: auto;
+}
+
+.image-links img {
+  width: 7.51%;
+  height: auto;
+}
+
+
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  float: right; /* added float: right; to align links to the right */
+}
+
+nav ul li {
+  display: inline;
+  padding: 10px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.content {
+  margin-top: 25px; /* adjust margin based on the height of the navbar */
+  /* styles for the rest of your page content */
+}
+
+
+.text {
+  color: #a9ff8a;
+  font-size: 1.93vw;
+}
+
+h1 {
+  color: #66ff00;
+  text-align: center;
+  font-size: 3.64vw;
+}
+</style>
+</head>
+<body>
+<p>
+
+</p>
+<nav>
+  <ul>
+    
+  </ul>
+</nav>
+
+<h1 id="current-period">School is not in session at the moment</h1>
+<span id="remaining-time"></span>
+
+<div class="text">
+  Class start and end times this only apply to 8th grade, other grades may not be correct.
+</div>
+<div class="text">
+  Period 1 8:00 - 8:51
+</div>
+<div class="text">
+  Period 2 8:53 - 9:48
+</div>
+<div class="text">
+  Period 3 9:50 - 10:45
+</div>
+<div class="text">
+  Period 4 10:47 - 11:42
+</div>
+<div class="text">
+  Period 5 11:44 - 12:34
+</div>
+<div class="text">
+  Lunch 12:34 - 12:55
+</div>
+<div class="text">
+  Period 6 12:59 - 1:54
+</div>
+<div class="text">
+  Period 7 1:56 - 2:40
+</div>
+
+</a>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var periods = [
+     { start: "07:49:00", end: "07:59:00", name: "intermisson" },
+    { start: "08:00:00", end: "08:51:00", name: "Period 1" },
+    { start: "08:53:00", end: "09:48:00", name: "Period 2" },
+    { start: "09:50:00", end: "10:45:00", name: "Period 3" },
+    { start: "10:47:00", end: "11:42:00", name: "Period 4" },
+    { start: "11:44:00", end: "12:32:00", name: "Period 5" },
+    
+   
+    { start: "12:59:00", end: "13:54:00", name: "Period 6" },
+    { start: "13:56:00", end: "14:40:00", name: "Period 7" }
+  ];
+
+  function getCurrentPeriod() {
+    var currentTime = new Date();
+    var currentHour = currentTime.getHours();
+    var currentMinute = currentTime.getMinutes();
+    var currentSecond = currentTime.getSeconds();
+    var currentPeriod = "School is not in session at the moment";
+    var secondsRemaining = 0;
+
+    periods.forEach(function(period) {
+      var start = period.start.split(":");
+      var end = period.end.split(":");
+      var startHour = parseInt(start[0]);
+      var startMinute = parseInt(start[1]);
+      var startSecond = parseInt(start[2]);
+      var endHour = parseInt(end[0]);
+      var endMinute = parseInt(end[1]);
+      var endSecond = parseInt(end[2]);
+
+      if (
+        currentHour > startHour &&
+        currentHour < endHour ||
+        (currentHour === startHour &&
+          currentMinute >= startMinute) ||
+        (currentHour === endHour && currentMinute <= endMinute)
+      ) {
+        currentPeriod = period.name;
+        secondsRemaining = (endHour - currentHour) * 3600 + (endMinute - currentMinute) * 60 + (endSecond - currentSecond);
+      }
+    });
+
+    return { period: currentPeriod, secondsRemaining: secondsRemaining };
+  }
+
+  function updateCurrentPeriod() {
+    var currentData = getCurrentPeriod();
+    var h1 = document.getElementById("current-period");
+    var timer = document.getElementById("remaining-time");
+
+    if (h1) {
+      h1.textContent = currentData.period;
+    }
+    if (timer) {
+      timer.textContent = currentData.secondsRemaining > 0 ? "Time remaining: " + formatTime(currentData.secondsRemaining) : "";
+    }
+  }
+
+  function formatTime(seconds) {
+    var hours = Math.floor(seconds / 3600);
+    var minutes = Math.floor((seconds % 3600) / 60);
+    var secs = seconds % 60;
+    return hours + " hours " + minutes + " minutes " + secs + " seconds";
+  }
+
+  updateCurrentPeriod();
+  setInterval(updateCurrentPeriod, 1000);
+});
+
+
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
