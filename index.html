@@ -30,7 +30,6 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 24px; /* Increased font size */
         }
         
         .button:hover {
@@ -43,6 +42,10 @@
             left: 50%;
             transform: translate(-50%, -50%); /* Center the button */
         }
+        
+        #main-content {
+            display: none; /* Hide the main content initially */
+        }
     </style>
 </head>
 <body>
@@ -54,20 +57,21 @@
         <button onclick="checkPassword()" style="font-size: 24px;">ENTER</button>
     </div>
 
+    <div id="main-content">
+        <div class="button-container">
+            <a href="games.html" class="button">Play Games</a>
+            <a href="download.html" class="button">Download game site</a>
+            <a href="sms-clock1212.html" class="button">SMS Clock</a>
+            <a href="download-sms-clock.html" class="button">download SMS Clock</a>
+        </div>
+    </div>
+
     <script>
         function checkPassword() {
             var password = prompt("Enter the password:");
             if (password === "z0nyy") {
                 alert("Correct password! Here is the page:");
-                document.write(""); // Clear any existing content
-                document.write("<h1>/.</h1>");
-                document.write("<div class='button-container'>");
-                document.write("<a href='games.html' class='button'>Play Games</a>");
-                document.write("<a href='download.html' class='button'>Download game site</a>");
-                document.write("<a href='sms-clock1212.html' class='button'>SMS Clock</a>");
-                document.write("<a href='download-sms-clock.html' class='button'>download SMS Clock</a>");
-                document.write("</div>");
-                // Load the original page content
+                document.getElementById("main-content").style.display = "block"; // Show the main content
                 document.body.style.backgroundImage = "url('https://i.redd.it/0k6meqvps4h91.gif')";
                 document.body.style.backgroundSize = "cover";
                 document.body.style.backgroundPosition = "center";
