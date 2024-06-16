@@ -1,54 +1,50 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Game Selecter</title>
+    <title>My Website</title>
     <style>
-        /* Add a container to hold the selection buttons */
-        .container {
-            max-width: 300px;
-            margin: 40px auto;
+        body {
+            font-family: Arial, sans-serif;
             text-align: center;
         }
-
-        /* Style the game selection buttons */
-        .game-selecter-button {
-            background-color: #4CAF50;
+        
+        .button-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #333;
             color: #fff;
             padding: 10px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        
+        .button {
+            margin: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-bottom: 10px;
         }
-
-        .game-selecter-button:hover {
-            background-color: #3e8e41;
-        }
-
-        .download-button {
-            background-color: #4CAF50;
-            color: #fff;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .download-button:hover {
+        
+        .button:hover {
             background-color: #3e8e41;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Game Selecter</h1>
-        <a href="games.html" class="game-selecter-button">Play Games!</a>
-        <a href="games.html" class="game-selecter-button">Download The Game Site - goguarden cant see this unlike normal site!</a>
-        <a href="sms-clock1212.html" class="game-selecter-button">SMS Clock</a>
+    <h1>Welcome to my website!</h1>
+    
+    <!-- rest of your content here -->
+    
+    <div class="button-container">
+        <a href="games.html" class="button">Play Games</a>
+        <a href="download.html" class="button">Download</a>
+        <a href="sms-clock1212.html" class="button">SMS Clock</a>
     </div>
-
-    <script>
-        // No need for an event listener as you can directly link to the href
-    </script>
 </body>
 </html>
