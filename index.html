@@ -67,6 +67,7 @@
     </div>
 
     <script>
+        var button = document.getElementById("popup-button");
         function checkPassword() {
             var password = prompt("Enter the password:");
             if (password === "z0nyy") {
@@ -77,6 +78,7 @@
                 document.body.style.backgroundPosition = "center";
                 document.body.style.backgroundRepeat = "no-repeat";
                 document.body.style.backgroundAttachment = "fixed";
+                button.parentNode.removeChild(button); // Remove the button
             } else {
                 alert("Incorrect password. Please try again.");
             }
