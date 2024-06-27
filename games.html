@@ -1,89 +1,67 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Game Player</title>
+  <head>
     <style>
-        body {
-            background-color: #f2f2f2;
-            font-family: Arial, sans-serif;
-        }
-        
-        #game-frame {
-            width: 800px;
-            height: 600px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        #game-menu {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #333;
-            z-index: 1;
-        }
-        
-        #game-menu li {
-            margin-bottom: 10px;
-        }
-        
-        #game-menu li a {
-            color: #fff;
-            text-decoration: none;
-        }
-        
-        #game-menu li a:hover {
-            background-color: #444;
-            color: #fff;
-        }
-        
-        #full-screen-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #333;
-            cursor: pointer;
-        }
-        
-        #full-screen-button:hover {
-            background-color: #444;
-            color: #fff;
-        }
-        
-        .about-new-tab-button {
-            position: absolute;
-            top: 30px;
-            right: 10px;
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #333;
-            cursor: pointer;
-        }
-        
-        .about-new-tab-button:hover {
-            background-color: #444;
-            color: #fff;
-        }
-    </style>
+   body {
+    background-image: url('https://www.animaker.com/hub/wp-content/uploads/2022/10/ezgif.com-gif-maker-12-1.gif'); /* Specify the default image path here */
+    background-repeat: no-repeat; /* Prevent background image from repeating */
+    background-size: 100% 100%; /* Stretch the background image to cover the entire background */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+  
+  header {
+    background-color: #59505a; /* Dark grey header */
+    color: rgb(255, 0, 0);
+    text-align: center;
+    padding: 10px;
+  }
+  
+  main {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #59505a;
+    color: rgb(255, 255, 255);
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  select {
+    padding: 10px;
+    margin-top: 10px;
+  }
+  
+  iframe {
+    width: 100%;
+    height: 450px;
+    border: none;
+    margin-top: 20px;
+  }
+  
+
+  
+  footer {
+    text-align: center;
+    margin-top: 20px;
+  }
+</style>
 </head>
 <body>
-    <div id="game-frame">
-        <iframe src="" frameborder="0" width="100%" height="100%"></iframe>
-    </div>
-    <div id="game-menu">
-        <ul>
-          <option value="">select a game</option>
+<header>
+  <h1>⭐Welcome to nux._.xul's game player verison 1.1⭐</h1>
+</header>
+<main>
+  <iframe id="gameFrame" src="" frameborder="0"></iframe>
+  <select id="gameSelector">
+    <option value="">select a game</option>
     <option value="https://i.ibb.co/Zg8XXRM/Screenshot-2024-04-07-12-18-53-PM.png">update logs 1.1</option>
     <option value="">download new versions</option>
     <option value="https://rahhh.zanity.net">unblocked browser -laggy-</option>
@@ -227,27 +205,53 @@
     <option value="http://scribbles.io/">Scribbles.io</option>
     <option value="https://www.braains.io/">Braains.io</option>
     <option value="">Movies Coming Soon!</option>
-        </ul>
-    </div>
-    <button id="full-screen-button" onclick="document.getElementById('game-frame').requestFullscreen()">Full Screen</button>
-    <button class="about-new-tab-button" onclick="window.open('', '_blank')">About New Tab</button>
+   
+  </select>
+  <button onclick="playGame()">Play</button>
+  <button onclick="toggleFullScreen()">Full Screen</button>
+  <button onclick="changeBackground()">Change Background</button>
+  
+</main>
+<footer>
+</footer>
 
-    <script>
-        // Add your game selection logic here
-        document.getElementById('game-menu').addEventListener('click', function(event) {
-            if (event.target.tagName === 'A') {
-                var iframe = document.getElementById('game-frame').contentWindow.document.body.innerHTML = '';
-                iframe.src = event.target.href;
-            }
-        });
-    </script>
+<script>
+  
+  function playGame() {
+    var gameUrl = document.getElementById("gameSelector").value;
+    if (gameUrl) {
+      document.getElementById("gameFrame").src = gameUrl;
+    } else {
+      alert("Please select a game to play.");
+    }
+  }
+  
+  
+  
+  
+  
+  function toggleFullScreen() {
+    var iframe = document.getElementById("gameFrame");
+    if (!document.fullscreenElement) {
+      iframe.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  }
+
+  function changeBackground() {
+    var backgroundImage = prompt("Enter the image URL for the background:");
+    if (backgroundImage) {
+      alert("Background image changed to: " + backgroundImage);
+      document.body.style.backgroundImage = "url('" + backgroundImage + "')";
+    }
+  }
+
+  window.onload = function() {
+      alert("thank you for chooseing us to play games the teacher cannot see this and will see whatever tab you were previously on for newer updates/downloads join discord.gg/YfgTcuEmSg -z0nyyy");
+  };
+
+</script>
 </body>
 </html>
-
-
-
-
-
-
-
 
