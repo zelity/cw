@@ -1,28 +1,67 @@
+<!DOCTYPE html>
 <html>
   <head>
     <style>
-      /* ... rest of your styles here ... */
-      #gameSelector {
-        width: 200px;
-        height: 150px;
-        padding: 10px;
-        font-size: 16px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #f0f0f0;
-      }
-      #gameSelector option {
-        padding: 10px;
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1>⭐Welcome to nux._.xul's game player verison 1.1⭐</h1>
-    </header>
-    <main>
-      <select id="gameSelector">
-       <option value="">select a game</option>
+   body {
+    background-image: url('https://www.animaker.com/hub/wp-content/uploads/2022/10/ezgif.com-gif-maker-12-1.gif'); /* Specify the default image path here */
+    background-repeat: no-repeat; /* Prevent background image from repeating */
+    background-size: 100% 100%; /* Stretch the background image to cover the entire background */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+  
+  header {
+    background-color: #59505a; /* Dark grey header */
+    color: rgb(255, 0, 0);
+    text-align: center;
+    padding: 10px;
+  }
+  
+  main {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #59505a;
+    color: rgb(255, 255, 255);
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  select {
+    padding: 10px;
+    margin-top: 10px;
+  }
+  
+  iframe {
+    width: 100%;
+    height: 450px;
+    border: none;
+    margin-top: 20px;
+  }
+  
+
+  
+  footer {
+    text-align: center;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>⭐Welcome to nux._.xul's game player verison 1.1⭐</h1>
+</header>
+<main>
+  <iframe id="gameFrame" src="" frameborder="0"></iframe>
+  <select id="gameSelector">
+    <option value="">select a game</option>
     <option value="https://i.ibb.co/Zg8XXRM/Screenshot-2024-04-07-12-18-53-PM.png">update logs 1.1</option>
     <option value="">download new versions</option>
     <option value="https://rahhh.zanity.net">unblocked browser -laggy-</option>
@@ -159,55 +198,53 @@
     <option value="https://www.braains.io/">Braains.io</option>
     <option value="">Movies Coming Soon!</option>
    
-      </select>
-      <button onclick="playGame()">Play</button>
-      <button onclick="toggleFullScreen()">Full Screen</button>
-      <button onclick="changeBackground()">Change Background</button>
-      <iframe id="gameFrame" src="" frameborder="0"></iframe>
-    </main>
-    <footer></footer>
+  </select>
+  <button onclick="playGame()">Play</button>
+  <button onclick="toggleFullScreen()">Full Screen</button>
+  <button onclick="changeBackground()">Change Background</button>
+  
+</main>
+<footer>
+</footer>
 
-    <script>
-      // ...
+<script>
+  
+  function playGame() {
+    var gameUrl = document.getElementById("gameSelector").value;
+    if (gameUrl) {
+      document.getElementById("gameFrame").src = gameUrl;
+    } else {
+      alert("Please select a game to play.");
+    }
+  }
+  
+  
+  
+  
+  
+  function toggleFullScreen() {
+    var iframe = document.getElementById("gameFrame");
+    if (!document.fullscreenElement) {
+      iframe.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  }
 
-      function playGame() {
-        var gameUrl = document.getElementById("gameSelector").value;
-        if (gameUrl) {
-          document.getElementById("gameFrame").src = gameUrl;
-        } else {
-          alert("Please select a game to play.");
-        }
-      }
+  function changeBackground() {
+    var backgroundImage = prompt("Enter the image URL for the background:");
+    if (backgroundImage) {
+      alert("Background image changed to: " + backgroundImage);
+      document.body.style.backgroundImage = "url('" + backgroundImage + "')";
+    }
+  }
 
-      function toggleFullScreen() {
-        var iframe = document.getElementById("gameFrame");
-        if (!document.fullscreenElement) {
-          iframe.requestFullscreen();
-        } else {
-          document.exitFullscreen();
-        }
-      }
+  window.onload = function() {
+      alert("thank you for chooseing us to play games the teacher cannot see this and will see whatever tab you were previously on for newer updates/downloads join discord.gg/YfgTcuEmSg -z0nyyy");
+  };
 
-      function changeBackground() {
-        var backgroundImage = prompt("Enter the image URL for the background:");
-        if (backgroundImage) {
-          alert("Background image changed to: " + backgroundImage);
-          document.body.style.backgroundImage = "url('" + backgroundImage + "')";
-        }
-      }
-    </script>
-  </body>
+</script>
+</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
 
 
