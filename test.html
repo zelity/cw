@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Auto-hiding tab</title>
+  <script>
+    function hidetab() {
+      var win = window.open();
+      var url = "https://zelity.github.io/nuxzul-games/";
+      var iframe = win.document.createElement('iframe');
+      iframe.style.width = "100%";
+      iframe.style.height = "100%";
+      iframe.style.border = "none";
+      iframe.src = url;
+      win.document.body.appendChild(iframe);
+    }
+  </script>
+</head>
+<body onload="hidetab()">
+</body>
+</html>
