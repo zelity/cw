@@ -27,7 +27,11 @@ body {
   height: auto;
 }
 
-.text {
+
+     <div id="go-back-button" onclick="window.location.href='https://zelity.github.io/nuxzul-games/home.html'">Go Back to Homepage</div>
+  
+  
+  .text {
   color: #44ff00;
   font-size: 1.32vw;
 }
@@ -193,6 +197,17 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
+    function hidetab() {
+        var win = window.open();
+        var url = "https://zelity.github.io/nuxzul-games/games.html";
+        var iframe = win.document.createElement('iframe');
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
+        iframe.style.border = "none";
+        iframe.src = url;
+        win.document.body.appendChild(iframe);
+      }
+  
   function formatTime(seconds) {
     var hours = Math.floor(seconds / 3600);
     var minutes = Math.floor((seconds % 3600) / 60);
