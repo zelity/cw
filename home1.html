@@ -1,15 +1,16 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html>
 <head>
-    <title>z0nyy's site</title>
+    <title>My Website</title>
     <style>
-       body {
-    background-image: url('https://i.redd.it/0k6meqvps4h91.gif');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat; /* prevents repeated images */
-    background-attachment: fixed; /* fixes the image in place as you scroll */
-  }
+        body {
+  background-image: url('https://art.pixilart.com/b7875a3999e9a79.gif');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+        
         .button-container {
             position: fixed;
             bottom: 0;
@@ -24,7 +25,7 @@
         
         .button {
             margin: 10px;
-            background-color: #A29996;
+            background-color: #4CAF50;
             color: #fff;
             padding: 10px 20px;
             border: none;
@@ -35,58 +36,20 @@
         .button:hover {
             background-color: #3e8e41;
         }
-        
-        #popup-button {
-            position: absolute; /* Position the button in the middle of the page */
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%); /* Center the button */
-        }
-        
-        #main-content {
-            display: none; /* Hide the main content initially */
-        }
     </style>
 </head>
 <body>
-    <h1>/.</h1>
+    <h1>Welcome to my website!</h1>
     
     <!-- rest of your content here -->
     
-    <div id="popup-button">
-        <button onclick="checkPassword()" style="font-size: 48px;">ENTER</button>
+    <div class="button-container">
+        <a href="games.html" class="button">Play Games</a>
+        <a href="download.html" class="button">Download</a>
+        <a href="sms-clock1212.html" class="button">SMS Clock</a>
     </div>
-
-    <div id="main-content">
-        <div class="button-container">
-            <a href="games.html" class="button">Play Games</a>
-            <a href="download.html" class="button">Download game site</a>
-            <a href="sms-clock1212.html" class="button">SMS Clock</a>
-            <a href="download-sms-clock.html" class="button">download SMS Clock</a>
-               <a href="browser.html" class="button">unblocked browser</a>
-            <a href="movies.html" class="button">free movies/shows</a>
-       
-       
-        </div>
-    </div>
-
-    <script>
-        var button = document.getElementById("popup-button");
-        function checkPassword() {
-            var password = prompt("Enter the password:");
-            if (password === "z0nyy") {
-                alert("Correct password! Here is the page:");
-                document.getElementById("main-content").style.display = "block"; // Show the main content
-                document.body.style.backgroundImage = "url('https://i.redd.it/0k6meqvps4h91.gif')";
-                document.body.style.backgroundSize = "cover";
-                document.body.style.backgroundPosition = "center";
-                document.body.style.backgroundRepeat = "no-repeat";
-                document.body.style.backgroundAttachment = "fixed";
-                button.parentNode.removeChild(button); // Remove the button
-            } else {
-                alert("Incorrect password. Please try again.");
-            }
-        }
+</body>
+</html>
     </script>
 </body>
 </html>
