@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cart Land</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        nav li {
+            margin-right: 20px;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        .gallery-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .gallery-container img {
+            width: 25%;
+        }
+    </style>
+</head>
+<body>
+<header>
+<h1>Cart Land</h1>
+<p>3022 Cranberry Hwy, Wareham, MA 02538 | 508-295-8360</p>
+<nav>
+<ul>
+<li><a href="#home">Home</a></li>
+<li><a href="#activities">Activities</a></li>
+<li><a href="#pricing">Pricing</a></li>
+<li><a href="#coupons">Coupons</a></li>
+<li><a href="#directions">Directions</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+</nav>
+<main id="home">
+<h2>Welcome to Cart Land!</h2>
+<p>Where thrill and excitement await! We offer a variety of activities for all ages.</p>
+<button onclick="window.location.href='tel:508-295-8360';">Click to call us!</button>
+</main>
+<main id="activities">
+<h2>Activities</h2>
+<h3>Go-Karts:</h3>
+<p>$8 per person per event</p>
+<h3>Bumper Boats:</h3>
+<p>$8 per person per event</p>
+<h3>Mini-Golf:</h3>
+<p>$8 per person per event</p>
+<main id="pricing">
+<h2>Pricing</h2>
+<h3>Individual Rides:</h3>
+<p>$8 per person per event for Go-Karts, Bumper Boats, Slick Track, or Mini-Golf</p>
+<h3>Discount Package:</h3>
+<p>10 tickets for $70 - one ticket per person per event for Go-Karts, Bumper Boats, Slick Track, or Mini-Golf. Extra tickets can be used anytime we're open.</p>
+<h3>Unlimited Ride Pass:</h3>
+<p>$40 - good for unlimited rides on Go-Karts, Bumper Boats, Slick Track, and Mini-Golf on the day of purchase.</p>
+<h3>Passenger Tickets:</h3>
+<p>$1 per passenger for Go-Karts or Bumper Boats</p>
+
+<footer id="footer">
+<img src="payment-methods.png" alt="Payment Methods">
+
+<main id="gallery">
+<h2>Image Galleries:</h2>
+
+<div class="gallery-container">
+<img src="image1.jpg" alt="Go-Kart Racing">
+<img src="image2.jpg" alt="Bumper Boats">
+<img src="image3.jpg" alt="Mini Golf">
+<img src="image4.jpg" alt="Boxing Robots">
+<img src="image5.jpg" alt="Air Cannons">
+<img src="image6.jpg" alt="Batting Cages">
+</div>
+
+</main>
+
+<script>
+
+function changeNav(currentId) {
+    var navLinks = document.querySelectorAll('nav a');
+    navLinks.forEach(function(link) {
+        link.classList.remove('active');
+    });
+    document.querySelector(`#${currentId} a`).classList.add('active');
+}
+
+changeNav('home');
+
+document.addEventListener("DOMContentLoaded", function() {
+    var navLinks = document.querySelectorAll('nav a');
+    navLinks.forEach(function(link) {
+        link.addEventListener("click", function() {
+            changeNav(link.id);
+        });
+    });
+});
+
+</script>
+
+</body>
+
+</html>
