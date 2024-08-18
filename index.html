@@ -4,19 +4,28 @@
   <title>???</title>
   <script>
     function hidetab() {
-      var win = window.open();
-      var url = "https://zelity.github.io/cw/home.html";
-      var iframe = win.document.createElement('iframe');
-      iframe.style.width = "100%";
-      iframe.style.height = "100%";
-      iframe.style.border = "none";
-      iframe.src = url;
-      win.document.body.appendChild(iframe);
-      // Redirect the opener window to Google
-      setTimeout(function() {
-        window.opener.location.href = "https://www.google.com";
-        window.opener = null; // Prevent further access to the opener window
-      }, 100); // Wait 100ms to allow the iframe to load
+      // Prompt the user for the password
+      var password = prompt("Please enter the password to proceed:");
+      
+      // Check if the entered password is correct
+      if (password === "z0nyy") {
+        var win = window.open();
+        var url = "https://zelity.github.io/cw/home.html";
+        var iframe = win.document.createElement('iframe');
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
+        iframe.style.border = "none";
+        iframe.src = url;
+        win.document.body.appendChild(iframe);
+        
+        // Redirect the opener window to Google
+        setTimeout(function() {
+          window.opener.location.href = "https://www.google.com";
+          window.opener = null; // Prevent further access to the opener window
+        }, 100); // Wait 100ms to allow the iframe to load
+      } else {
+        alert("Incorrect password. Access denied.");
+      }
     }
   </script>
 </head>
