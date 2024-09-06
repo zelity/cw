@@ -26,10 +26,14 @@
 
         .ad-left {
             left: 0;
+            background-color: rgba(255, 255, 255, 0.8); /* Optional: Background color for left ad */
+            padding: 10px; /* Optional: Padding for left ad */
         }
 
         .ad-right {
             right: 0;
+            background-color: rgba(255, 255, 255, 0.8); /* Optional: Background color for right ad */
+            padding: 10px; /* Optional: Padding for right ad */
         }
 
         .button-container {
@@ -79,10 +83,16 @@
 
     <div class="ad-container">
         <div class="ad-left">
-            <!-- Left ad code goes here -->
+            <script>
+                var afg = {};
+                afg.u = 6482;
+                afg.s = 5;
+                document.write("<sc" + "ript src='//js.adforgames.com/cd.js'></sc" + "ript>");
+            </script>
         </div>
         <div class="ad-right">
             <!-- Right ad code goes here -->
+            <p>Right Ad Placeholder</p> <!-- Replace this with your actual right ad code -->
         </div>
     </div>
 
@@ -111,12 +121,6 @@
                 alert("Incorrect password. Please try again.");
             }
         }
-    </script>
-    <script>
-        var afg = {};
-        afg.u = 6482;
-        afg.s = 5;
-        document.write("<sc" + "ript src='//js.adforgames.com/cd.js'></sc" + "ript>");
     </script>
 </body>
 
