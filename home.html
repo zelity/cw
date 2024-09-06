@@ -15,29 +15,28 @@
             background-attachment: fixed; /* fixes the image in place as you scroll */
             margin: 0; /* Remove default margin */
             padding: 0; /* Remove default padding */
-            min-width: 1200px; /* Set a minimum width for the layout */
         }
 
         .button-container {
             position: fixed;
-            bottom: 0;
+            bottom: 15px; /* Adjusted bottom spacing */
             left: 50%; /* Center align */
             transform: translateX(-50%); /* Adjust to center the container */
-            max-width: 1200px; /* Maximum width to prevent it from stretching too wide */
+            max-width: 800px; /* Maximum width to prevent it from stretching too wide */
             width: 100%; /* Full width */
-            background-color: #333;
+            background-color: rgba(51, 51, 51, 0.9); /* Slightly transparent for better visibility */
             color: #fff;
-            padding: 10px;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
+            padding: 5px; /* Reduced padding */
+            border-radius: 10px; /* Rounded corners */
             box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.5); /* Add shadow for better visibility */
         }
 
         .button {
-            margin: 10px;
+            margin: 5px; /* Reduced margin */
             background-color: #A29996;
             color: #fff;
-            padding: 10px 20px;
+            padding: 8px 15px; /* Reduced padding */
+            font-size: 18px; /* Adjusted font size */
             border: none;
             border-radius: 5px;
             cursor: pointer;
