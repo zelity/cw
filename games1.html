@@ -10,65 +10,122 @@
             background-image: url('https://www.animaker.com/hub/wp-content/uploads/2022/10/ezgif.com-gif-maker-12-1.gif');
             background-repeat: no-repeat;
             background-size: cover;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
-            padding: 0;
-            color: #fff;
-        }
-  
-        header {
-            background-color: #59505a;
-            padding: 10px;
-            text-align: center;
-        }
-  
-        main {
-            padding: 20px;
+            color: white;
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 10px;
         }
-  
+
+        header {
+            background-color: rgba(89, 80, 90, 0.8);
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        main {
+            background-color: rgba(89, 80, 90, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        select {
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+        }
+
         button {
             padding: 10px 20px;
             background-color: #59505a;
             color: #fff;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
             margin: 5px;
             transition: background-color 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
         }
-  
+
         button:hover {
             background-color: #777;
         }
-  
-        select {
-            padding: 10px;
-            margin: 5px;
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 15px;
         }
-  
-        iframe {
-            width: 100%;
-            height: 450px;
-            border: none;
-            margin-top: 20px;
+
+        /* Responsive Layout for Buttons */
+        @media (min-width: 600px) {
+            .button-container {
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            button {
+                margin: 0 10px;
+            }
         }
-  
+
         #go-back-button {
             position: absolute;
             top: 10px;
             left: 10px;
             background-color: #333;
             color: #fff;
-            padding: 10px;
+            padding: 10px 15px;
+            border-radius: 5px;
             cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
-  
+
         footer {
             text-align: center;
             margin-top: 20px;
+        }
+        
+        footer p {
+            margin: 10px 0;
+        }
+
+        /* Styling for the notification */
+        #notification {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: black;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
     </style>
 </head>
@@ -82,18 +139,19 @@
             <option value="">Select a game</option>
             <option value="https://i.ibb.co/Zg8XXRM/Screenshot-2024-04-07-12-18-53-PM.png">Update logs 1.1</option>
             <option value="https://rahhh.zanity.net">Unblocked Browser - Laggy</option>
-            <option value="https://deepai.org/chat">AI</option>
+            <option value="https://deepai.org/chat">AI Assistant</option>
             <option value="https://www.desmos.com/scientific">Calculator</option>
             <option value="https://binbashbanana.github.io/webretro/">Emulator</option>
-            <!-- More options... -->
+            <!-- More options can go here -->
         </select>
-        <div>
+        <div class="button-container">
             <button onclick="playGame()">Play</button>
             <button onclick="toggleFullScreen()">Full Screen</button>
             <button onclick="changeBackground()">Change Background</button>
             <button onclick="hidetab()">Hide Tab From Teachers</button>
         </div>
         <div id="go-back-button" onclick="window.location.href='https://zelity.github.io/nuxzul-games/home.html'">Go Back to Homepage</div>
+        <div id="notification">Thank you for choosing us for games! The teacher cannot see this and will see whatever tab you were previously on. For newer updates/downloads, join discord.gg/YfgTcuEmSg.</div>
     </main>
     <footer>
         <p>© 2024 Nux.Xul Games. All rights reserved.</p>
@@ -101,7 +159,7 @@
 
     <script>
         function playGame() {
-            var gameUrl = document.getElementById("gameSelector").value;
+            const gameUrl = document.getElementById("gameSelector").value;
             if (gameUrl) {
                 document.getElementById("gameFrame").src = gameUrl;
             } else {
@@ -112,11 +170,9 @@
         function toggleFullScreen() {
             const iframe = document.getElementById("gameFrame");
             if (!document.fullscreenElement) {
-                if (iframe) {
-                    iframe.requestFullscreen().catch(err => {
-                        console.error("Error attempting to enable full-screen mode: ", err.message);
-                    });
-                }
+                iframe.requestFullscreen().catch(err => {
+                    console.error("Error attempting to enable full-screen mode: ", err.message);
+                });
             } else {
                 document.exitFullscreen().catch(err => {
                     console.error("Error attempting to exit full-screen mode: ", err.message);
@@ -143,7 +199,7 @@
         }
 
         window.onload = function () {
-            alert("Thank you for choosing us for games! The teacher cannot see this and will see whatever tab you were previously on. For newer updates/downloads, join discord.gg/YfgTcuEmSg - z0nyyy");
+            document.getElementById("notification").style.display = "block";
         };
     </script>
 </body>
