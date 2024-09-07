@@ -19,7 +19,7 @@
         }
 
         header {
-            background-color: rgba(89, 80, 90, 0.8);
+            background-color: rgba(89, 80, 90, 0.9);
             padding: 20px;
             text-align: center;
             border-radius: 10px;
@@ -29,10 +29,11 @@
 
         h1 {
             margin: 0;
+            font-size: 24px;
         }
 
         main {
-            background-color: rgba(89, 80, 90, 0.9);
+            background-color: rgba(89, 80, 90, 0.95);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
@@ -41,6 +42,7 @@
             align-items: center;
             width: 90%;
             max-width: 800px;
+            margin: 20px 0;
         }
 
         iframe {
@@ -58,6 +60,15 @@
             border-radius: 5px;
             border: 1px solid #ccc;
             background-color: #fff;
+            color: black;
+            width: calc(100% - 22px);
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 15px;
         }
 
         button {
@@ -68,31 +79,17 @@
             border-radius: 5px;
             cursor: pointer;
             margin: 5px;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.2s;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
         }
 
         button:hover {
             background-color: #777;
+            transform: scale(1.05);
         }
 
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 15px;
-        }
-
-        /* Responsive Layout for Buttons */
-        @media (min-width: 600px) {
-            .button-container {
-                flex-direction: row;
-                justify-content: center;
-            }
-
-            button {
-                margin: 0 10px;
-            }
+        button:active {
+            transform: scale(0.95);
         }
 
         #go-back-button {
@@ -117,6 +114,28 @@
             margin: 10px 0;
         }
 
+        .search-container {
+            margin: 10px 0;
+        }
+
+        .search-container input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        /* Responsive Layout for Buttons */
+        @media (min-width: 600px) {
+            .button-container {
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            button {
+                margin: 0 10px;
+            }
+        }
+
         /* Styling for the notification */
         #notification {
             display: none;
@@ -134,15 +153,54 @@
         <h1>⭐ Welcome to nux._.xul's Game Player v1.1 ⭐</h1>
     </header>
     <main>
+        <div class="search-container">
+            <input type="text" id="gameSearch" placeholder="Search for a game..." onkeyup="filterGames()">
+        </div>
         <iframe id="gameFrame" src="" frameborder="0"></iframe>
         <select id="gameSelector">
             <option value="">Select a game</option>
-            <option value="https://i.ibb.co/Zg8XXRM/Screenshot-2024-04-07-12-18-53-PM.png">Update logs 1.1</option>
-            <option value="https://rahhh.zanity.net">Unblocked Browser - Laggy</option>
-            <option value="https://deepai.org/chat">AI Assistant</option>
-            <option value="https://www.desmos.com/scientific">Calculator</option>
-            <option value="https://binbashbanana.github.io/webretro/">Emulator</option>
-            <!-- More options can go here -->
+            <!-- Alphabetically sorted list of games -->
+            <option value="https://ludicrous.icu/gfiles/html5/agar.io/">Agar.io</option>
+            <option value="https://zombsroyale.io/">Zombs Royale</option>
+            <option value="https://krunker.io/">Krunker.io</option>
+            <option value="https://surviv.io/">Surviv.io</option>
+            <option value="https://goo.io/">Goo.io</option>
+            <option value="https://slither.io/">Slither.io</option>
+            <option value="https://diep.io/">Diep.io</option>
+            <option value="https://moomoo.io/">Moomoo.io</option>
+            <option value="https://paper.io/">Paper.io</option>
+            <option value="https://shellshock.io/">Shell Shockers</option>
+            <option value="https://powder.games/">Powder Game</option>
+            <option value="https://www.brawlhalla.com/">Brawlhalla</option>
+            <option value="https://www.addictinggames.com/embed/html5-games/2048">2048</option>
+            <option value="https://www.addictinggames.com/embed/html5-games/bubble-shooter-classic/index.html">Bubble Shooter</option>
+            <option value="https://www.addictinggames.com/embed/html5-games/geometry-dash">Geometry Dash</option>
+            <option value="https://html5.gamedistribution.com/2db3d204631e47259bf124135f3db4d5/">Super Mario Adventure</option>
+            <option value="https://www.fanpop.com/clubs/neopets/games/36343067/neopets">Neopets</option>
+            <option value="https://www.addictinggames.com/embed/html5-games/the-impossible-quiz">The Impossible Quiz</option>
+            <option value="https://www.addictinggames.com/embed/html5-games/shin-arena">Shin Arena</option>
+            <option value="https://www.addictinggames.com/embed/html5-games/pacman">Pac-Man</option>
+            <option value="https://www.addictinggames.com/embed/html5-games/diamond-io">Diamond.io</option>
+            <option value="https://www.addictinggames.com/embed/html5-games/switch-craft">Switch Craft</option>
+            <option value="https://bestgradex.com/games/mario/index.html">Mario</option>
+            <option value="https://gonimo.com/">Gonimo</option>
+            <option value="https://basket-bros.io/">Basket Bros</option>
+            <option value="https://bonk.io/">Bonk.io</option>
+            <option value="https://kdata1.com/game/bot-arena-v2/">Bot Arena</option>
+            <option value="https://crossyroad.com/">Crossy Road</option>
+            <option value="https://www.ninja.io/">Ninja.io</option>
+            <option value="https://www.torn.com">Torn Game</option>
+            <option value="https://fidgetspin.io/">Fidget Spinner</option>
+            <option value="https://slime.io/">Slime.io</option>
+            <option value="https://flappybird.io/">Flappy Bird</option>
+            <option value="https://www.haxball.com/">HaxBall</option>
+            <option value="https://www.classicgamesarcade.com/game/3285/pacman">Pacman</option>
+            <option value="https://geometrydash-lite.com/">Geometry Dash Lite</option>
+            <option value="https://www.addictinggames.com/embed/html5-games/cookie-clicker">Cookie Clicker</option>
+            <option value="https://www.addictinggames.com/embed/html5-games/minecraft-in-browser">Minecraft in Browser</option>
+            <option value="https://poki.com/en/g/pizza-king">Pizza King</option>
+
+            <!-- More games can go here in alphabetical order -->
         </select>
         <div class="button-container">
             <button onclick="playGame()">Play</button>
@@ -164,6 +222,19 @@
                 document.getElementById("gameFrame").src = gameUrl;
             } else {
                 alert("Please select a game to play.");
+            }
+        }
+
+        function filterGames() {
+            const input = document.getElementById("gameSearch");
+            const filter = input.value.toLowerCase();
+            const options = document.getElementById("gameSelector").options;
+            for (let i = 0; i < options.length; i++) {
+                const option = options[i];
+                if (option.value !== "") {
+                    const gameName = option.text.toLowerCase();
+                    option.style.display = gameName.includes(filter) ? "block" : "none";
+                }
             }
         }
 
