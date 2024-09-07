@@ -258,13 +258,27 @@
   
   
   function toggleFullScreen() {
-    var iframe = document.getElementById("gameFrame");
+    // Check if the current document is in fullscreen mode
     if (!document.fullscreenElement) {
-      iframe.requestFullscreen();
+        // If not in fullscreen, try to request fullscreen on the iframe (if it is an iframe)
+        if (document.getElementById("gameFrame")) {
+            var iframe = document.getElementById("gameFrame");
+            iframe.requestFullscreen().catch(err => {
+                console.error("Error attempting to enable full-screen mode: " + err.message);
+            });
+        } else {
+            // If it's not an iframe, go fullscreen on the document
+            document.documentElement.requestFullscreen().catch(err => {
+                console.error("Error attempting to enable full-screen mode: " + err.message);
+            });
+        }
     } else {
-      document.exitFullscreen();
+        // If in fullscreen, exit fullscreen from the parent document
+        document.exitFullscreen().catch(err => {
+            console.error("Error attempting to exit full-screen mode: " + err.message);
+        });
     }
-  }
+}
 
   function changeBackground() {
     var backgroundImage = prompt("Enter the image URL for the background:");
