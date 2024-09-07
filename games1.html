@@ -1,295 +1,150 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    
-    <title>Google Classroom</title>
-  <link rel="icon" type="image/x-icon" href="data:image/jpeg;base64,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">
-    
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Classroom Game Player</title>
+    <link rel="icon" type="image/x-icon" href="data:image/jpeg;base64,/9j/4AAQSkZJRgAB...">
     <style>
-   body {
-    background-image: url('https://www.animaker.com/hub/wp-content/uploads/2022/10/ezgif.com-gif-maker-12-1.gif'); /* Specify the default image path here */
-    background-repeat: no-repeat; /* Prevent background image from repeating */
-    background-size: 100% 100%; /* Stretch the background image to cover the entire background */
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
+        body {
+            background-image: url('https://www.animaker.com/hub/wp-content/uploads/2022/10/ezgif.com-gif-maker-12-1.gif');
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
   
-  header {
-    background-color: #59505a; /* Dark grey header */
-    color: rgb(255, 0, 0);
-    text-align: center;
-    padding: 10px;
-  }
+        header {
+            background-color: #59505a;
+            padding: 10px;
+            text-align: center;
+        }
   
-  main {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+        main {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px;
+        }
   
-  button {
-    padding: 10px 20px;
-    background-color: #59505a;
-    color: rgb(255, 255, 255);
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-  }
+        button {
+            padding: 10px 20px;
+            background-color: #59505a;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s;
+        }
   
-  select {
-    padding: 10px;
-    margin-top: 10px;
-  }
+        button:hover {
+            background-color: #777;
+        }
   
-    #go-back-button {
-        position: absolute;
-        top: 0;
-        right: 0;
-        background-color: #333;
-        color: #fff;
-        padding: 10px;
-        cursor: pointer;
-      }
-      
-      
-      
-      iframe {
-    width: 100%;
-    height: 450px;
-    border: none;
-    margin-top: 20px;
-  }
+        select {
+            padding: 10px;
+            margin: 5px;
+        }
   
-
+        iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+            margin-top: 20px;
+        }
   
-  footer {
-    text-align: center;
-    margin-top: 20px;
-  }
-
-     <div id="go-back-button" onclick="window.location.href='https://zelity.github.io/nuxzul-games/home.html'">Go Back to Homepage</div>
-    
+        #go-back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            cursor: pointer;
+        }
+  
+        footer {
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
-<header>
-  <h1>⭐Welcome to nux._.xul's game player verison 1.1⭐</h1>
-</header>
-<main>
-  <iframe id="gameFrame" src="" frameborder="0"></iframe>
-  <select id="gameSelector">
-    <option value="">select a game</option>
-    <option value="https://i.ibb.co/Zg8XXRM/Screenshot-2024-04-07-12-18-53-PM.png">update logs 1.1</option>
-    <option value="">download new versions</option>
-    <option value="https://rahhh.zanity.net">unblocked browser -laggy-</option>
-  <option value="https://deepai.org/chat">ai</option>
-    <option value="https://www.desmos.com/scientific">calculator</option>
-     <option value="https://binbashbanana.github.io/webretro/">emulator</option>
-    <option value="https://www.lategames.net/roms/">download roms</option>
-       <option value="https://neal.fun/asteroid-launcher/">astroid launcher</option>
-   <option value="https://kdata1.com/2020/12/arm-of-revenge-trial/">arm of revenge</option>
-   <option value="https://unblocked-games.s3.amazonaws.com/games/2021/unity3/armedforces-io/unblocked.html">armedforces-io</option>
-   <option value="https://www.addictinggames.com/embed/html5-games/10000278">braains.io</option>
-   <option value="https://xlegends.github.io/bitlife/">bitlife</option>
-<option value=" https://trinculo54.github.io/Boxel-rebound-hope/Older/">boxel-rebound</option>
-    <option value="https://blumgislime.github.io/">blumgislime</option>
-    <option value="https://ludicrous.icu/gfiles/html5/breakout/">breakout</option>
-    <option value="https://9bob.net/iframe/Baldis-Basics-v143">baldies basics</option>
-   <option value="https://cdn2.addictinggames.com/addictinggames-content/ag-assets/content-items/html5-games/bubble-shooter-classic/index.html">bubble shooter</option>  
- <option value="https://js13kgames.com/games/bounce-back/index.html">bounce back</option>  
-   <option value="https://bonk.io/">Bonk.io</option>
-    <option value="https://html5.gamedistribution.com/eeb8ab27ae274875bced4fff94b8bfd7/?timestamp=-62135596800&countryCode=en-GB&siteid=88&channelid=1&siteLocale=en-GB&locale=en-GB&gd_sdk_referrer_url=https%3A%2F%2Fwww.games.co.uk%2Fgame%2Foffroad-muddy-trucks">muddy trucks</option>
-        
-    <option value="https://ludicrous.icu/gfiles/html5/crossyroad/play/">crossy road</option>
-    <option value="https://sd592g.github.io/zj684od4lfg/">minecraft</option>
-   <option value=" https://static.arcadespot.com/retroemulator.php?system=snes&game=2015/11/super-mario-world.smc">m super mario bros</option>
-    <option value=" https://static.arcadespot.com/retroemulator.php?system=n64&game=2017/06/mario-kart-64.zip">mario kart 64</option>
-      <option value="https://f.kbhgames.com/r/n64/game.php?file=Paper%20Mario%20(USA).zip">m paper mario </option>
-  
-      <option value="https://static.arcadespot.com/retroemulator.php?system=gba&game=2016/02/pokemon-sapphire.zip">pokemon sapphire</option>
-    <option value="https://static.arcadespot.com/retroemulator.php?system=nds&game=2017/10/Pokemon-Platinum-Version.zip">Pokemon Platinum Version</option>
-    <option value="https://static.arcadespot.com/retroemulator.php?system=gba&game=2015/10/pokemon-emerald.zip">pokemon emerald</option>
-    <option value="https://static.arcadespot.com/retroemulator.php?system=gba&game=2016/02/pokemon-fire-red.zip">pokemon fire-red</option>
-    <option value="https://www.addictinggames.com/embed/html5-games/10000529">toms adventure </option>
-     <option value="https://cdn2.addictinggames.com/addictinggames-content/ag-assets/content-items/html5-games/number-knight/index.html">number knight</option>
-     <option value="https://cdn2.addictinggames.com/addictinggames-content/ag-assets/content-items/html5-games/trash-factory/index.html">trash factory</option>
-     <option value="https://cdn2.addictinggames.com/addictinggames-content/ag-assets/content-items/html5-games/little-wizard/index.html">little wizard</option>
-     <option value="https://www.addictinggames.com/embed/html5-games/10000418">time freeze</option>
-     <option value="https://cdn2.addictinggames.com/addictinggames-content/ag-assets/content-items/html5-games/oasis/index.html">oasis</option>
-     <option value="https://www.addictinggames.com/embed/html5-games/10000401">fold paper</option>
-     <option value="https://www.addictinggames.com/embed/html5-games/10000343">pvpz.io</option>
-   <option value="https://www.torn.com">torn game</option>
-     <option value="https://www.addictinggames.com/embed/html5-games/10000332">endless shape shifter</option>
-     <option value="https://www.addictinggames.com/embed/html5-games/10000319">sandstrike.io</option>
-      <option value="https://www.addictinggames.com/embed/html5-games/10000529">dont fall in lava</option>
-  
-     <option value="https://www.addictinggames.com/embed/html5-games/10000284">stickmanwar.io</option>
-    <option value="https://basket-bros.github.io/a9/volley-random/">volley ball randoms</option>
-     <option value="https://html5.gamedistribution.com/256133caac9c4ed99a57386493663ab1/?gd_sdk_referrer_url=https://unblocked-games.org/flying-car-simulator/">Flying car simulator</option>
-    <option value="https://games.gamesplaza.com/ext/distribution/pull_pin/index.html?utm_referrer=max&bm.source=www.coolgames.com&dist.version=2">pull the pin</option>
-    <option value="https://2048.io/">2048</option>
-    <option value="https://html5.gamedistribution.com/2ccf176ff7c34c93951cf4995589f787/?gd_sdk_referrer_url=https://unblocked-games.org/knife-hit/">knife hit </option>
-   
-    <option value="https://lolbeans.io/">lol bean</option>
-<option value="https://9bob.net/iframe/City-Stunts">city stunt</option>
-<option value="https://9bob.net/iframe/Spongebob-You-are-Fired">Spongebob You are Fired</option>
+    <header>
+        <h1>⭐ Welcome to nux._.xul's Game Player v1.1 ⭐</h1>
+    </header>
+    <main>
+        <iframe id="gameFrame" src="" frameborder="0"></iframe>
+        <select id="gameSelector">
+            <option value="">Select a game</option>
+            <option value="https://i.ibb.co/Zg8XXRM/Screenshot-2024-04-07-12-18-53-PM.png">Update logs 1.1</option>
+            <option value="https://rahhh.zanity.net">Unblocked Browser - Laggy</option>
+            <option value="https://deepai.org/chat">AI</option>
+            <option value="https://www.desmos.com/scientific">Calculator</option>
+            <option value="https://binbashbanana.github.io/webretro/">Emulator</option>
+            <!-- More options... -->
+        </select>
+        <div>
+            <button onclick="playGame()">Play</button>
+            <button onclick="toggleFullScreen()">Full Screen</button>
+            <button onclick="changeBackground()">Change Background</button>
+            <button onclick="hidetab()">Hide Tab From Teachers</button>
+        </div>
+        <div id="go-back-button" onclick="window.location.href='https://zelity.github.io/nuxzul-games/home.html'">Go Back to Homepage</div>
+    </main>
+    <footer>
+        <p>© 2024 Nux.Xul Games. All rights reserved.</p>
+    </footer>
 
-<option value="https://9bob.net/iframe/Fireboy-And-Watergirl-2-the-Light-Temple">Fireboy And Watergirl 2 the Light Temple</option>
-<option value="https://neal.fun/spend/">spend bill gates money</option>
-<option value="https://neal.fun/rocks/">stack rocks</option>
-<option value="https://neal.fun/design-the-next-iphone/">design new iphone!!</option>
+    <script>
+        function playGame() {
+            var gameUrl = document.getElementById("gameSelector").value;
+            if (gameUrl) {
+                document.getElementById("gameFrame").src = gameUrl;
+            } else {
+                alert("Please select a game to play.");
+            }
+        }
 
-<option value="https://www.linerider.com/">line rider</option>
-<option value="https://www.google.com/logos/2019/july4th19/r6/july4th19.html?hl=en">doodle basketball</option>
-<option value="https://paint.toys/">paint toys</option>
-<option value="https://zombsroyale.io/">zombs royale</option>
-<option value="https://kdata1.com/2017/09/drift-hunters-2/">drift hunters</option>
-<option value="https://www.geo-fs.com/geofs.php?v=3.7">flight simulator</option>
-<option value="https://slowroads.io/">slow-roads</option>
-<option value="https://www.addictinggames.com/embed/html5-games/23484">diep.io</option>
-<option value="https://cdn2.addictinggames.com/addictinggames-content/ag-assets/content-items/html5-games/its-raining-monkeys/index.html">its raining monkeys</option>    
+        function toggleFullScreen() {
+            const iframe = document.getElementById("gameFrame");
+            if (!document.fullscreenElement) {
+                if (iframe) {
+                    iframe.requestFullscreen().catch(err => {
+                        console.error("Error attempting to enable full-screen mode: ", err.message);
+                    });
+                }
+            } else {
+                document.exitFullscreen().catch(err => {
+                    console.error("Error attempting to exit full-screen mode: ", err.message);
+                });
+            }
+        }
 
-    <option value="https://cdn2.addictinggames.com/addictinggames-content/ag-assets/content-items/html5-games/theimpossiblequiz/index.html">the impossible quiz</option> 
-<option value="https://www.addictinggames.com/embed/html5-games/10000305">shin arena</option>
-<option value="https://www.addictinggames.com/embed/html5-games/10000661">fire crush</option>
-<option value="https://www.addictinggames.com/embed/html5-games/10000659">deepest sword</option>
-<option value="https://deadshot.io/">dead shot</option>
-<option value="https://justfall.lol/">just fall</option>
-<option value="https://bandit.rip/">bandit.rip</option>
-<option value="https://tanuki-sunset.vercel.app/">tanuki sunset</option>
-<option value="https://kdata1.com/2015/9/stick-fight-2/">stick fight 2 </option>
-<option value="https://fnf.kdata1.com/fnf-v291/">friday night funkin</option>
-<option value="https://kdata1.com/2021/06/smw-road-toinfinity/">mario fan game</option>
-<option value="https://kdata1.com/2018/10/rooftopsnipers/">roof top sniper</option>
-<option value="https://kdata1.com/2019/05/superhot/">super hot</option>
-<option value="https://kdata1.com/2019/09/94686/">ant art tycoon</option>
-<option value="https://kdata1.com/2020/02/Soccer_Random/">soccer randoms</option>
-<option value="https://kdata1.com/2017/09/life-the-game/">life the game</option>
-<option value="https://kdata1.com/2021/12/PlugIn_EN_WebBuild_1.3/">plug in</option>
-<option value="https://kdata1.com/2016/12/toon-shooters-2/">toon shooter</option>
+        function changeBackground() {
+            const backgroundImage = prompt("Enter the image URL for the background:");
+            if (backgroundImage) {
+                document.body.style.backgroundImage = `url('${backgroundImage}')`;
+            }
+        }
 
-<option value="https://kdata1.com/2017/02/happy-room/ ">happy room</option>
-<option value="https://www.tbsnews.net/game-stack/v0.18/index.html">stack blocks</option>
-<option value="https://geometrydash-lite.com/">geometry dash</option>
-<option value="https://zombsroyale.io/">zombs royale</option>
-<option value="https://.splix.io">splix io</option>
-<option value="https://9bob.net/iframe/Lego-Gotham-City-Speed">Lego Gotham City Speed</option>
-<option value="https://9bob.net/iframe/Plants-Zombies-Original-">plants vs zombies</option>
-<option value="https://9bob.net/iframe/Cut-the-Rope-Experiments">Cut the Rope Experiments</option>
-<option value="https://9bob.net/iframe/Car-Drift-Racers-2">Car Drift Racers 2</option>
-<option value="https://storage.y8.com/y8-studio/unity_webgl/bitlaslt/slope_v_1_2_5/?key=9757549&value=80527">slope</option>
-<option value="https://9bob.net/iframe/Moto-Xm-Pool-Party">Moto-Xm-Pool-Party</option>
-<option value="https://9bob.net/iframe/Stickman-Hook">stickman hook</option>    
-<option value="https://9bob.net/iframe/Fireboy-and-Watergirl">Fireboy-and-Watergirl</option>
+        function hidetab() {
+            const win = window.open();
+            const url = "https://zelity.github.io/nuxzul-games/games.html";
+            const iframe = win.document.createElement('iframe');
+            iframe.style.width = "100%";
+            iframe.style.height = "100%";
+            iframe.style.border = "none";
+            iframe.src = url;
+            win.document.body.appendChild(iframe);
+        }
 
-<option value="https://cookieclicker2.io">cookie clicker</option>
-<option value="https://play.fancade.com/5E9F40DA7F9C9FA8">recoil</option>
-<option value="https://smashkarts.io/">smash karts</option>
-<option value="https://gooberdash.winterpixel.io">goober dash</option>
-<option value="https://surviv.io/">surviv.io</option>
-<option value="https://yohoho.io">yohoho.io</option>
-<option value="https://yohoho.io">blockpost</option>
-<option value="https://shellshock.io/">shellshock.io</option>
- <option value=" https://moomoo.io/">moomoo.io</option>
-<option value="https://evowars.io/">evowars.io</option>
-<option value="https://powerline.io/">powerline.io</option>
-
-<option value="https://classwork.cc/cookie-clicker-unblocked/">Cookie Clicker</option>
-     <option value="https://files.gamezhero.com/game/905/1d1/9051d1173be765fb/data/index.html">subway surfers</option>
-     <option value="https://html5.gamedistribution.com/3b79a8537ebc414fb4f9672a9b8c68c8/?gd_sdk_referrer_url=https://snowrider3d.com/snow-rider-3d">snow rider 3-d</option>
-     <option value="https://html5.gamedistribution.com/acc0242bb60842fcb0aa806b6e14ff6a/?gd_sdk_referrer_url=https://gamedistribution.com/games/lode-retro-adventure">LODE RETRO ADVENTURE </option>
-     <option value="https://mystifying-goodall-147690.netlify.app">choppy orc</option>
-   <option value="https://scratch.mit.edu/projects/407561251/embed">mario maker </option>
-   <option value="https://html5.gamedistribution.com/3dbd133d0cd9468bafdf2c9812290f4b/?gd_sdk_referrer_url=https://gamedistribution.com/games/basketball-legends-2020">basketball legends</option>
-   <option value="https://goosegame.io">goose game</option>
-   <option value="https://bestgradex.com/games/monkey-mart/index.html">monkey mart</option>
-   <option value="https://bestgradex.com/games/drive-mad/index.html">drive mad</option>
-   <option value="https://bestgradex.com/games/retro-bowl/index.html">retro bowl</option>
-   <option value="https://bestgradex.com/games/moto-x3m/index.html">moto 3xm</option>
-   <option value="https://unblockedgamesgg.com/games/html5/run-3/index.html">run 3</option>
-
-    <option value="https://bestgradex.com/games/drive-mad/index.html">drive-mad</option>
-   <option value="https://bestgradex.com/games/drive-mad/index.html">retro bowl</option>
-  <option value="https://html5.gamedistribution.com/a186dc9ac7f548f884db8ff54df6dd9f/?gd_sdk_referrer_url=https://gamedistribution.com/games/fruit-ninja-2">fruit ninja</option>
-    <option value="https://html5.gamedistribution.com/26d9c4da689e4b2599917eab8735a381/">cut the rope</option>
-    <option value="https://suikagame.com/">watermellon silka game</option>
-    <option value="https://neal.fun/infinite-craft/">infinite craft</option>
-    <option value="https://paper-io.com/">Paper.io</option>
-    <option value="https://hole-io.com/">Hole.io</option>
-    
-    <option value="https://krunker.io/">Krunker.io</option>
-    <option value="https://nesbox.com/emulator/">NES Emulator</option>
-    <option value="https://www.retrogames.cc/">Retro Games</option>
-    <option value="https://ludicrous.icu/gfiles/html5/pacman/">Pac-Man</option>
- <option value="https://player03.com/run/3/beta/">Run 3 Unblocked</option>
-<option value="https://freegalaga.com/">Galaga</option>
-<option value="https://helixjumponline.com/">helix jump</option>
- <option value="https://www.kogama.com/">Kogama</option>
-    <option value="http://scribbles.io/">Scribbles.io</option>
-    <option value="https://www.braains.io/">Braains.io</option>
-    <option value="">Movies Coming Soon!</option>
-   
-  </select>
-  <button onclick="playGame()">Play</button>
-  <button onclick="toggleFullScreen()">Full Screen</button>
-  <button onclick="changeBackground()">Change Background</button>
-    <button onclick="hidetab()">Hide Tab From Teachers</button>
-    <a id="go-back-button" href="https://zelity.github.io/cw/home1.html">Go Back to Homepage</a>
-</main>
-<footer>
-</footer>
-
- 
-<script>
-  
-  function playGame() {
-    var gameUrl = document.getElementById("gameSelector").value;
-    if (gameUrl) {
-      document.getElementById("gameFrame").src = gameUrl;
-    } else {
-      alert("Please select a game to play.");
-    }
-  }
-  
-  
-  
-  
-  
-  function toggleFullScreen() {
-    var iframe = document.getElementById("gameFrame");
-    if (!document.fullscreenElement) {
-      iframe.requestFullscreen();
-    } else {
-      document.exitFullscreen();
-    }
-  }
-
-  function changeBackground() {
-    var backgroundImage = prompt("Enter the image URL for the background:");
-    if (backgroundImage) {
-      alert("Background image changed to: " + backgroundImage);
-      document.body.style.backgroundImage = "url('" + backgroundImage + "')";
-    }
-  }
-
-  
- 
-  
-   
-  
-  
-  function hidetab() {
-        var win = window.open();
-        var url = "https://zelity.github.io/nuxzul-games/games.html";
-        var iframe = win.document.createElement('iframe');
-        iframe.style.width = "100%";
-        iframe.style.height = "100%";
-        iframe.style.border = "none";
-        iframe.src = url;
-        win.document.body.appendChild(iframe);
-      }
-</script>
+        window.onload = function () {
+            alert("Thank you for choosing us for games! The teacher cannot see this and will see whatever tab you were previously on. For newer updates/downloads, join discord.gg/YfgTcuEmSg - z0nyyy");
+        };
+    </script>
 </body>
 </html>
