@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Classroom Game Player</title>
+    <title>Custom Game Player</title>
     <link rel="icon" type="image/x-icon" href="data:image/jpeg;base64,/9j/4AAQSkZJRgAB...">
     <style>
         body {
-            background-image: url('https://www.animaker.com/hub/wp-content/uploads/2022/10/ezgif.com-gif-maker-12-1.gif');
-            background-repeat: no-repeat;
-            background-size: cover;
             font-family: 'Arial', sans-serif;
             margin: 0;
-            color: white;
             display: flex;
             flex-direction: column;
             align-items: center;
+            color: white;
+            transition: background 0.3s;
+            background: url('https://www.animaker.com/hub/wp-content/uploads/2022/10/ezgif.com-gif-maker-12-1.gif') no-repeat center center fixed;
+            background-size: cover;
         }
 
         header {
@@ -23,13 +23,13 @@
             padding: 20px;
             text-align: center;
             border-radius: 10px;
-            margin-top: 20px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            margin-top: 20px;
         }
 
         h1 {
             margin: 0;
-            font-size: 24px;
+            font-size: 30px;
         }
 
         main {
@@ -101,7 +101,6 @@
             padding: 10px 15px;
             border-radius: 5px;
             cursor: pointer;
-            text-decoration: none;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
 
@@ -124,19 +123,17 @@
             border: 1px solid #ccc;
         }
 
-        /* Responsive Layout for Buttons */
-        @media (min-width: 600px) {
-            .button-container {
-                flex-direction: row;
-                justify-content: center;
-            }
-
-            button {
-                margin: 0 10px;
-            }
+        .customization-container {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* Styling for the notification */
+        .bg-selector {
+            margin: 10px;
+        }
+
         #notification {
             display: none;
             margin-top: 20px;
@@ -150,14 +147,14 @@
 </head>
 <body>
     <header>
-        <h1>⭐ Welcome to nux._.xul's Game Player v1.1 ⭐</h1>
+        <h1>⭐ Welcome to nux._.xul's Custom Game Player! ⭐</h1>
     </header>
     <main>
         <div class="search-container">
             <input type="text" id="gameSearch" placeholder="Search for a game..." onkeyup="filterGames()">
         </div>
         <iframe id="gameFrame" src="" frameborder="0"></iframe>
-        <select id="gameSelector">
+        <select id="gameSelector" size="15">
             <option value="">Select a game</option>
             <!-- Alphabetically sorted list of games -->
             <option value="https://ludicrous.icu/gfiles/html5/agar.io/">Agar.io</option>
@@ -199,14 +196,21 @@
             <option value="https://www.addictinggames.com/embed/html5-games/cookie-clicker">Cookie Clicker</option>
             <option value="https://www.addictinggames.com/embed/html5-games/minecraft-in-browser">Minecraft in Browser</option>
             <option value="https://poki.com/en/g/pizza-king">Pizza King</option>
-
-            <!-- More games can go here in alphabetical order -->
+            <!-- Add more games here, ensure they are functional and accessible -->
         </select>
         <div class="button-container">
             <button onclick="playGame()">Play</button>
             <button onclick="toggleFullScreen()">Full Screen</button>
             <button onclick="changeBackground()">Change Background</button>
             <button onclick="hidetab()">Hide Tab From Teachers</button>
+        </div>
+        <div class="customization-container">
+            <h3>Customize Your Experience</h3>
+            <div class="bg-selector">
+                <label for="backgroundColor">Choose Background Color:</label>
+                <input type="color" id="backgroundColor" value="#ffffff" onchange="changeBackgroundColor(this.value)">
+            </div>
+            <button onclick="resetCustomization()">Reset Customization</button>
         </div>
         <div id="go-back-button" onclick="window.location.href='https://zelity.github.io/nuxzul-games/home.html'">Go Back to Homepage</div>
         <div id="notification">Thank you for choosing us for games! The teacher cannot see this and will see whatever tab you were previously on. For newer updates/downloads, join discord.gg/YfgTcuEmSg.</div>
@@ -238,6 +242,10 @@
             }
         }
 
+        function changeBackgroundColor(color) {
+            document.body.style.backgroundColor = color;
+        }
+
         function toggleFullScreen() {
             const iframe = document.getElementById("gameFrame");
             if (!document.fullscreenElement) {
@@ -256,6 +264,12 @@
             if (backgroundImage) {
                 document.body.style.backgroundImage = `url('${backgroundImage}')`;
             }
+        }
+
+        function resetCustomization() {
+            document.body.style.backgroundColor = "initial";
+            document.body.style.backgroundImage = "url('https://www.animaker.com/hub/wp-content/uploads/2022/10/ezgif.com-gif-maker-12-1.gif')";
+            document.getElementById("backgroundColor").value = "#ffffff";
         }
 
         function hidetab() {
