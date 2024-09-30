@@ -120,10 +120,12 @@
                 }
             };
 
+            let endDate = null;
+
             function getCurrentPeriod() {
                 const currentTime = new Date();
                 let currentPeriod = "School is not in session at the moment";
-                let endDate = null;
+                endDate = null; // Reset endDate for a new evaluation
 
                 // Check for instructional periods
                 periods.forEach(period => {
@@ -164,20 +166,19 @@
                 const currentData = getCurrentPeriod();
                 const h1 = document.getElementById("current-period");
                 const timer = document.getElementById("remaining-time");
-                const lunchInfo = document.getElementById("lunch-info");
 
                 h1.textContent = currentData.period;
 
                 if (currentData.endDate) {
-                    const remainingTime = Math.max(0, Math.floor((currentData.endDate - new Date()) / 1000)); // Ensure non-negative
+                    const remainingTime = Math.max(0, Math.floor((currentData.endDate - new Date()) / 1000)); // Ensure non-negative time
 
                     timer.textContent = formatTime(remainingTime);
                 } else {
-                    timer.textContent = ""; // Hide countdown if not in a defined period
+                    timer.textContent = ""; // Clear the timer if no valid end date
                 }
 
-                // Update lunch information
-                lunchInfo.textContent = lunchSchedules[lunchSelect.value].text;
+                // Continue updating the display
+                requestAnimationFrame(updateCurrentPeriod);
             }
 
             function formatTime(seconds) {
@@ -187,10 +188,9 @@
                 return `${hours}h ${minutes}m ${remainingSeconds}s`;
             }
 
-            // Update on dropdown change and every second
+            // Update on dropdown change and start the continuous updates
             document.getElementById("lunch-select").addEventListener("change", updateCurrentPeriod);
-            updateCurrentPeriod();
-            setInterval(updateCurrentPeriod, 1000); // Updates every second
+            updateCurrentPeriod(); // Initial update
         });
     </script>
 </body>
