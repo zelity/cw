@@ -1,236 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>whs clock</title>
-<link rel="icon" type="image/x-icon" href="https://r2.e-z.host/13985022-a2bd-482f-bea2-18ff85c0dc2e/4s3ejiz9.png">
-<style>
-body {
-  background-image: url('https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_1280.jpg');
-  background-color: #5f8df7;
-  background-size: cover;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WHS Clock</title>
+    <link rel="icon" type="image/x-icon" href="https://r2.e-z.host/13985022-a2bd-482f-bea2-18ff85c0dc2e/4s3ejiz9.png">
+    <style>
+        body {
+            background-image: url('https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_1280.jpg');
+            background-color: #5f8df7;
+            background-size: cover;
+        }
 
-#remaining-time {
-  font-size: 2.5vw;
-  color: #ff0000;
-}
+        #remaining-time {
+            font-size: 2.5vw;
+            color: #ff0000;
+        }
 
-.corner-image {
-  width: 19.01%;
-  height: auto;
-}
+        .text {
+            color: #44ff00;
+            font-size: 1.32vw;
+        }
 
-.image-links img {
-  width: 5.51%;
-  height: auto;
-}
+        h1 {
+            color: #66ff00;
+            text-align: center;
+            font-size: 3.64vw;
+        }
 
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            float: right;
+        }
 
-     <div id="go-back-button" onclick="window.location.href='https://zelity.github.io/nuxzul-games/home.html'">Go Back to Homepage</div>
-  
-  
-  .text {
-  color: #44ff00;
-  font-size: 1.32vw;
-}
+        nav ul li {
+            display: inline;
+            padding: 10px;
+        }
 
-h1 {
-  color: #66ff00;
-  text-align: center;
-  font-size: 2.64vw;
-}
-#remaining-time {
-  font-size: 2.5vw;
-  color: #ff0000;
-}
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
 
-.corner-image {
-  width: 33.01%;
-  height: auto;
-}
+        .content {
+            margin-top: 25px;
+        }
 
-.image-links img {
-  width: 7.51%;
-  height: auto;
-}
-
-
-
-nav ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  float: right; /* added float: right; to align links to the right */
-}
-
-nav ul li {
-  display: inline;
-  padding: 10px;
-}
-
-nav ul li a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.content {
-  margin-top: 25px; /* adjust margin based on the height of the navbar */
-  /* styles for the rest of your page content */
-}
-
-
-.text {
-  color: #a9ff8a;
-  font-size: 1.93vw;
-}
-
-h1 {
-  color: #66ff00;
-  text-align: center;
-  font-size: 3.64vw;
-}
-</style>
+        /* Dropdown styles */
+        select {
+            font-size: 1.5vw;
+            margin: 20px;
+        }
+    </style>
 </head>
 <body>
-<p>
+    <p></p>
+    <nav>
+        <ul></ul>
+    </nav>
 
-</p>
-<nav>
-  <ul>
-    
-  </ul>
-</nav>
+    <h1 id="current-period">School is not in session at the moment</h1>
+    <span id="remaining-time"></span>
 
-<h1 id="current-period">School is not in session at the moment</h1>
-<span id="remaining-time"></span>
+    <div class="text">
+        Class start and end times apply to 8th grade. Other grades may not be correct.
+    </div>
+    <div class="text">
+        Period 1: 8:00 - 8:51
+    </div>
+    <div class="text">
+        Period 2: 8:53 - 9:48
+    </div>
+    <div class="text">
+        Period 3: 9:50 - 10:45
+    </div>
+    <div class="text">
+        Period 4: 10:47 - 11:42
+    </div>
+    <div class="text">
+        Period 5: 11:44 - 12:34
+    </div>
 
-<div class="text">
-  Class start and end times this only apply to 8th grade, other grades may not be correct.
-</div>
-<div class="text">
-  Period 1 8:00 - 8:51
-</div>
-<div class="text">
-  Period 2 8:53 - 9:48
-</div>
-<div class="text">
-  Period 3 9:50 - 10:45
-</div>
-<div class="text">
-  Period 4 10:47 - 11:42
-</div>
-<div class="text">
-  Period 5 11:44 - 12:34
-</div>
-<div class="text">
-  Lunch 12:34 - 12:55
-</div>
-<div class="text">
-  Period 6 12:59 - 1:54
-</div>
-<div class="text">
-  Period 7 1:56 - 2:40
-</div>
+    <!-- Dropdown for lunch selection -->
+    <select id="lunch-select">
+        <option value="first">First Lunch</option>
+        <option value="second">Second Lunch</option>
+    </select>
 
-</a>
-</div>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  var periods = [
-     { start: "07:49:00", end: "07:59:00", name: "intermisson" },
-    { start: "08:00:00", end: "08:51:00", name: "Period 1" },
-    { start: "08:53:00", end: "09:48:00", name: "Period 2" },
-    { start: "09:50:00", end: "10:45:00", name: "Period 3" },
-    { start: "10:47:00", end: "11:42:00", name: "Period 4" },
-    { start: "11:44:00", end: "12:32:00", name: "Period 5" },
-    
-   
-    { start: "12:59:00", end: "13:54:00", name: "Period 6" },
-    { start: "13:56:00", end: "14:40:00", name: "Period 7" }
-  ];
+    <div class="text" id="lunch-info"></div>
 
-  function getCurrentPeriod() {
-    var currentTime = new Date();
-    var currentHour = currentTime.getHours();
-    var currentMinute = currentTime.getMinutes();
-    var currentSecond = currentTime.getSeconds();
-    var currentPeriod = "School is not in session at the moment";
-    var secondsRemaining = 0;
+    <div class="text">
+        Period 6 (for First Lunch): 12:55 - 1:54
+    </div>
+    <div class="text">
+        Period 6 (for Second Lunch): 1:20 - 2:40
+    </div>
 
-    periods.forEach(function(period) {
-      var start = period.start.split(":");
-      var end = period.end.split(":");
-      var startHour = parseInt(start[0]);
-      var startMinute = parseInt(start[1]);
-      var startSecond = parseInt(start[2]);
-      var endHour = parseInt(end[0]);
-      var endMinute = parseInt(end[1]);
-      var endSecond = parseInt(end[2]);
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Define periods and lunch specifics
+            var periods = [
+                { start: "07:49:00", end: "07:59:00", name: "Intermission" },
+                { start: "08:00:00", end: "08:51:00", name: "Period 1" },
+                { start: "08:53:00", end: "09:48:00", name: "Period 2" },
+                { start: "09:50:00", end: "10:45:00", name: "Period 3" },
+                { start: "10:47:00", end: "11:42:00", name: "Period 4" },
+                { start: "11:44:00", end: "12:34:00", name: "Period 5" },
+            ];
 
-      if (
-        currentHour > startHour &&
-        currentHour < endHour ||
-        (currentHour === startHour &&
-          currentMinute >= startMinute) ||
-        (currentHour === endHour && currentMinute <= endMinute)
-      ) {
-        currentPeriod = period.name;
-        secondsRemaining = (endHour - currentHour) * 3600 + (endMinute - currentMinute) * 60 + (endSecond - currentSecond);
-      }
-    });
+            // Define lunch timings
+            var lunchSchedules = {
+                first: {
+                    lunchStart: "12:34:00",
+                    lunchEnd: "12:55:00",
+                    classStart: "12:55:00",
+                    classEnd: "13:54:00",
+                    text: "First Lunch: Enjoy your meal!"
+                },
+                second: {
+                    lunchStart: "12:55:00",
+                    lunchEnd: "13:20:00",
+                    classStart: "13:20:00",
+                    classEnd: "14:40:00",
+                    text: "Second Lunch: Enjoy your meal!"
+                }
+            };
 
-    return { period: currentPeriod, secondsRemaining: secondsRemaining };
-  }
+            function getCurrentPeriod() {
+                var currentTime = new Date();
+                var currentPeriod = "School is not in session at the moment";
+                var secondsRemaining = 0;
 
-  function updateCurrentPeriod() {
-    var currentData = getCurrentPeriod();
-    var h1 = document.getElementById("current-period");
-    var timer = document.getElementById("remaining-time");
+                // Check for instructional periods
+                periods.forEach(function(period) {
+                    var startDateObj = new Date();
+                    var endDateObj = new Date();
+                    var [sh, sm] = period.start.split(":").map(Number);
+                    var [eh, em] = period.end.split(":").map(Number);
+                    startDateObj.setHours(sh, sm);
+                    endDateObj.setHours(eh, em);
 
-    if (h1) {
-      h1.textContent = currentData.period;
-    }
-    if (timer) {
-      timer.textContent = currentData.secondsRemaining > 0 ? "Time remaining: " + formatTime(currentData.secondsRemaining) : "";
-    }
-  }
+                    if (currentTime >= startDateObj && currentTime <= endDateObj) {
+                        currentPeriod = period.name;
+                        secondsRemaining = Math.floor((endDateObj - currentTime) / 1000);
+                    }
+                });
 
-    function hidetab() {
-        var win = window.open();
-        var url = "https://zelity.github.io/nuxzul-games/games.html";
-        var iframe = win.document.createElement('iframe');
-        iframe.style.width = "100%";
-        iframe.style.height = "100%";
-        iframe.style.border = "none";
-        iframe.src = url;
-        win.document.body.appendChild(iframe);
-      }
-  
-  function formatTime(seconds) {
-    var hours = Math.floor(seconds / 3600);
-    var minutes = Math.floor((seconds % 3600) / 60);
-    var secs = seconds % 60;
-    return hours + " hours " + minutes + " minutes " + secs + " seconds";
-  }
+                // Check lunch periods based on selection
+                var lunchSelect = document.getElementById("lunch-select");
+                var selectedLunch = lunchSelect.value;
+                var schedule = lunchSchedules[selectedLunch];
 
-  updateCurrentPeriod();
-  setInterval(updateCurrentPeriod, 1000);
-});
+                // Lunch Periods
+                var lunchStartDateObj = new Date();
+                var lunchEndDateObj = new Date();
+                var classStartDateObj = new Date();
+                var classEndDateObj = new Date();
+                var [lh, lm] = schedule.lunchStart.split(":").map(Number);
+                var [le, lems] = schedule.lunchEnd.split(":").map(Number);
+                var [ch, cm] = schedule.classStart.split(":").map(Number);
+                var [ceh, cem] = schedule.classEnd.split(":").map(Number);
+                
+                lunchStartDateObj.setHours(lh, lm);
+                lunchEndDateObj.setHours(le, lems);
+                classStartDateObj.setHours(ch, cm);
+                classEndDateObj.setHours(ceh, cem);
 
+                if (currentTime >= lunchStartDateObj && currentTime <= lunchEndDateObj) {
+                    currentPeriod = schedule.text;
+                    secondsRemaining = Math.floor((lunchEndDateObj - currentTime) / 1000);
+                } else if (currentTime >= classStartDateObj && currentTime <= classEndDateObj) {
+                    currentPeriod = `Class After ${selectedLunch.charAt(0).toUpperCase() + selectedLunch.slice(1)} Lunch`;
+                    secondsRemaining = Math.floor((classEndDateObj - currentTime) / 1000);
+                }
 
+                return { period: currentPeriod, secondsRemaining: secondsRemaining };
+            }
 
-</script>
+            function updateCurrentPeriod() {
+                var currentData = getCurrentPeriod();
+                var h1 = document.getElementById("current-period");
+                var timer = document.getElementById("remaining-time");
+                var lunchInfo = document.getElementById("lunch-info");
+
+                if (h1) {
+                    h1.textContent = currentData.period;
+                }
+                if (timer) {
+                    timer.textContent = currentData.secondsRemaining > 0 ? "Time remaining: " + formatTime(currentData.secondsRemaining) : "";
+                }
+
+                // Update lunch information based on selection
+                lunchInfo.textContent = lunchSchedules[lunchSelect.value].text;
+            }
+
+            function formatTime(seconds) {
+                var hours = Math.floor(seconds / 3600);
+                var minutes = Math.floor((seconds % 3600) / 60);
+                var secs = seconds % 60;
+                return hours + " hours " + minutes + " minutes " + secs + " seconds";
+            }
+
+            document.getElementById("lunch-select").addEventListener("change", updateCurrentPeriod);
+            updateCurrentPeriod();
+            setInterval(updateCurrentPeriod, 1000);
+        });
+    </script>
 
 </body>
 </html>
-
-
-
-
-
-
 
 
 
