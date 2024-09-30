@@ -44,7 +44,6 @@
             color: #fff;
             text-decoration: none;
         }
-
     </style>
 </head>
 <body>
@@ -59,24 +58,12 @@
     <div class="text">
         Class start and end times apply to 8th grade. Other grades may not be correct.
     </div>
-    <div class="text">
-        Class 1: 7:40 - 8:40
-    </div>
-    <div class="text">
-        Class 2: 8:43 - 9:43
-    </div>
-    <div class="text">
-        Advisory: 9:46 - 10:16
-    </div>
-    <div class="text">
-        Class 4: 10:19 - 11:19
-    </div>
-    <div class="text">
-        Class 5: 11:22 - 12:07
-    </div>
-    <div class="text">
-        Class 6: 1:10 - 2:10
-    </div>
+    <div class="text">Class 1: 7:40 - 8:40</div>
+    <div class="text">Class 2: 8:43 - 9:43</div>
+    <div class="text">Advisory: 9:46 - 10:16</div>
+    <div class="text">Class 4: 10:19 - 11:19</div>
+    <div class="text">Class 5: 11:22 - 12:07</div>
+    <div class="text">Class 6: 1:10 - 2:10</div>
 
     <!-- Dropdown for lunch selection -->
     <select id="lunch-select">
@@ -85,13 +72,8 @@
     </select>
 
     <div class="text" id="lunch-info"></div>
-
-    <div class="text">
-        Period After First Lunch: 12:08 - 1:07
-    </div>
-    <div class="text">
-        Period After Second Lunch: 1:08 - 2:10
-    </div>
+    <div class="text">Period After First Lunch: 12:08 - 1:07</div>
+    <div class="text">Period After Second Lunch: 1:08 - 2:10</div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -123,9 +105,8 @@
             function getCurrentPeriod() {
                 const currentTime = new Date();
                 let currentPeriod = "School is not in session at the moment";
-                let secondsRemaining = 0;
+                let endDate = null;
 
-                // Check for instructional periods
                 periods.forEach(period => {
                     const startDateObj = new Date();
                     const endDateObj = new Date();
@@ -136,7 +117,7 @@
 
                     if (currentTime >= startDateObj && currentTime < endDateObj) {
                         currentPeriod = period.name;
-                        secondsRemaining = Math.floor((endDateObj - currentTime) / 1000);
+                        endDate = endDateObj;
                     }
                 });
 
@@ -155,10 +136,10 @@
 
                 if (currentTime >= lunchStartDateObj && currentTime < lunchEndDateObj) {
                     currentPeriod = schedule.text;
-                    secondsRemaining = Math.floor((lunchEndDateObj - currentTime) / 1000);
+                    endDate = lunchEndDateObj;
                 }
 
-                return { period: currentPeriod, secondsRemaining };
+                return { period: currentPeriod, endDate: endDate };
             }
 
             function updateCurrentPeriod() {
@@ -169,10 +150,16 @@
 
                 h1.textContent = currentData.period;
 
-                if (currentData.secondsRemaining > 0) {
-                    timer.textContent = "Time remaining: " + formatTime(currentData.secondsRemaining);
+                if (currentData.endDate) {
+                    const remainingTime = Math.floor((currentData.endDate - new Date()) / 1000);
+                    timer.textContent = formatTime(Math.max(remainingTime, 0));
+
+                    if (remainingTime <= 0) {
+                        // If time has run out, reset the timer
+                        timer.textContent = "0h 0m 0s";
+                    }
                 } else {
-                    timer.textContent = "";  // Clear if there are no seconds left
+                    timer.textContent = ""; // Clear if not in a defined period
                 }
 
                 // Update lunch information based on selection
@@ -180,9 +167,10 @@
             }
 
             function formatTime(seconds) {
-                const minutes = Math.floor(seconds / 60);
+                const hours = Math.floor(seconds / 3600);
+                const minutes = Math.floor((seconds % 3600) / 60);
                 const remainingSeconds = seconds % 60;
-                return `${minutes}m ${remainingSeconds}s`;
+                return `${hours}h ${minutes}m ${remainingSeconds}s`;
             }
 
             document.getElementById("lunch-select").addEventListener("change", updateCurrentPeriod);
