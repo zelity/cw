@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,15 +45,6 @@
             text-decoration: none;
         }
 
-        .content {
-            margin-top: 25px;
-        }
-
-        /* Dropdown styles */
-        select {
-            font-size: 1.5vw;
-            margin: 20px;
-        }
     </style>
 </head>
 <body>
@@ -104,9 +94,9 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             // Define periods and lunch specifics
-            var periods = [
+            const periods = [
                 { start: "07:40:00", end: "08:40:00", name: "Class 1" },
                 { start: "08:43:00", end: "09:43:00", name: "Class 2" },
                 { start: "09:46:00", end: "10:16:00", name: "Advisory" },
@@ -117,7 +107,7 @@
             ];
 
             // Define lunch timings
-            var lunchSchedules = {
+            const lunchSchedules = {
                 first: {
                     lunchStart: "11:19:00",
                     lunchEnd: "11:45:00",
@@ -131,16 +121,16 @@
             };
 
             function getCurrentPeriod() {
-                var currentTime = new Date();
-                var currentPeriod = "School is not in session at the moment";
-                var secondsRemaining = 0;
+                const currentTime = new Date();
+                let currentPeriod = "School is not in session at the moment";
+                let secondsRemaining = 0;
 
                 // Check for instructional periods
-                periods.forEach(function(period) {
-                    var startDateObj = new Date();
-                    var endDateObj = new Date();
-                    var [sh, sm] = period.start.split(":").map(Number);
-                    var [eh, em] = period.end.split(":").map(Number);
+                periods.forEach(period => {
+                    const startDateObj = new Date();
+                    const endDateObj = new Date();
+                    const [sh, sm] = period.start.split(":").map(Number);
+                    const [eh, em] = period.end.split(":").map(Number);
                     startDateObj.setHours(sh, sm);
                     endDateObj.setHours(eh, em);
 
@@ -151,16 +141,15 @@
                 });
 
                 // Check lunch periods based on selection
-                var lunchSelect = document.getElementById("lunch-select");
-                var selectedLunch = lunchSelect.value;
-                var schedule = lunchSchedules[selectedLunch];
+                const lunchSelect = document.getElementById("lunch-select");
+                const selectedLunch = lunchSelect.value;
+                const schedule = lunchSchedules[selectedLunch];
 
                 // Lunch Periods
-                var lunchStartDateObj = new Date();
-                var lunchEndDateObj = new Date();
-                var [lh, lm] = schedule.lunchStart.split(":").map(Number);
-                var [le, lems] = schedule.lunchEnd.split(":").map(Number);
-                
+                const lunchStartDateObj = new Date();
+                const lunchEndDateObj = new Date();
+                const [lh, lm] = schedule.lunchStart.split(":").map(Number);
+                const [le, lems] = schedule.lunchEnd.split(":").map(Number);
                 lunchStartDateObj.setHours(lh, lm);
                 lunchEndDateObj.setHours(le, lems);
 
@@ -169,20 +158,21 @@
                     secondsRemaining = Math.floor((lunchEndDateObj - currentTime) / 1000);
                 }
 
-                return { period: currentPeriod, secondsRemaining: secondsRemaining };
+                return { period: currentPeriod, secondsRemaining };
             }
 
             function updateCurrentPeriod() {
-                var currentData = getCurrentPeriod();
-                var h1 = document.getElementById("current-period");
-                var timer = document.getElementById("remaining-time");
-                var lunchInfo = document.getElementById("lunch-info");
+                const currentData = getCurrentPeriod();
+                const h1 = document.getElementById("current-period");
+                const timer = document.getElementById("remaining-time");
+                const lunchInfo = document.getElementById("lunch-info");
 
-                if (h1) {
-                    h1.textContent = currentData.period;
-                }
-                if (timer) {
-                    timer.textContent = currentData.secondsRemaining > 0 ? "Time remaining: " + formatTime(currentData.secondsRemaining) : "";
+                h1.textContent = currentData.period;
+
+                if (currentData.secondsRemaining > 0) {
+                    timer.textContent = "Time remaining: " + formatTime(currentData.secondsRemaining);
+                } else {
+                    timer.textContent = "";  // Clear if there are no seconds left
                 }
 
                 // Update lunch information based on selection
@@ -190,17 +180,15 @@
             }
 
             function formatTime(seconds) {
-                var hours = Math.floor(seconds / 3600);
-                var minutes = Math.floor((seconds % 3600) / 60);
-                var secs = seconds % 60;
-                return `${hours}h ${minutes}m ${secs}s`;
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = seconds % 60;
+                return `${minutes}m ${remainingSeconds}s`;
             }
 
             document.getElementById("lunch-select").addEventListener("change", updateCurrentPeriod);
             updateCurrentPeriod();
-            setInterval(updateCurrentPeriod, 1000);
+            setInterval(updateCurrentPeriod, 1000); // updates every second
         });
     </script>
-
 </body>
 </html>
