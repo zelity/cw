@@ -142,7 +142,7 @@
                     }
                 });
 
-                // Select lunch periods based on dropdown
+                // Select lunch periods based on the dropdown
                 const lunchSelect = document.getElementById("lunch-select");
                 const selectedLunch = lunchSelect.value;
                 const schedule = lunchSchedules[selectedLunch];
@@ -154,6 +154,7 @@
                 lunchStartTime.setHours(lh, lm, 0);
                 lunchEndTime.setHours(le, lems, 0);
 
+                // Ensure lunch detection is accurately represented
                 if (currentTime >= lunchStartTime && currentTime < lunchEndTime) {
                     currentPeriod = schedule.text;
                     endDate = lunchEndTime;
