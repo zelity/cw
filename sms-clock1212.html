@@ -169,15 +169,11 @@
                 h1.textContent = currentData.period;
 
                 if (currentData.endDate) {
-                    const remainingTime = Math.floor((currentData.endDate - new Date()) / 1000);
+                    const remainingTime = Math.max(0, Math.floor((currentData.endDate - new Date()) / 1000)); // Ensure non-negative
 
-                    if (remainingTime >= 0) {
-                        timer.textContent = formatTime(remainingTime);
-                    } else {
-                        timer.textContent = "0h 0m 0s"; // If time is up
-                    }
+                    timer.textContent = formatTime(remainingTime);
                 } else {
-                    timer.textContent = ""; // Clear if not in a defined period
+                    timer.textContent = ""; // Hide countdown if not in a defined period
                 }
 
                 // Update lunch information
@@ -191,6 +187,7 @@
                 return `${hours}h ${minutes}m ${remainingSeconds}s`;
             }
 
+            // Update on dropdown change and every second
             document.getElementById("lunch-select").addEventListener("change", updateCurrentPeriod);
             updateCurrentPeriod();
             setInterval(updateCurrentPeriod, 1000); // Updates every second
