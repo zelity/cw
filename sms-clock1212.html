@@ -10,29 +10,39 @@
             background-image: url('https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_1280.jpg');
             background-color: #5f8df7;
             background-size: cover;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            text-align: center;
         }
 
         #remaining-time {
-            font-size: 2.5vw;
+            font-size: 3vw;
             color: #ff0000;
+            margin-top: 20px;
+            font-weight: bold;
         }
 
         .text {
             color: #44ff00;
-            font-size: 1.32vw;
+            font-size: 1.5vw;
+            margin: 5px 0;
         }
 
         h1 {
             color: #66ff00;
-            text-align: center;
-            font-size: 3.64vw;
+            font-size: 3.5vw;
+            margin-top: 20px;
+        }
+
+        nav {
+            margin: 10px 0;
         }
 
         nav ul {
             list-style-type: none;
             margin: 0;
             padding: 0;
-            float: right;
+            display: inline-block;
         }
 
         nav ul li {
@@ -43,17 +53,26 @@
         nav ul li a {
             color: #fff;
             text-decoration: none;
+            font-weight: bold;
+        }
+
+        select {
+            font-size: 1.5vw;
+            margin: 10px 0;
+            padding: 5px;
         }
     </style>
 </head>
 <body>
-    <p></p>
     <nav>
-        <ul></ul>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Schedule</a></li>
+        </ul>
     </nav>
 
     <h1 id="current-period">School is not in session at the moment</h1>
-    <span id="remaining-time"></span>
+    <span id="remaining-time">--</span>
 
     <div class="text">
         Class start and end times apply to 8th grade. Other grades may not be correct.
@@ -107,9 +126,10 @@
                 let currentPeriod = "School is not in session at the moment";
                 let endDate = null;
 
+                // Check for instructional periods
                 periods.forEach(period => {
-                    const startDateObj = new Date();
-                    const endDateObj = new Date();
+                    const startDateObj = new Date(currentTime);
+                    const endDateObj = new Date(currentTime);
                     const [sh, sm] = period.start.split(":").map(Number);
                     const [eh, em] = period.end.split(":").map(Number);
                     startDateObj.setHours(sh, sm);
@@ -127,8 +147,8 @@
                 const schedule = lunchSchedules[selectedLunch];
 
                 // Lunch Periods
-                const lunchStartDateObj = new Date();
-                const lunchEndDateObj = new Date();
+                const lunchStartDateObj = new Date(currentTime);
+                const lunchEndDateObj = new Date(currentTime);
                 const [lh, lm] = schedule.lunchStart.split(":").map(Number);
                 const [le, lems] = schedule.lunchEnd.split(":").map(Number);
                 lunchStartDateObj.setHours(lh, lm);
@@ -152,11 +172,11 @@
 
                 if (currentData.endDate) {
                     const remainingTime = Math.floor((currentData.endDate - new Date()) / 1000);
-                    timer.textContent = formatTime(Math.max(remainingTime, 0));
 
-                    if (remainingTime <= 0) {
-                        // If time has run out, reset the timer
-                        timer.textContent = "0h 0m 0s";
+                    if (remainingTime >= 0) {
+                        timer.textContent = formatTime(remainingTime);
+                    } else {
+                        timer.textContent = "0h 0m 0s"; // If time is up
                     }
                 } else {
                     timer.textContent = ""; // Clear if not in a defined period
