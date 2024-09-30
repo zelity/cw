@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,22 +70,22 @@
         Class start and end times apply to 8th grade. Other grades may not be correct.
     </div>
     <div class="text">
-        class 1: 7:40 - 8:40
+        Class 1: 7:40 - 8:40
     </div>
     <div class="text">
-         class 2: 8:43 - 9:43
+        Class 2: 8:43 - 9:43
     </div>
     <div class="text">
-         advisory: 9:46 - 10:16
+        Advisory: 9:46 - 10:16
     </div>
     <div class="text">
-         class 4: 10:19 - 11:19
+        Class 4: 10:19 - 11:19
     </div>
     <div class="text">
-         class 5: 11:22 - 1:07
+        Class 5: 11:22 - 12:07
     </div>
     <div class="text">
-         class 6: 1:10 - 2:10
+        Class 6: 1:10 - 2:10
     </div>
 
     <!-- Dropdown for lunch selection -->
@@ -96,23 +97,23 @@
     <div class="text" id="lunch-info"></div>
 
     <div class="text">
-        Period 6 (for First Lunch): 11:19 - 11:45
+        Period After First Lunch: 12:08 - 1:07
     </div>
     <div class="text">
-        Period 6 (for Second Lunch): 12:41 - 1:07
+        Period After Second Lunch: 1:08 - 2:10
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // Define periods and lunch specifics
             var periods = [
-                { start: "07:20:00", end: "07:40:00", name: "Intermission" },
-                { start: "07:40:00", end: "08:40:00", name: "class 1" },
-                { start: "08:43:00", end: "09:43:00", name: "class 2" },
-                { start: "09:46:00", end: "10:16:00", name: "advisory" },
-                { start: "10:19:00", end: "11:19:00", name: "class 4" },
-                { start: "11:22:00", end: "13:07:00", name: "class 5" },
-          { start: "13:10:00", end: "14:10:00", name: "class 6" },
+                { start: "07:40:00", end: "08:40:00", name: "Class 1" },
+                { start: "08:43:00", end: "09:43:00", name: "Class 2" },
+                { start: "09:46:00", end: "10:16:00", name: "Advisory" },
+                { start: "10:19:00", end: "11:19:00", name: "Class 4" },
+                { start: "11:22:00", end: "12:07:00", name: "Class 5" },
+                { start: "12:08:00", end: "13:10:00", name: "Period After First Lunch" },
+                { start: "13:08:00", end: "14:10:00", name: "Period After Second Lunch" }
             ];
 
             // Define lunch timings
@@ -120,15 +121,11 @@
                 first: {
                     lunchStart: "11:19:00",
                     lunchEnd: "11:45:00",
-                    classStart: "11:48:00",
-                    classEnd: "13:07:00",
                     text: "First Lunch: Enjoy your meal!"
                 },
                 second: {
-                    lunchStart: "12:41:00",
+                    lunchStart: "12:42:00",
                     lunchEnd: "13:07:00",
-                    classStart: "13:06:00",
-                    classEnd: "13:07:00",
                     text: "Second Lunch: Enjoy your meal!"
                 }
             };
@@ -147,7 +144,7 @@
                     startDateObj.setHours(sh, sm);
                     endDateObj.setHours(eh, em);
 
-                    if (currentTime >= startDateObj && currentTime <= endDateObj) {
+                    if (currentTime >= startDateObj && currentTime < endDateObj) {
                         currentPeriod = period.name;
                         secondsRemaining = Math.floor((endDateObj - currentTime) / 1000);
                     }
@@ -161,24 +158,15 @@
                 // Lunch Periods
                 var lunchStartDateObj = new Date();
                 var lunchEndDateObj = new Date();
-                var classStartDateObj = new Date();
-                var classEndDateObj = new Date();
                 var [lh, lm] = schedule.lunchStart.split(":").map(Number);
                 var [le, lems] = schedule.lunchEnd.split(":").map(Number);
-                var [ch, cm] = schedule.classStart.split(":").map(Number);
-                var [ceh, cem] = schedule.classEnd.split(":").map(Number);
                 
                 lunchStartDateObj.setHours(lh, lm);
                 lunchEndDateObj.setHours(le, lems);
-                classStartDateObj.setHours(ch, cm);
-                classEndDateObj.setHours(ceh, cem);
 
-                if (currentTime >= lunchStartDateObj && currentTime <= lunchEndDateObj) {
+                if (currentTime >= lunchStartDateObj && currentTime < lunchEndDateObj) {
                     currentPeriod = schedule.text;
                     secondsRemaining = Math.floor((lunchEndDateObj - currentTime) / 1000);
-                } else if (currentTime >= classStartDateObj && currentTime <= classEndDateObj) {
-                    currentPeriod = `Class After ${selectedLunch.charAt(0).toUpperCase() + selectedLunch.slice(1)} Lunch`;
-                    secondsRemaining = Math.floor((classEndDateObj - currentTime) / 1000);
                 }
 
                 return { period: currentPeriod, secondsRemaining: secondsRemaining };
@@ -205,7 +193,7 @@
                 var hours = Math.floor(seconds / 3600);
                 var minutes = Math.floor((seconds % 3600) / 60);
                 var secs = seconds % 60;
-                return hours + " hours " + minutes + " minutes " + secs + " seconds";
+                return `${hours}h ${minutes}m ${secs}s`;
             }
 
             document.getElementById("lunch-select").addEventListener("change", updateCurrentPeriod);
@@ -216,7 +204,3 @@
 
 </body>
 </html>
-
-
-
-
