@@ -8,17 +8,16 @@
     <style>
         body {
             background-image: url('https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_1280.jpg');
-            background-color: #5f8df7;
             background-size: cover;
             font-family: Arial, sans-serif;
             color: #fff;
             text-align: center;
+            padding: 20px;
         }
 
         #remaining-time {
             font-size: 3vw;
             color: #ff0000;
-            margin-top: 20px;
             font-weight: bold;
         }
 
@@ -60,6 +59,9 @@
             font-size: 1.5vw;
             margin: 10px 0;
             padding: 5px;
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #fff;
         }
     </style>
 </head>
@@ -82,7 +84,8 @@
     <div class="text">Advisory: 9:46 - 10:16</div>
     <div class="text">Class 4: 10:19 - 11:19</div>
     <div class="text">Class 5: 11:22 - 12:07</div>
-    <div class="text">Class 6: 1:10 - 2:10</div>
+    <div class="text">Period After First Lunch: 12:08 - 1:07</div>
+    <div class="text">Period After Second Lunch: 1:08 - 2:10</div>
 
     <!-- Dropdown for lunch selection -->
     <select id="lunch-select">
@@ -91,33 +94,29 @@
     </select>
 
     <div class="text" id="lunch-info"></div>
-    <div class="text">Period After First Lunch: 12:08 - 1:07</div>
-    <div class="text">Period After Second Lunch: 1:08 - 2:10</div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // Define periods and lunch specifics
             const periods = [
                 { start: "07:40:00", end: "08:40:00", name: "Class 1" },
                 { start: "08:43:00", end: "09:43:00", name: "Class 2" },
                 { start: "09:46:00", end: "10:16:00", name: "Advisory" },
                 { start: "10:19:00", end: "11:19:00", name: "Class 4" },
                 { start: "11:22:00", end: "12:07:00", name: "Class 5" },
-                { start: "12:08:00", end: "13:10:00", name: "Period After First Lunch" },
+                { start: "12:08:00", end: "13:07:00", name: "Period After First Lunch" },
                 { start: "13:08:00", end: "14:10:00", name: "Period After Second Lunch" }
             ];
 
-            // Define lunch timings
             const lunchSchedules = {
                 first: {
                     lunchStart: "11:19:00",
                     lunchEnd: "11:45:00",
-                    text: "First Lunch: Enjoy your meal!"
+                    text: "It's First Lunch! Enjoy your meal!"
                 },
                 second: {
                     lunchStart: "12:42:00",
                     lunchEnd: "13:07:00",
-                    text: "Second Lunch: Enjoy your meal!"
+                    text: "It's Second Lunch! Enjoy your meal!"
                 }
             };
 
@@ -128,35 +127,34 @@
 
                 // Check for instructional periods
                 periods.forEach(period => {
-                    const startDateObj = new Date(currentTime);
-                    const endDateObj = new Date(currentTime);
+                    const startTime = new Date();
+                    const endTime = new Date();
                     const [sh, sm] = period.start.split(":").map(Number);
                     const [eh, em] = period.end.split(":").map(Number);
-                    startDateObj.setHours(sh, sm);
-                    endDateObj.setHours(eh, em);
+                    startTime.setHours(sh, sm, 0);
+                    endTime.setHours(eh, em, 0);
 
-                    if (currentTime >= startDateObj && currentTime < endDateObj) {
+                    if (currentTime >= startTime && currentTime < endTime) {
                         currentPeriod = period.name;
-                        endDate = endDateObj;
+                        endDate = endTime;
                     }
                 });
 
-                // Check lunch periods based on selection
+                // Select lunch periods based on dropdown
                 const lunchSelect = document.getElementById("lunch-select");
                 const selectedLunch = lunchSelect.value;
                 const schedule = lunchSchedules[selectedLunch];
 
-                // Lunch Periods
-                const lunchStartDateObj = new Date(currentTime);
-                const lunchEndDateObj = new Date(currentTime);
+                const lunchStartTime = new Date();
+                const lunchEndTime = new Date();
                 const [lh, lm] = schedule.lunchStart.split(":").map(Number);
                 const [le, lems] = schedule.lunchEnd.split(":").map(Number);
-                lunchStartDateObj.setHours(lh, lm);
-                lunchEndDateObj.setHours(le, lems);
+                lunchStartTime.setHours(lh, lm, 0);
+                lunchEndTime.setHours(le, lems, 0);
 
-                if (currentTime >= lunchStartDateObj && currentTime < lunchEndDateObj) {
+                if (currentTime >= lunchStartTime && currentTime < lunchEndTime) {
                     currentPeriod = schedule.text;
-                    endDate = lunchEndDateObj;
+                    endDate = lunchEndTime;
                 }
 
                 return { period: currentPeriod, endDate: endDate };
@@ -182,7 +180,7 @@
                     timer.textContent = ""; // Clear if not in a defined period
                 }
 
-                // Update lunch information based on selection
+                // Update lunch information
                 lunchInfo.textContent = lunchSchedules[lunchSelect.value].text;
             }
 
@@ -195,7 +193,7 @@
 
             document.getElementById("lunch-select").addEventListener("change", updateCurrentPeriod);
             updateCurrentPeriod();
-            setInterval(updateCurrentPeriod, 1000); // updates every second
+            setInterval(updateCurrentPeriod, 1000); // Updates every second
         });
     </script>
 </body>
