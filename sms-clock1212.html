@@ -172,14 +172,10 @@
 
                 if (currentData.endDate) {
                     const remainingTime = Math.max(0, Math.floor((currentData.endDate - new Date()) / 1000)); // Ensure non-negative time
-
                     timer.textContent = formatTime(remainingTime);
                 } else {
                     timer.textContent = ""; // Clear the timer if no valid end date
                 }
-
-                // Continue updating the display
-                requestAnimationFrame(updateCurrentPeriod);
             }
 
             function formatTime(seconds) {
@@ -189,9 +185,12 @@
                 return `${hours}h ${minutes}m ${remainingSeconds}s`;
             }
 
-            // Update on dropdown change and start the continuous updates
+            // Update on dropdown change and set an interval for ticking clock
             document.getElementById("lunch-select").addEventListener("change", updateCurrentPeriod);
             updateCurrentPeriod(); // Initial update
+            
+            // Set an interval to update the current period every second
+            setInterval(updateCurrentPeriod, 1000); // Update every second
         });
     </script>
 </body>
