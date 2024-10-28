@@ -43,6 +43,7 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
+            margin-top: 10px;
         }
         button:hover {
             background-color: #4c51bf;
@@ -65,6 +66,7 @@
     <h1>Random String Generator</h1>
     <input type="number" id="lengthInput" placeholder="Enter number of characters" min="1" required>
     <button onclick="generateString()">Generate String</button>
+    <button onclick="copyToClipboard()">Copy All</button>
     <div id="result"></div>
 </div>
 
@@ -80,6 +82,21 @@
         }
 
         document.getElementById('result').textContent = randomString;
+    }
+
+    function copyToClipboard() {
+        const resultElement = document.getElementById('result');
+        const textToCopy = resultElement.textContent;
+
+        if (textToCopy) {
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                alert('Copied to clipboard: ' + textToCopy);
+            }).catch(err => {
+                console.error('Could not copy text: ', err);
+            });
+        } else {
+            alert('No string to copy. Please generate a string first.');
+        }
     }
 </script>
 
