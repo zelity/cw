@@ -57,9 +57,10 @@
             background-color: #e2e8f0;
             border-radius: 5px;
             margin-top: 10px;
+            user-select: all; /* Allow selecting text easily */
         }
-        #copyButton {
-            display: none; /* Initially hide the copy button */
+        #selectButton {
+            display: none; /* Initially hide the select button */
         }
     </style>
 </head>
@@ -70,7 +71,7 @@
     <input type="number" id="lengthInput" placeholder="Enter number of characters" min="1" required>
     <button onclick="generateString()">Generate String</button>
     <div id="result"></div>
-    <button id="copyButton" onclick="copyToClipboard()">Copy All</button>
+    <button id="selectButton" onclick="selectText()">Select All</button>
 </div>
 
 <script>
@@ -85,22 +86,17 @@
         }
 
         document.getElementById('result').textContent = randomString;
-        document.getElementById('copyButton').style.display = 'block'; // Show the copy button
+        document.getElementById('selectButton').style.display = 'block'; // Show the select button
     }
 
-    function copyToClipboard() {
+    function selectText() {
         const resultElement = document.getElementById('result');
-        const textToCopy = resultElement.textContent;
-
-        if (textToCopy) {
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                alert('Copied to clipboard: ' + textToCopy);
-            }).catch(err => {
-                console.error('Could not copy text: ', err);
-            });
-        } else {
-            alert('No string to copy. Please generate a string first.');
-        }
+        const range = document.createRange();
+        range.selectNode(resultElement);
+        const selection = window.getSelection();
+        selection.removeAllRanges(); // Clear previous selections
+        selection.addRange(range); // Select the text
+        alert('String selected! You can now copy it using Ctrl+C or Command+C.');
     }
 </script>
 
