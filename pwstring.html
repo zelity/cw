@@ -58,6 +58,9 @@
             border-radius: 5px;
             margin-top: 10px;
         }
+        #copyButton {
+            display: none; /* Initially hide the copy button */
+        }
     </style>
 </head>
 <body>
@@ -66,8 +69,8 @@
     <h1>Random String Generator</h1>
     <input type="number" id="lengthInput" placeholder="Enter number of characters" min="1" required>
     <button onclick="generateString()">Generate String</button>
-    <button onclick="copyToClipboard()">Copy All</button>
     <div id="result"></div>
+    <button id="copyButton" onclick="copyToClipboard()">Copy All</button>
 </div>
 
 <script>
@@ -82,6 +85,7 @@
         }
 
         document.getElementById('result').textContent = randomString;
+        document.getElementById('copyButton').style.display = 'block'; // Show the copy button
     }
 
     function copyToClipboard() {
