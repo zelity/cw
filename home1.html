@@ -1,57 +1,84 @@
 <!-- index.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Classroom</title>
     <style>
-         body {
-    background-image: url('https://i.redd.it/0k6meqvps4h91.gif');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat; /* prevents repeated images */
-    background-attachment: fixed; /* fixes the image in place as you scroll */
-  }
-        
+        body {
+            background-image: url('https://i.redd.it/0k6meqvps4h91.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat; /* prevents repeated images */
+            background-attachment: fixed; /* fixes the image in place as you scroll */
+            margin: 0; /* removes default margin */
+            font-family: 'Arial', sans-serif; /* better font choice */
+        }
+
+        h1 {
+            color: #fff;
+            text-align: center;
+            margin-top: 50px;
+            font-size: 3em;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* subtle shadow for readability */
+        }
+
         .button-container {
             position: fixed;
             bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: #333;
+            left: 50%;
+            transform: translateX(-50%); /* centers the button container */
+            background-color: rgba(51, 51, 51, 0.9); /* slightly transparent for better aesthetics */
             color: #fff;
-            padding: 10px;
+            padding: 20px;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-wrap: wrap; /* allows buttons to wrap to the next line */
+            justify-content: center; /* centers buttons in container */
         }
-        
+
         .button {
             margin: 10px;
             background-color: #A29996;
             color: #fff;
-            padding: 10px 20px;
+            padding: 15px 25px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s, transform 0.2s; /* smooth transitions */
         }
-        
+
         .button:hover {
             background-color: #3e8e41;
+            transform: scale(1.05); /* subtle zoom effect on hover */
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em; /* responsive font size */
+            }
+
+            .button {
+                width: 90%; /* buttons take full width on small screens */
+                margin: 5px 0; /* reduce margin for smaller screens */
+            }
         }
     </style>
 </head>
 <body>
-    
-    <!-- rest of your content here -->
+
+    <h1>Welcome to Google Classroom</h1>
     
     <div class="button-container">
-       <a href="games.html" class="button">Play Games</a>
-            <a href="sms-clock1212.html" class="button">WHS Clock</a>
-            <a href="browser.html" class="button">unblocked browser</a>
-            <a href="movies.html" class="button">free movies/shows</a>
-       
+        <a href="games.html" class="button">Play Games</a>
+        <a href="sms-clock1212.html" class="button">WHS Clock</a>
+        <a href="browser.html" class="button">Unblocked Browser</a>
+        <a href="movies.html" class="button">Free Movies/Shows</a>
     </div>
-</body>
-</html>
-    </script>
+
 </body>
 </html>
