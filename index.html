@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Z0nyy's Scientific Calculator</title>
+    <title>z0nyy's Calculator</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -12,16 +12,20 @@
             padding: 0;
             background-color: #e9ecef;
         }
-
-        .calculator-container {
-            max-width: 400px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: #fff;
+        header {
+            background-color: #343a40;
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        }
+        .calculator {
+            background: #fff;
+            padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            margin-top: 50px;
         }
-
         #display {
             width: 100%;
             padding: 15px;
@@ -31,13 +35,6 @@
             border-radius: 10px;
             box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.1);
         }
-
-        .button-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-
         .button {
             width: 60px;
             height: 60px;
@@ -50,76 +47,112 @@
             color: white;
             transition: background-color 0.2s, transform 0.1s;
         }
-
         .button:hover {
             background-color: #0056b3;
         }
-
         .button:active {
             transform: scale(0.95);
+        }
+        #learn-more {
+            margin-top: 20px;
+        }
+        #description {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #333;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            justify-content: center;
+        }
+        @media (max-width: 600px) {
+            .calculator {
+                width: 90%;
+                margin: auto;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Z0nyy's Scientific Calculator</h1>
-    </header>
-    <main>
-        <div class="calculator-container">
-            <input type="text" id="display" disabled placeholder="Enter expression">
-            <div class="button-grid">
-                <button class="button" onclick="clearDisplay()">C</button>
-                <button class="button" onclick="appendToDisplay('/')">/</button>
-                <button class="button" onclick="appendToDisplay('*')">x</button>
-                <button class="button" onclick="appendToDisplay('-')">-</button>
 
-                <!-- ... (rest of the buttons) ... -->
+<header>
+    <h1>z0nyy's Calculator</h1>
+</header>
 
-                <button class="button" onclick="calculateResult()">=</button>
-            </div>
-        </div>
-        <div id="description">
-            <p>This is a simple scientific calculator. Perform basic and scientific calculations with ease.</p>
-            <button id="learn-more" onclick="promptPassword()">Learn More</button>
-        </div>
+<div class="calculator">
+    <input type="text" id="display" disabled>
+    <div class="grid">
+        <button class="button" onclick="clearDisplay()">C</button>
+        <button class="button" onclick="appendToDisplay('/')">/</button>
+        <button class="button" onclick="appendToDisplay('*')">x</button>
+        <button class="button" onclick="appendToDisplay('-')">-</button>
 
-        <!-- JavaScript code -->
-        <script>
-          function appendToDisplay(value) {
-              document.getElementById('display').value += value;
-          }
+        <button class="button" onclick="appendToDisplay('7')">7</button>
+        <button class="button" onclick="appendToDisplay('8')">8</button>
+        <button class="button" onclick="appendToDisplay('9')">9</button>
+        <button class="button" onclick="appendToDisplay('+')">+</button>
 
-          function clearDisplay() {
-              document.getElementById('display').value = '';
-          }
+        <button class="button" onclick="appendToDisplay('4')">4</button>
+        <button class="button" onclick="appendToDisplay('5')">5</button>
+        <button class="button" onclick="appendToDisplay('6')">6</button>
+        <button class="button" onclick="calculateResult()">=</button>
 
-          function calculateResult() {
-              let display = document.getElementById('display').value;
-              try {
-                  const result = Function('"use strict";return (' + display + ')')();
-                  document.getElementById('display').value = result;
-              } catch (e) {
-                  alert('Error in calculation! Please check your input.');
-                  clearDisplay();
-              }
-          }
+        <button class="button" onclick="appendToDisplay('1')">1</button>
+        <button class="button" onclick="appendToDisplay('2')">2</button>
+        <button class="button" onclick="appendToDisplay('3')">3</button>
+        <button class="button" onclick="appendToDisplay('0')">0</button>
 
-          function promptPassword() {
-              var password = prompt("Please enter the password:");
-              if (password === "games") {
-                  var win = window.open();
-                  var url = "https://z0nyy.xyz/home1.html";
-                  var iframe = win.document.createElement('iframe');
-                  iframe.style.width = "100%";
-                  iframe.style.height = "100%";
-                  iframe.style.border = "none";
-                  iframe.src = url;
-                  win.document.body.appendChild(iframe);
-              } else {
-                  alert("Incorrect password. Access denied.");
-              }
-          }
-        </script>
-    </main>
+        <button class="button" onclick="appendToDisplay('Math.PI')">π</button>
+        <button class="button" onclick="appendToDisplay('Math.sin(')">sin</button>
+        <button class="button" onclick="appendToDisplay('Math.cos(')">cos</button>
+        <button class="button" onclick="appendToDisplay('Math.tan(')">tan</button>
+    </div>
+</div>
+
+<div id="description">
+    <p>This is a simple scientific calculator. Perform basic and scientific calculations with ease.</p>
+    <button id="learn-more" onclick="promptPassword()">Learn More</button>
+</div>
+
+<script>
+    function appendToDisplay(value) {
+        document.getElementById('display').value += value;
+    }
+
+    function clearDisplay() {
+        document.getElementById('display').value = '';
+    }
+
+    function calculateResult() {
+        let display = document.getElementById('display').value;
+        try {
+            // Error handling for invalid calculations
+            const result = Function('"use strict";return (' + display + ')')();
+            document.getElementById('display').value = result;
+        } catch (e) {
+            alert('Error in calculation! Please check your input.');
+            clearDisplay();
+        }
+    }
+
+    function promptPassword() {
+        var password = prompt("Please enter the password:");
+        if (password === "games") {
+            var win = window.open();
+            var url = "https://z0nyy.xyz/home1.html";
+            var iframe = win.document.createElement('iframe');
+            iframe.style.width = "100%";
+            iframe.style.height = "100%";
+            iframe.style.border = "none";
+            iframe.src = url;
+            win.document.body.appendChild(iframe);
+        } else {
+            alert("Incorrect password. Access denied.");
+        }
+    }
+</script>
+
 </body>
 </html>
