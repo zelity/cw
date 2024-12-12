@@ -1,158 +1,156 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>z0nyy's Calculator</title>
+    <title>Calculator</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            background-color: #e9ecef;
+            font-family: Arial, sans-serif;
         }
-        header {
-            background-color: #343a40;
-            color: white;
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-        }
-        .calculator {
-            background: #fff;
-            padding: 30px;
+        
+        .keypad {
+            width: 200px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
             border-radius: 10px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-            display: inline-block;
-            margin-top: 50px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        #display {
+        
+        .keypad table {
             width: 100%;
-            padding: 15px;
-            font-size: 28px;
-            margin-bottom: 15px;
-            border: 2px solid #007BFF;
-            border-radius: 10px;
-            box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.1);
+            table-layout: fixed;
         }
-        .button {
-            width: 60px;
-            height: 60px;
-            font-size: 24px;
-            margin: 5px;
-            cursor: pointer;
+        
+        .keypad button {
+            width: 50px;
+            height: 50px;
+            background-color: #f0f0f0;
             border: none;
-            border-radius: 10px;
-            background-color: #007BFF;
-            color: white;
-            transition: background-color 0.2s, transform 0.1s;
+            border-radius: 5px;
+            cursor: pointer;
         }
-        .button:hover {
-            background-color: #0056b3;
+        
+        .keypad button:hover {
+            background-color: #e0e0e0;
         }
-        .button:active {
-            transform: scale(0.95);
+        
+        .operator {
+            background-color: #c00;
+            color: #fff;
         }
-        #learn-more {
-            margin-top: 20px;
+        
+        .equals {
+            background-color: #090;
+            color: #fff;
         }
-        #description {
-            margin-top: 20px;
-            font-size: 16px;
+        
+        .clear {
+            background-color: #ccc;
             color: #333;
         }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            justify-content: center;
-        }
-        @media (max-width: 600px) {
-            .calculator {
-                width: 90%;
-                margin: auto;
-            }
+        
+        input[type="text"] {
+            width: 200px;
+            height: 50px;
+            font-size: 24px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: right;
         }
     </style>
 </head>
 <body>
-
-<header>
-    <h1>z0nyy's Calculator</h1>
-</header>
-
-<div class="calculator">
-    <input type="text" id="display" disabled>
-    <div class="grid">
-        <button class="button" onclick="clearDisplay()">C</button>
-        <button class="button" onclick="appendToDisplay('/')">/</button>
-        <button class="button" onclick="appendToDisplay('*')">x</button>
-        <button class="button" onclick="appendToDisplay('-')">-</button>
-
-        <button class="button" onclick="appendToDisplay('7')">7</button>
-        <button class="button" onclick="appendToDisplay('8')">8</button>
-        <button class="button" onclick="appendToDisplay('9')">9</button>
-        <button class="button" onclick="appendToDisplay('+')">+</button>
-
-        <button class="button" onclick="appendToDisplay('4')">4</button>
-        <button class="button" onclick="appendToDisplay('5')">5</button>
-        <button class="button" onclick="appendToDisplay('6')">6</button>
-        <button class="button" onclick="calculateResult()">=</button>
-
-        <button class="button" onclick="appendToDisplay('1')">1</button>
-        <button class="button" onclick="appendToDisplay('2')">2</button>
-        <button class="button" onclick="appendToDisplay('3')">3</button>
-        <button class="button" onclick="appendToDisplay('0')">0</button>
-
-        <button class="button" onclick="appendToDisplay('Math.PI')">π</button>
-        <button class="button" onclick="appendToDisplay('Math.sin(')">sin</button>
-        <button class="button" onclick="appendToDisplay('Math.cos(')">cos</button>
-        <button class="button" onclick="appendToDisplay('Math.tan(')">tan</button>
-    </div>
-</div>
-
-<div id="description">
-    <p>This is a simple scientific calculator. Perform basic and scientific calculations with ease.</p>
-    <button id="learn-more" onclick="promptPassword()">Learn More</button>
+<h1>Calculator</h1>
+<input id="display" type="text" value="0">
+<div class="keypad">
+<table>
+<tr>
+<td><button class="button" id="7">7</button></td>
+<td><button class="button" id="8">8</button></td>
+<td><button class="button" id="9">9</button></td>
+<td><button class="operator" id="+">+</button></td>
+</tr>
+<tr>
+<td><button class="button" id="4">4</button></td>
+<td><button class="button" id="5">5</button></td>
+<td><button class="button" id="6">6</button></td>
+<td><button class="operator" id="-">-</button></td>
+</tr>
+<tr>
+<td><button class="button" id="1">1</button></td>
+<td><button class="button" id="2">2</button></td>
+<td><button class="button" id="3">3</button></td>
+<td><button class="operator" id="x">*</button></td>
+</tr>
+<tr>
+<td><button class="clear" id="clear">C</button></td>
+<td><button class="zero" id="0">0</button></td>
+<td><button class="operator" id="/">/</button></td>
+<td><button class="equals" id("=")>=</button></td>
+</tr>
+</table>
 </div>
 
 <script>
-    function appendToDisplay(value) {
-        document.getElementById('display').value += value;
-    }
 
-    function clearDisplay() {
-        document.getElementById('display').value = '';
-    }
+const display = document.getElementById('display');
+const keypad = document.querySelector('.keypad');
 
-    function calculateResult() {
-        let display = document.getElementById('display').value;
-        try {
-            // Error handling for invalid calculations
-            const result = Function('"use strict";return (' + display + ')')();
-            document.getElementById('display').value = result;
-        } catch (e) {
-            alert('Error in calculation! Please check your input.');
-            clearDisplay();
-        }
-    }
+let currentNumber = '';
+let previousNumber = '';
+let operator = '';
+let result = '';
 
-    function promptPassword() {
-        var password = prompt("Please enter the password:");
-        if (password === "games") {
-            var win = window.open();
-            var url = "https://z0nyy.xyz/home1.html";
-            var iframe = win.document.createElement('iframe');
-            iframe.style.width = "100%";
-            iframe.style.height = "100%";
-            iframe.style.border = "none";
-            iframe.src = url;
-            win.document.body.appendChild(iframe);
+keypad.addEventListener('click', (event) => {
+    if (event.target.tagName === 'BUTTON') {
+        const buttonValue = event.target.textContent;
+
+        if (isNaN(buttonValue)) {
+            switch (buttonValue) {
+                case '=':
+                    result = evaluateExpression();
+                    display.value = result.toFixed(2);
+                    break;
+                case 'C':
+                    display.value = '';
+                    currentNumber = '';
+                    break;
+                case '+':
+                case '-':
+                case '*':
+                case '/':
+                    operator = buttonValue;
+                    break;
+            }
         } else {
-            alert("Incorrect password. Access denied.");
+            currentNumber += buttonValue;
+
+            display.value = currentNumber;
         }
     }
-</script>
+});
 
+function evaluateExpression() {
+    if (!currentNumber) return;
+
+    if (operator === '+') {
+        result = parseFloat(previousNumber) + parseFloat(currentNumber);
+    } else if (operator === '-') {
+        result = parseFloat(previousNumber) - parseFloat(currentNumber);
+    } else if (operator === '*') {
+        result = parseFloat(previousNumber) * parseFloat(currentNumber);
+    } else if (operator === '/') {
+        result = parseFloat(previousNumber) / parseFloat(currentNumber);
+    }
+
+    return result.toString();
+}
+
+display.addEventListener('input', () => {
+    currentNumber = display.value.replace(',', '');
+});
+</script>
 </body>
 </html>
