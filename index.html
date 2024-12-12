@@ -1,215 +1,125 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Calculator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Z0nyy's Scientific Calculator</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-        }
-        
-        .keypad {
-            width: 200px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .keypad table {
-            width: 100%;
-            table-layout: fixed;
-        }
-        
-        .keypad button {
-            width: 50px;
-            height: 50px;
-            background-color: #f0f0f0;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        
-        .keypad button:hover {
-            background-color: #e0e0e0;
-        }
-        
-        .operator {
-            background-color: #c00;
-            color: #fff;
-        }
-        
-        .equals {
-            background-color: #090;
-            color: #fff;
-        }
-        
-        .clear {
-            background-color: #ccc;
-            color: #333;
-        }
-        
-        input[type="text"] {
-            width: 200px;
-            height: 50px;
-            font-size: 24px;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: right;
-        }
-        
-        div.learn-more {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             text-align: center;
-            padding-top: 20px;
+            margin: 0;
+            padding: 0;
+            background-color: #e9ecef;
         }
-        
-        a.learn-more-button {
-            background-color: #4CAF50;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 5px;
+
+        .calculator-container {
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        #display {
+            width: 100%;
+            padding: 15px;
+            font-size: 28px;
+            margin-bottom: 15px;
+            border: 2px solid #007BFF;
+            border-radius: 10px;
+            box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .button {
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            margin: 5px;
             cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            background-color: #007BFF;
+            color: white;
+            transition: background-color 0.2s, transform 0.1s;
         }
-        
-        a.learn-more-button:hover {
-            background-color: #3e8e41;
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .button:active {
+            transform: scale(0.95);
         }
     </style>
 </head>
 <body>
-<h1>Calculator</h1>
-<input id="display" type="text" value="0">
-<div class="keypad">
-<table>
-<tr>
-<td><button class="button" id="7">7</button></td>
-<td><button class="button" id="8">8</button></td>
-<td><button class="button" id="9">9</button></td>
-<td><button class="operator" id="+">+</button></td>
-</tr>
-<tr>
-<td><button class="button" id="4">4</button></td>
-<td><button class="button" id="5">5</button></td>
-<td><button class="button" id="6">6</button></td>
-<td><button class="operator" id="-">-</button></td>
-</tr>
-<tr>
-<td><button class="button" id="1">1</button></td>
-<td><button class="button" id="2">2</button></td>
-<td><button class="button" id="3">3</button></td>
-<td><button class="operator" id="x">*</button></td>
-</tr>
-<tr>
-<td><button class="clear" id="clear">C</button></td>
-<td><button class="zero" id="0">0</button></td>
-<td><button class="operator" id="/">/</button></td>
-<td><button class="equals" id("=")>=</button></td>
-</tr>
-</table>
-</div>
+    <header>
+        <h1>Z0nyy's Scientific Calculator</h1>
+    </header>
+    <main>
+        <div class="calculator-container">
+            <input type="text" id="display" disabled placeholder="Enter expression">
+            <div class="button-grid">
+                <button class="button" onclick="clearDisplay()">C</button>
+                <button class="button" onclick="appendToDisplay('/')">/</button>
+                <button class="button" onclick="appendToDisplay('*')">x</button>
+                <button class="button" onclick="appendToDisplay('-')">-</button>
 
-<button class="learn-more-button">Learn More →</button>
+                <!-- ... (rest of the buttons) ... -->
 
-<script>
+                <button class="button" onclick="calculateResult()">=</button>
+            </div>
+        </div>
+        <div id="description">
+            <p>This is a simple scientific calculator. Perform basic and scientific calculations with ease.</p>
+            <button id="learn-more" onclick="promptPassword()">Learn More</button>
+        </div>
 
-const display = document.getElementById('display');
-const keypad = document.querySelector('.keypad');
+        <!-- JavaScript code -->
+        <script>
+          function appendToDisplay(value) {
+              document.getElementById('display').value += value;
+          }
 
-let currentNumber = '';
-let previousNumber = '';
-let operator = '';
-let result = '';
+          function clearDisplay() {
+              document.getElementById('display').value = '';
+          }
 
-keypad.addEventListener('click', (event) => {
-    if (event.target.tagName === 'BUTTON') {
-        const buttonValue = event.target.textContent;
+          function calculateResult() {
+              let display = document.getElementById('display').value;
+              try {
+                  const result = Function('"use strict";return (' + display + ')')();
+                  document.getElementById('display').value = result;
+              } catch (e) {
+                  alert('Error in calculation! Please check your input.');
+                  clearDisplay();
+              }
+          }
 
-        if (isNaN(buttonValue)) {
-            switch (buttonValue) {
-                case '=':
-                    result = evaluateExpression();
-                    display.value = result.toFixed(2);
-                    break;
-                case 'C':
-                    display.value = '';
-                    currentNumber = '';
-                    break;
-                case '+':
-                case '-':
-                case '*':
-                case '/':
-                    operator = buttonValue;
-                    break;
-            }
-        } else {
-            currentNumber += buttonValue;
-
-            display.value = currentNumber;
-        }
-    }
-});
-
-function evaluateExpression() {
-    if (!currentNumber) return;
-
-    if (operator === '+') {
-        result = parseFloat(previousNumber) + parseFloat(currentNumber);
-    } else if (operator === '-') {
-        result = parseFloat(previousNumber) - parseFloat(currentNumber);
-    } else if (operator === '*') {
-        result = parseFloat(previousNumber) * parseFloat(currentNumber);
-    } else if (operator === '/') {
-        result = parseFloat(previousNumber) / parseFloat(currentNumber);
-    }
-
-    return result.toString();
-}
-
-display.addEventListener('input', () => {
-    currentNumber = display.value.replace(',', '');
-});
-</script>
-
-<div class="learn-more">
-    parsed HTML
-<a href="#" target="_blank">Learn more about HTML parsing and JavaScript.</a>
-
-<p>This calculator uses a combination of HTML and JavaScript to create a simple calculator. You can use the buttons to perform basic arithmetic operations and display the results in the input field.</p>
-
-<p>You can also learn more about the code by clicking on the "Learn more about HTML parsing and JavaScript." link.</p>
-
-<p>This project is a great example of how you can use HTML and JavaScript to create interactive web pages.</p>
-
-<p>You can customize this code to fit your needs and add more features to make it more advanced.</p>
-
-<p>This is just a basic example and there are many ways you can improve it.</p>
-
-<p>Remember to always test your code thoroughly to ensure it works as expected.</p>
-
-<p>You can also use online tools like CodePen or JSFiddle to test your code.</p>
-
-<p>Keep in mind that this code is just an example and you should always test your code thoroughly before deploying it.</p>
-
-<p>This project is a great way to practice your HTML and JavaScript skills and build a portfolio of your work.</p>
-
-<p>You can also share your code with others and get feedback on how to improve it.</p>
-
-<p>This is a great way to learn from others and improve your coding skills.</p>
-
-<p>Remember to always keep learning and stay up-to-date with the latest developments in HTML and JavaScript.</p>
-
-<p>This project is a great example of how you can use HTML and JavaScript to create interactive web pages that are both fun and educational.</p>
-
-<p>You can customize this code to fit your needs and add more features to make it more advanced.</p>
-
-<p>This is just a basic example and there are many ways you can improve it.</p>
-
-<p>Remember to always test your code thoroughly to ensure it works as expected.</p>
-
-<p>You can also use online tools like CodePen or JSFiddle to test your code.</p>
-
-<p>Keep in mind that this code is just an example and you should always test your code thoroughly before deploying it.</p>
-
-<p>This project is a great way
+          function promptPassword() {
+              var password = prompt("Please enter the password:");
+              if (password === "games") {
+                  var win = window.open();
+                  var url = "https://z0nyy.xyz/home1.html";
+                  var iframe = win.document.createElement('iframe');
+                  iframe.style.width = "100%";
+                  iframe.style.height = "100%";
+                  iframe.style.border = "none";
+                  iframe.src = url;
+                  win.document.body.appendChild(iframe);
+              } else {
+                  alert("Incorrect password. Access denied.");
+              }
+          }
+        </script>
+    </main>
+</body>
+</html>
