@@ -12,13 +12,30 @@
         padding: 10px;
         cursor: pointer;
       }
+
+      /* Styles for the image container */
+      #image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Full screen height */
+      }
+
+      img {
+        width: auto; /* Keep original width */
+        height: auto; /* Keep original height */
+        max-width: none; /* Allow the image to be its original size */
+        max-height: none; /* Allow the image to be its original size */
+      }
     </style>
   </head>
   <body>
-    <a href='https://postimg.cc/fJrx68DS' target='_blank'>
-      <img src='https://i.postimg.cc/T3RC5ss0/Wareham-High-Lunch-December-2024.png' border='0' alt='Wareham-High-Lunch-December-2024' style="width: 100vw; height: 100vh; object-fit: cover;"/>
-    </a>
-    
+    <div id="image-container">
+      <a href='https://postimg.cc/fJrx68DS' target='_blank'>
+        <img src='https://i.postimg.cc/T3RC5ss0/Wareham-High-Lunch-December-2024.png' border='0' alt='Wareham-High-Lunch-December-2024'/>
+      </a>
+    </div>
+
     <!-- Add the "Go Back to Homepage" button -->
     <div id="go-back-button" onclick="window.location.href='https://zelity.github.io/cw/home1.html'">Go Back to Homepage</div>
   </body>
