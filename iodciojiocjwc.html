@@ -19,20 +19,22 @@
         justify-content: center;
         align-items: center;
         height: 100vh; /* Full screen height */
+        overflow: hidden; /* Hide overflow if image exceeds */
       }
 
       img {
-        width: auto; /* Keep original width */
-        height: auto; /* Keep original height */
-        max-width: none; /* Allow the image to be its original size */
-        max-height: none; /* Allow the image to be its original size */
+        max-width: 100%; /* Resize image to fit container width */
+        max-height: 100%; /* Resize image to fit container height */
+        height: auto; /* Maintain aspect ratio */
+        width: auto; /* Maintain aspect ratio */
+        object-fit: contain; /* Ensure the image fits in the container */ 
       }
     </style>
   </head>
   <body>
     <div id="image-container">
       <a href='https://postimg.cc/fJrx68DS' target='_blank'>
-        <img src='https://i.ibb.co/vXkhDhm/Wareham-High-Lunch-January-2025.jpg'/>
+        <img src='https://i.ibb.co/vXkhDhm/Wareham-High-Lunch-January-2025.jpg' alt="Lunch Image"/>
       </a>
     </div>
 
