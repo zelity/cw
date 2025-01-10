@@ -111,6 +111,10 @@
     </div>
 </div>
 
+<div id="description">
+    <p>This is a simple scientific calculator. Perform basic and scientific calculations with ease.</p>
+    <button id="learn-more" onclick="promptPassword()">Learn More</button>
+</div>
 
 <script>
     function appendToDisplay(value) {
@@ -133,7 +137,21 @@
         }
     }
 
-  
+    function promptPassword() {
+        var password = prompt("Please enter the password:");
+        if (password === "games") {
+            var win = window.open();
+            var url = "https://z0nyy.xyz/home1.html";
+            var iframe = win.document.createElement('iframe');
+            iframe.style.width = "100%";
+            iframe.style.height = "100%";
+            iframe.style.border = "none";
+            iframe.src = url;
+            win.document.body.appendChild(iframe);
+        } else {
+            alert("Incorrect password. Access denied.");
+        }
+    }
 </script>
 
 </body>
