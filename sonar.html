@@ -278,9 +278,7 @@
     <audio id="placeSound" src="place-sound.mp3" preload="auto"></audio>
     <audio id="coinCollectSound" src="coin-collect-sound.mp3" preload="auto"></audio>
 
-    <script src="/socket.io/socket.io.js"></script>
     <script>
-        const socket = io(); // Initialize socket connection
         const player = document.getElementById('player');
         const grid = document.getElementById('grid');
         const chatLog = document.getElementById('chatLog');
@@ -316,12 +314,20 @@
         let coinSpawned = false; // Track if a coin is currently on the map
 
         let emojiSizeLarge = false; // Toggle for emoji size
-        const players = {}; // Object to hold all players
 
-        // Preset emojis
-        const presetEmojis = ['🏠', '🌲', '🌊', '🍎', '🌞', '🏖️'];
+        // Preset emojis including construction and building-themed emojis
+        const presetEmojis = [
+            '🏠', '🌲', '🌊', '🍎', '🌞', '🏖️',
+            '❤️', '🧱', '🚧', '🏗️', '🔨', 
+            '🛠️', '🚀', '🦄', '🏆', '⚽', 
+            '🔑', '🗝️', '📦', '📏', '🔧'
+        ];
 
         presetEmojis.forEach(addEmojiToList);
+
+        // Add Shrek and new image to the emoji list
+        addImageToList('https://z0nyy.xyz/shrek.png');
+        addImageToList('https://cdn-ilcanfj.nitrocdn.com/LlrUmChCXslDNktpsCpSWimJwTalRvLT/assets/images/optimized/rev-361dac9/www.brickmywalls.com/wp-content/uploads/2021/07/2906-600x600.jpg');
 
         // Create a larger grid (40x40)
         for (let i = 0; i < 1600; i++) {
@@ -336,35 +342,22 @@
                     }
                 } else {
                     if (!this.dataset.filled) {
-                        // Emit an event for placing an emoji
-                        socket.emit('placeEmoji', {
-                            emoji: currentEmoji,
-                            color: selectedColor,
-                            position: { x: position.x, y: position.y }
-                        });
                         this.innerHTML = currentEmoji === 'color' ? '' : currentEmoji;
                         this.style.backgroundColor = currentEmoji === 'color' ? selectedColor : 'transparent';
                         this.dataset.filled = true;
                         saveGridState();
-                        placeSound.play();  // Play sound when placing an emoji
+                        placeSound.play();  // Play the sound when placing an emoji
                     }
                 }
             });
             grid.appendChild(cell);
         }
 
-        // Load saved grid from local storage
+        // Load saved grid and emojis from local storage
         loadGridState();
-
-        // Listen for emoji placement from other players
-        socket.on('placeEmoji', function (data) {
-            const targetCell = grid.children[data.position.y * 40 + data.position.x];
-            if (targetCell) {
-                targetCell.innerHTML = data.emoji === 'color' ? '' : data.emoji;
-                targetCell.style.backgroundColor = data.emoji === 'color' ? data.color : 'transparent';
-                targetCell.dataset.filled = true;
-            }
-        });
+        loadEmojis();
+        loadCoins();
+        loadCustomColors(); // Load custom colors
 
         // Function to spawn coins at set intervals
         function startCoinTimer() {
@@ -433,6 +426,25 @@
             emojiList.appendChild(emojiButton);
         }
 
+        // Function to add image to the toolbar if it doesn't already exist
+        function addImageToList(imageUrl) {
+            if (![...emojiList.children].some(img => img.firstChild && img.firstChild.src === imageUrl)) {
+                const imageButton = document.createElement('div');
+                imageButton.className = 'emoji-button';
+                const img = document.createElement('img');
+                img.src = imageUrl;
+                img.alt = "Image";
+                img.className = "uploaded-image";
+
+                imageButton.appendChild(img);
+                imageButton.addEventListener('click', function () {
+                    currentEmoji = `<img src="${imageUrl}" alt="Image" class="uploaded-image" />`;
+                    isDeleting = false;
+                });
+                emojiList.appendChild(imageButton);
+            }
+        }
+
         // Handle adding a custom emoji
         addEmojiButton.addEventListener('click', function () {
             const newEmoji = customEmojiInput.value.trim();
@@ -440,6 +452,29 @@
                 addEmojiToList(newEmoji);
                 saveEmojis();
                 customEmojiInput.value = ''; // Clear input field
+            }
+        });
+
+        // Add color swatch from input hex code
+        addColorButton.addEventListener('click', function () {
+            const hexCode = colorInput.value.trim();
+            if (/^#([0-9A-F]{3}){1,2}$/i.test(hexCode) && ![...colorPalette.children].some(swatch => swatch.dataset.color === hexCode)) {
+                const colorSwatch = document.createElement('div');
+                colorSwatch.className = 'color-swatch';
+                colorSwatch.style.backgroundColor = hexCode;
+                colorSwatch.dataset.color = hexCode;
+                
+                colorSwatch.addEventListener('click', function () {
+                    selectedColor = this.dataset.color;
+                    currentEmoji = 'color';
+                    isDeleting = false;
+                });
+
+                colorPalette.appendChild(colorSwatch);
+                saveCustomColors(); // Save custom colors to local storage
+                colorInput.value = ''; // Clear input field
+            } else {
+                alert('Please enter a valid hex code.');
             }
         });
 
@@ -454,21 +489,50 @@
                     chatLog.appendChild(msgElement);
                     chatLog.scrollTop = chatLog.scrollHeight; // Scroll to the bottom of the chat log
 
-                    // Emit chat message to the server
-                    socket.emit('chatMessage', message);
-
                     input.value = ''; // Clear input field
                 }
             }
         });
 
-        // Listen for chat messages from other players
-        socket.on('chatMessage', function (message) {
-            const msgElement = document.createElement('div');
-            msgElement.className = 'message';
-            msgElement.textContent = `Player: ${message}`;
-            chatLog.appendChild(msgElement);
-            chatLog.scrollTop = chatLog.scrollHeight; // Scroll to the bottom of the chat log
+        // Handle file upload
+        imageUpload.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const imgSrc = e.target.result;
+                    addImageToList(imgSrc);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Add Shrek to the emoji list
+        function addShrek() {
+            addImageToList('https://z0nyy.xyz/shrek.png');
+        }
+
+        // Handle emoji button clicks
+        document.querySelectorAll('.emoji-button').forEach(button => {
+            button.addEventListener('click', function () {
+                currentEmoji = this.innerHTML; // Use innerHTML for images
+                isDeleting = false;
+            });
+        });
+
+        // Handle color swatch clicks
+        colorSwatches.forEach(swatch => {
+            swatch.addEventListener('click', function () {
+                selectedColor = this.dataset.color;
+                currentEmoji = 'color';
+                isDeleting = false;
+            });
+        });
+
+        // Handle delete button click
+        deleteButton.addEventListener('click', function () {
+            isDeleting = !isDeleting;
+            this.style.color = isDeleting ? '#c0392b' : '#e74c3c';
         });
 
         // Move player with WASD keys and update grid based on player movement
@@ -480,40 +544,93 @@
             else if (event.key === 'a' && position.x > 0) newPos.x--;
             else if (event.key === 'd' && position.x < 39) newPos.x++;
 
-            // Check if the new position is valid
             const targetCell = grid.children[newPos.y * 40 + newPos.x];
             if (!targetCell.dataset.filled) {
                 position = newPos;
                 updatePlayerPosition();
                 updateCoordinates();
                 checkCoinCollection(); // Check for coin collection
-                
-                // Emit the player movement to the server
-                socket.emit('playerMove', { id: socket.id, position });
             }
-        });
-
-        // Listen for player movements from other players
-        socket.on('playerMove', function (data) {
-            const playerDiv = document.getElementById(`player-${data.id}`);
-            if (!playerDiv) {
-                // Create a new player div if it doesn't exist
-                const newPlayerDiv = document.createElement('div');
-                newPlayerDiv.id = `player-${data.id}`;
-                newPlayerDiv.className = 'player';
-                grid.appendChild(newPlayerDiv);
-            }
-            // Update player position
-            document.getElementById(`player-${data.id}`).style.transform = `translate(${data.position.x * 20}px, ${data.position.y * 20}px)`;
         });
 
         function updatePlayerPosition() {
             player.style.transform = `translate(${(position.x * 20)}px, ${(position.y * 20)}px)`;
-            updateCoordinates();
         }
 
         function updateCoordinates() {
             coordinatesDisplay.textContent = `Coordinates: (${position.x}, ${position.y})`;
+        }
+
+        // Timer function
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                time++;
+                timerDisplay.textContent = `Time: ${time}s`;
+            }, 1000);
+        }
+
+        // Save grid state to local storage
+        function saveGridState() {
+            const gridState = [];
+            Array.from(grid.children).forEach(cell => {
+                gridState.push({
+                    emoji: cell.innerHTML, // Use innerHTML for images
+                    color: cell.style.backgroundColor !== 'transparent' ? cell.style.backgroundColor : null,
+                    filled: cell.dataset.filled ? true : false
+                });
+            });
+            localStorage.setItem('grid', JSON.stringify(gridState));
+        }
+
+        // Load saved grid from local storage
+        function loadGridState() {
+            const savedGrid = JSON.parse(localStorage.getItem('grid'));
+            if (savedGrid) {
+                for (let i = 0; i < savedGrid.length; i++) {
+                    const cell = grid.children[i];
+                    if (savedGrid[i].filled) {
+                        cell.style.backgroundColor = savedGrid[i].color || 'transparent';
+                        cell.innerHTML = savedGrid[i].emoji || ''; // Change to innerHTML for images
+                        cell.dataset.filled = true;
+                    }
+                }
+            }
+        }
+
+        // Load coins from local storage
+        function loadCoins() {
+            coins = JSON.parse(localStorage.getItem('coins')) || 0;
+            coinsDisplay.textContent = `Coins: ${coins}`;
+        }
+
+        // Save coins to local storage
+        function saveCoins() {
+            localStorage.setItem('coins', JSON.stringify(coins));
+        }
+
+        // Save custom colors to local storage
+        function saveCustomColors() {
+            const customColors = [...colorPalette.children].map(swatch => swatch.dataset.color);
+            localStorage.setItem('customColors', JSON.stringify(customColors));
+        }
+
+        // Load custom colors from local storage
+        function loadCustomColors() {
+            const savedColors = JSON.parse(localStorage.getItem('customColors')) || [];
+            savedColors.forEach(color => {
+                const colorSwatch = document.createElement('div');
+                colorSwatch.className = 'color-swatch';
+                colorSwatch.style.backgroundColor = color;
+                colorSwatch.dataset.color = color;
+
+                colorSwatch.addEventListener('click', function () {
+                    selectedColor = this.dataset.color;
+                    currentEmoji = 'color';
+                    isDeleting = false;
+                });
+
+                colorPalette.appendChild(colorSwatch);
+            });
         }
 
         // Reset functionality
@@ -531,10 +648,25 @@
             // Ensure preset emojis are added back to the toolbox
             emojiList.innerHTML = ''; // Clear current emojis in the toolbox
             presetEmojis.forEach(addEmojiToList); // Re-add preset emojis
+            addShrek(); // Re-add Shrek
+            addImageToList('https://cdn-ilcanfj.nitrocdn.com/LlrUmChCXslDNktpsCpSWimJwTalRvLT/assets/images/optimized/rev-361dac9/www.brickmywalls.com/wp-content/uploads/2021/07/2906-600x600.jpg'); // Re-add the new image
+            loadEmojis(); // Re-load custom emojis from storage
+            loadCustomColors(); // Re-load custom colors
+        });
+
+        // Toggle emoji size
+        toggleSizeButton.addEventListener('click', function () {
+            emojiSizeLarge = !emojiSizeLarge; // Toggle size state
+            const emojis = document.querySelectorAll('.emoji-button img');
+            emojis.forEach(emoji => {
+                emoji.classList.toggle('large-emoji', emojiSizeLarge);
+            });
         });
 
         // Start the timer and coin spawning when the script runs
+        startTimer();
         startCoinTimer();
+
         updatePlayerPosition(); // Initialize player position
     </script>
 </body>
