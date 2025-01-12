@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>revibe</title>
+    <title>Sonar Map Game with Coins and Sound Effects</title>
     <style>
         /* Basic styles for the application */
         body {
@@ -235,8 +235,10 @@
             <ul>
                 <li>Version 1.0: Initial Release</li>
                 <li>Version 1.1: Added custom emojis and block features.</li>
-                <li>Version 1.2: Improved UI and functionality added upload/load maps feature added portals made it so you can walk through doors.</li>
-             
+                <li>Version 1.2: Improved UI and functionality, added download/load maps feature, added portals and made it so you can go through doors </li>
+                <li>Version 1.3: Added portal functionality.</li>
+            
+            </ul>
         </div>
         <button id="startButton">Play</button>
     </div>
@@ -249,17 +251,17 @@
     <div class="sidebar" id="sidebar">
         <div id="coordinates">Coordinates: (20, 20)</div>
         <div id="coins">Coins: 0</div>
-        <div id="coinTimer">Next Coin in: 60s</div>
+        <div id="coinTimer">Next Coin in: 1200s</div>
         <div class="tool-box">
             <h2>Tools</h2>
             <div class="emoji-list" id="emojiList">
-                <div class="emoji-button" data-emoji="😀">😀</div>
-                <div class="emoji-button" data-emoji="😂">😂</div>
-                <div class="emoji-button" data-emoji="🥳">🥳</div>
-                <div class="emoji-button" data-emoji="😍">😍</div>
-                <div class="emoji-button" data-emoji="😎">😎</div>
-                <div class="emoji-button" data-emoji="🌟">🌟</div>
-                <div class="emoji-button" data-emoji="💖">💖</div>
+                <div class="emoji-button" data-emoji="🌙">🌙</div>
+                <div class="emoji-button" data-emoji="⭐">⭐</div>
+                <div class="emoji-button" data-emoji="🌹">🌹</div>
+                <div class="emoji-button" data-emoji="🍿">🍿</div>
+                <div class="emoji-button" data-emoji="⛽">⛽</div>
+                <div class="emoji-button" data-emoji="🚘">🚘</div>
+                <div class="emoji-button" data-emoji="🚔">🚔</div>
                 <div class="emoji-button" data-emoji="🚪">🚪</div>
                 <div class="emoji-button" data-emoji="🌀">🌀</div>
             </div>
@@ -293,8 +295,6 @@
                 <div class="block-button" data-color="yellow">
                     <img src="https://z0nyy.xyz/yellow-drop.png" alt="Yellow" style="width: 20px; height: 20px;" />
                 </div>
-
-                <!-- New blocks added below -->
                 <div class="block-button">
                     <img src="https://raw.githubusercontent.com/zelity/cw/refs/heads/main/images/rainbow-mushroom.png" alt="Rainbow Mushroom" style="width: 20px; height: 20px;" />
                 </div>
@@ -378,7 +378,7 @@
             let currentColor = ''; // Default color
             let currentEmoji = ''; // Default emoji
             let coins = 0; 
-            let coinCountdown = 60; // Countdown for next coin spawn
+            let coinCountdown = 1200; // Countdown for next coin spawn set to 20 minutes (1200 seconds)
             let timerInterval;
             let currentCoin = null; // Variable to store the current coin element
 
@@ -480,7 +480,7 @@
                     coinCountdown--;
                     if (coinCountdown <= 0) {
                         spawnCoin();
-                        coinCountdown = 60; // Reset the countdown
+                        coinCountdown = 1200; // Reset the countdown to 20 minutes (1200 seconds)
                     }
                     updateDisplay();
                 }, 1000); // Update every second
@@ -509,7 +509,6 @@
                         targetCell.innerHTML = ''; // Remove the coin from the grid
                         delete targetCell.dataset.filled; // Mark as empty
                         delete targetCell.dataset.coin; // Remove coin dataset
-                        return; // Exit to avoid standard movement after coin collection
                     }
 
                     // Check for spiral teleportation
@@ -551,7 +550,7 @@
                     delete cell.dataset.coin; // Clear coin dataset
                 });
                 coins = 0; // Reset coins
-                coinCountdown = 60; // Reset coin timer
+                coinCountdown = 1200; // Reset coin timer
                 position = { x: 20, y: 20 }; // Reset player position to (20, 20)
                 movePlayer(position); // Move player to reset position
                 updateDisplay();
@@ -834,7 +833,11 @@
             function savePlayerPosition() {
                 localStorage.setItem('playerPosition', JSON.stringify(position));
             }
+
+            // Start the coin timer when the game starts
+            startCoinTimer();
         }
     </script>
 </body>
 </html>
+     
