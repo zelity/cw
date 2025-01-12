@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sonar Map Game with Coins and Sound Effects</title>
+    <title>revibe</title>
     <style>
+        /* Basic styles for the application */
         body {
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
             height: 100vh;
             margin: 0;
             background-color: #2c3e50;
@@ -17,6 +17,47 @@
             font-family: Arial, sans-serif;
             padding: 20px;
             box-sizing: border-box;
+        }
+
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: rgba(44, 62, 80, 0.8);
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            width: 400px;
+            position: absolute;
+        }
+
+        .welcome-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #e74c3c;
+        }
+
+        .update-log {
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #ecf0f1;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
         }
 
         .grid-container {
@@ -27,6 +68,7 @@
             border: 2px solid #fff;
             margin-right: 10px;
             border-radius: 10px;
+            display: none;
         }
 
         .grid {
@@ -36,7 +78,6 @@
             position: absolute;
             top: 0;
             left: 0;
-            transition: transform 0.2s;
         }
 
         .grid div {
@@ -48,7 +89,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background-color 0.2s;
+            cursor: pointer; /* Change cursor style to pointer */
         }
 
         .grid div:hover {
@@ -61,7 +102,7 @@
             height: 20px;
             background-color: rgba(46, 204, 113, 0.8);
             border-radius: 50%;
-            transition: transform 0.2s;
+            transition: transform 0.2s ease;
             z-index: 1;
         }
 
@@ -73,7 +114,6 @@
         }
 
         #coordinates,
-        #timer,
         #coins,
         #coinTimer {
             margin-top: 5px;
@@ -113,10 +153,11 @@
             margin: 0 0 5px 0;
             font-size: 18px;
             text-decoration: underline;
+            color: #ecf0f1;
         }
 
         .emoji-list,
-        .color-palette {
+        .block-list {
             display: flex;
             justify-content: center;
             margin-top: 5px;
@@ -124,25 +165,19 @@
         }
 
         .emoji-button,
-        .color-swatch {
+        .block-button {
             cursor: pointer;
-            padding: 5px;
-            border: none;
-            border-radius: 5px;
             margin: 2px;
-            font-size: 18px;
             display: inline-block;
-            transition: transform 0.2s;
+            width: 20px;
+            height: 20px;
+            transition: border 0.2s;
+            font-size: 20px;
         }
 
-        .emoji-button:hover {
-            transform: scale(1.1);
-        }
-
-        .color-swatch {
-            width: 25px;
-            height: 25px;
-            border: 1px solid #fff;
+        .emoji-button:hover,
+        .block-button:hover {
+            border: 2px solid #fff;
         }
 
         .delete-button {
@@ -152,46 +187,14 @@
             font-size: 28px;
         }
 
-        .chat-container {
-            position: absolute;
-            width: 200px;
-            bottom: 90px; /* Position it above the player */
-            left: 10px;
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 10px;
-            border-radius: 5px;
-            z-index: 2;
+        input[type="file"] {
+            display: none;
         }
 
-        .chat-log {
-            max-height: 120px;
-            overflow-y: auto;
-            margin-bottom: 10px;
-            font-size: 14px;
-            color: black;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 5px;
-            border-radius: 5px;
-        }
-
-        .message {
-            margin: 5px 0;
-        }
-
-        input {
-            width: 100%;
-            padding: 6px;
-            border: none;
-            border-radius: 4px;
-            background-color: rgba(255, 255, 255, 0.3);
-            color: black;
-            outline: none;
-            margin-bottom: 5px;
-            font-size: 14px;
-        }
-
+        #addColorButton,
+        #uploadMapButton,
         #addEmojiButton,
-        #addColorButton {
+        #saveMapButton {
             margin-top: 5px;
             padding: 5px;
             background-color: #2980b9;
@@ -203,8 +206,10 @@
             font-size: 14px;
         }
 
+        #addColorButton:hover,
+        #uploadMapButton:hover,
         #addEmojiButton:hover,
-        #addColorButton:hover {
+        #saveMapButton:hover {
             background-color: #1a5276;
         }
 
@@ -215,460 +220,636 @@
             z-index: 0;
         }
 
-        .uploaded-image {
+        .color-block {
             width: 20px;
             height: 20px;
-        }
-
-        .large-emoji {
-            width: 30px;
-            height: 30px;
+            display: inline-block;
         }
     </style>
 </head>
-
 <body>
-    <div class="grid-container">
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-title">Welcome to Revibe</div>
+        <div class="update-log">
+            <h3>Update Logs:</h3>
+            <ul>
+                <li>Version 1.0: Initial Release</li>
+                <li>Version 1.1: Added custom emojis and block features.</li>
+                <li>Version 1.2: Improved UI and functionality.</li>
+                <li>Version 1.3: Added portal functionality.</li>
+                <li>Version 1.4: Enhanced teleportation system between spiral portals.</li>
+                <li>Version 1.5: Player now remains visible when entering the portal.</li>
+                <li>Version 1.6: The map now saves locally.</li>
+                <li>Version 1.7: Player spawn position saved locally.</li>
+                <li>Version 1.8: Fixed teleportation between portals after refresh.</li>
+                <li>Version 1.9: Fixed block persistence on refresh.</li>
+                <li>Version 2.0: Added save map and upload map functionality.</li>
+                <li>Version 2.1: Improved map upload functionality.</li>
+                <li>Version 2.2: Fixed portal teleportation and hex color block addition.</li>
+                <li>Version 2.3: Fixed normal block images display when placed.</li>
+                <li>Version 2.4: Improved delete block functionality.</li>
+                <li>Version 2.5: Added emoji creation to toolbox.</li>
+                <li>Version 2.6: Coin collection mechanic implemented.</li>
+                <li>Version 2.7: Fixed map upload glitches and player repositioning.</li>
+            </ul>
+        </div>
+        <button id="startButton">Play</button>
+    </div>
+
+    <div class="grid-container" id="gridContainer">
         <div class="grid" id="grid"></div>
         <div class="player" id="player"></div>
     </div>
 
-    <div class="sidebar">
+    <div class="sidebar" id="sidebar">
         <div id="coordinates">Coordinates: (20, 20)</div>
-        <div id="timer">Time: 0s</div>
         <div id="coins">Coins: 0</div>
         <div id="coinTimer">Next Coin in: 60s</div>
         <div class="tool-box">
             <h2>Tools</h2>
-            <div class="emoji-list" id="emojiList"></div>
-
-            <input type="text" id="customEmojiInput" placeholder="Add a custom emoji" />
-            <button id="addEmojiButton">Add Emoji</button>
-
-            <div class="color-palette" id="colorPalette">
-                <!-- Common Colors Added Here -->
-                <div class="color-swatch" data-color="#FF0000" style="background-color: #FF0000;"></div>
-                <div class="color-swatch" data-color="#00FF00" style="background-color: #00FF00;"></div>
-                <div class="color-swatch" data-color="#0000FF" style="background-color: #0000FF;"></div>
-                <div class="color-swatch" data-color="#FFFF00" style="background-color: #FFFF00;"></div>
-                <div class="color-swatch" data-color="#FF00FF" style="background-color: #FF00FF;"></div>
-                <div class="color-swatch" data-color="#00FFFF" style="background-color: #00FFFF;"></div>
-                <div class="color-swatch" data-color="#FFFFFF" style="background-color: #FFFFFF;"></div>
-                <div class="color-swatch" data-color="#000000" style="background-color: #000000;"></div>
-                <div class="color-swatch" data-color="#A52A2A" style="background-color: #A52A2A;"></div>
-                <div class="color-swatch" data-color="#FFA500" style="background-color: #FFA500;"></div>
+            <div class="emoji-list" id="emojiList">
+                <div class="emoji-button" data-emoji="😀">😀</div>
+                <div class="emoji-button" data-emoji="😂">😂</div>
+                <div class="emoji-button" data-emoji="🥳">🥳</div>
+                <div class="emoji-button" data-emoji="😍">😍</div>
+                <div class="emoji-button" data-emoji="😎">😎</div>
+                <div class="emoji-button" data-emoji="🌟">🌟</div>
+                <div class="emoji-button" data-emoji="💖">💖</div>
+                <div class="emoji-button" data-emoji="🚪">🚪</div>
+                <div class="emoji-button" data-emoji="🌀">🌀</div>
             </div>
 
-            <input type="text" id="colorInput" placeholder="Enter hex code (e.g. #ABCDEF)" />
-            <button id="addColorButton">Add Color</button>
+            <h2>Blocks</h2>
+            <div class="block-list" id="blockImageList">
+                <div class="block-button" data-color="orange">
+                    <img src="https://z0nyy.xyz/orange-drop.png" alt="Orange" style="width: 20px; height: 20px;" />
+                </div>
+                <div class="block-button" data-color="green">
+                    <img src="https://z0nyy.xyz/green-drop.png" alt="Green" style="width: 20px; height: 20px;" />
+                </div>
+                <div class="block-button" data-color="blue">
+                    <img src="https://z0nyy.xyz/blue-drop.png" alt="Blue" style="width: 20px; height: 20px;" />
+                </div>
+                <div class="block-button" data-color="red">
+                    <img src="https://z0nyy.xyz/red-drop.png" alt="Red" style="width: 20px; height: 20px;" />
+                </div>
+                <div class="block-button" data-color="pink">
+                    <img src="https://z0nyy.xyz/pink-block.png" alt="Pink" style="width: 20px; height: 20px;" />
+                </div>
+                <div class="block-button" data-color="black">
+                    <img src="https://z0nyy.xyz/black-drop.png" alt="Black" style="width: 20px; height: 20px;" />
+                </div>
+                <div class="block-button" data-color="brown">
+                    <img src="https://z0nyy.xyz/brown-drop.png" alt="Brown" style="width: 20px; height: 20px;" />
+                </div>
+                <div class="block-button" data-color="white">
+                    <img src="https://z0nyy.xyz/white-drop.png" alt="White" style="width: 20px; height: 20px;" />
+                </div>
+                <div class="block-button" data-color="yellow">
+                    <img src="https://z0nyy.xyz/yellow-drop.png" alt="Yellow" style="width: 20px; height: 20px;" />
+                </div>
+
+                <!-- New blocks added below -->
+                <div class="block-button">
+                    <img src="https://raw.githubusercontent.com/zelity/cw/refs/heads/main/images/rainbow-mushroom.png" alt="Rainbow Mushroom" style="width: 20px; height: 20px;" />
+                </div>
+                <div class="block-button">
+                    <img src="https://raw.githubusercontent.com/zelity/cw/refs/heads/main/images/rainbow-block.png" alt="Rainbow Block" style="width: 20px; height: 20px;" />
+                </div>
+                <div class="block-button">
+                    <img src="https://raw.githubusercontent.com/zelity/cw/refs/heads/main/images/vice-block.png" alt="Vice Block" style="width: 20px; height: 20px;" />
+                </div>
+                <div class="block-button">
+                    <img src="https://raw.githubusercontent.com/zelity/cw/refs/heads/main/images/rain-flame.png" alt="Rain Flame" style="width: 20px; height: 20px;" />
+                </div>
+                <div class="block-button">
+                    <img src="https://raw.githubusercontent.com/zelity/cw/refs/heads/main/images/purple-custom.png" alt="Purple Custom" style="width: 20px; height: 20px;" />
+                </div>
+                <div class="block-button">
+                    <img src="https://raw.githubusercontent.com/zelity/cw/refs/heads/main/images/purple-bear.png" alt="Purple Bear" style="width: 20px; height: 20px;" />
+                </div>
+                <div class="block-button">
+                    <img src="https://raw.githubusercontent.com/zelity/cw/refs/heads/main/images/lion-bear.png" alt="Lion Bear" style="width: 20px; height: 20px;" />
+                </div>
+                <div class="block-button">
+                    <img src="https://raw.githubusercontent.com/zelity/cw/refs/heads/main/images/da-baby.png" alt="Da Baby" style="width: 20px; height: 20px;" />
+                </div>
+                <div class="block-button">
+                    <img src="https://raw.githubusercontent.com/zelity/cw/refs/heads/main/images/chrome-block.png" alt="Chrome Block" style="width: 20px; height: 20px;" />
+                </div>
+                <div class="block-button">
+                    <img src="https://raw.githubusercontent.com/zelity/cw/refs/heads/main/images/Ben.png" alt="Ben" style="width: 20px; height: 20px;" />
+                </div>
+            </div>
+
+            <h2>Add Emoji</h2>
+            <div class="emoji-input-container">
+                <input type="text" id="emojiInput" placeholder="Enter Emoji (e.g., ⭐)" />
+                <button id="addEmojiButton">Add Emoji</button>
+            </div>
+
+            <h2>Create Color Block</h2>
+            <div class="color-input-container">
+                <input type="text" id="colorInput" placeholder="Hex code (e.g., #ABCDEF)" />
+                <button id="addColorButton">Add Color</button>
+            </div>
 
             <div class="delete-button" id="deleteButton">❌</div>
-            <button id="toggleSizeButton">Toggle Emoji Size</button>
-        </div>
-
-        <div class="chat-container">
-            <div class="chat-log" id="chatLog"></div>
-            <input type="text" id="chatInput" placeholder="Type a message..." />
-            <input type="file" id="imageUpload" style="display: none;" />
+            <button id="saveMapButton" class="upload-button">Save Map</button>
+            <button id="uploadMapButton" class="upload-button">Upload Map</button>
+            <input type="file" id="uploadMapInput" accept=".json" />
         </div>
 
         <button id="resetButton">Reset Map</button>
     </div>
 
-    <audio id="placeSound" src="place-sound.mp3" preload="auto"></audio>
-    <audio id="coinCollectSound" src="coin-collect-sound.mp3" preload="auto"></audio>
-
     <script>
-        const player = document.getElementById('player');
-        const grid = document.getElementById('grid');
-        const chatLog = document.getElementById('chatLog');
-        const input = document.getElementById('chatInput');
-        const coordinatesDisplay = document.getElementById('coordinates');
-        const timerDisplay = document.getElementById('timer');
-        const resetButton = document.getElementById('resetButton');
-        const emojiList = document.getElementById('emojiList');
-        const customEmojiInput = document.getElementById('customEmojiInput');
-        const addEmojiButton = document.getElementById('addEmojiButton');
-        const colorSwatches = document.querySelectorAll('.color-swatch');
-        const deleteButton = document.getElementById('deleteButton');
-        const coinsDisplay = document.getElementById('coins');
-        const coinTimerDisplay = document.getElementById('coinTimer');
-        const imageUpload = document.getElementById('imageUpload');
-        const toggleSizeButton = document.getElementById('toggleSizeButton');
-        const colorInput = document.getElementById('colorInput');
-        const addColorButton = document.getElementById('addColorButton');
-        const colorPalette = document.getElementById('colorPalette');
+        // Show welcome screen initially
+        document.getElementById('welcomeScreen').style.display = 'flex';
+        document.getElementById('gridContainer').style.display = 'none';
 
-        const placeSound = document.getElementById('placeSound');
-        const coinCollectSound = document.getElementById('coinCollectSound');
+        const localStorageKey = "customColorBlocks";
 
-        let position = { x: 20, y: 20 }; // Starting position
-        let currentEmoji = '🏠';
-        let selectedColor = '#e74c3c';
-        let time = 0;
-        let timerInterval;
-        let isDeleting = false;
-        let coins = 0;
-        let coinPosition = { x: -1, y: -1 };
-        let coinCountdown = 60; // Countdown for next coin spawn
-        let coinSpawned = false; // Track if a coin is currently on the map
+        // Start button functionality
+        document.getElementById('startButton').addEventListener('click', function () {
+            document.getElementById('welcomeScreen').style.display = 'none'; // Hide welcome screen
+            document.getElementById('gridContainer').style.display = 'block'; // Show grid container
+            startGame(); // Start the game
+        });
 
-        let emojiSizeLarge = false; // Toggle for emoji size
+        // Main game logic initialization
+        function startGame() {
+            const player = document.getElementById('player');
+            const grid = document.getElementById('grid');
+            const coordinatesDisplay = document.getElementById('coordinates');
+            const coinsDisplay = document.getElementById('coins');
+            const coinTimerDisplay = document.getElementById('coinTimer');
+            const resetButton = document.getElementById('resetButton');
 
-        // Preset emojis including construction and building-themed emojis
-        const presetEmojis = [
-            '🏠', '🌲', '🌊', '🍎', '🌞', '🏖️',
-            '❤️', '🧱', '🚧', '🏗️', '🔨', 
-            '🛠️', '🚀', '🦄', '🏆', '⚽', 
-            '🔑', '🗝️', '📦', '📏', '🔧'
-        ];
+            // Load player position and portals from local storage, fallback to (20, 20)
+            let position = JSON.parse(localStorage.getItem('playerPosition')) || { x: 20, y: 20 };
+            let portals = JSON.parse(localStorage.getItem('portals')) || []; // Load portals
+            let currentItem = ''; // Default item (block or emoji)
+            let currentColor = ''; // Default color
+            let currentEmoji = ''; // Default emoji
+            let coins = 0; 
+            let coinCountdown = 60; // Countdown for next coin spawn
+            let timerInterval;
+            let currentCoin = null; // Variable to store the current coin element
 
-        presetEmojis.forEach(addEmojiToList);
+            // Load custom color blocks from local storage
+            let customColorBlocks = JSON.parse(localStorage.getItem(localStorageKey)) || [];
 
-        // Add Shrek and new image to the emoji list
-        addImageToList('https://z0nyy.xyz/shrek.png');
-        addImageToList('https://cdn-ilcanfj.nitrocdn.com/LlrUmChCXslDNktpsCpSWimJwTalRvLT/assets/images/optimized/rev-361dac9/www.brickmywalls.com/wp-content/uploads/2021/07/2906-600x600.jpg');
-
-        // Create a larger grid (40x40)
-        for (let i = 0; i < 1600; i++) {
-            const cell = document.createElement('div');
-            cell.addEventListener('click', function () {
-                if (isDeleting) {
+            // Create a larger grid (40x40)
+            for (let i = 0; i < 1600; i++) {
+                const cell = document.createElement('div');
+                cell.addEventListener('click', function () {
+                    // In delete mode, delete the block or emoji
                     if (this.dataset.filled) {
-                        this.innerHTML = '';
-                        this.style.backgroundColor = 'transparent';
-                        delete this.dataset.filled;
-                        saveGridState();
+                        if (deleteMode) {
+                            this.innerHTML = ''; // Clear previous content
+                            delete this.dataset.filled; // Mark as empty
+                            delete this.dataset.emoji; // Clear emoji dataset
+                            delete this.dataset.colorBlock; // Clear color block dataset (if any)
+                            saveMap(); // Save map state after deletion
+                        }
+                    } else {
+                        // Place blocks or emojis
+                        if (currentItem) {
+                            const blockElement = document.createElement('img'); // Create an img for the block
+                            blockElement.src = currentItem; // Set the block image source
+                            blockElement.style.width = '20px'; // Set block size
+                            blockElement.style.height = '20px'; // Set block size
+                            this.innerHTML = ''; // Clear previous content
+                            this.appendChild(blockElement); // Append block image
+                            this.dataset.filled = 'true'; // Mark as filled
+                        } else if (currentEmoji) {
+                            const emojiElement = document.createElement('div'); // Create a div for the emoji
+                            emojiElement.textContent = currentEmoji; // Set emoji text
+                            emojiElement.style.fontSize = '20px'; // Set emoji size
+                            this.innerHTML = ''; // Clear previous content
+                            this.appendChild(emojiElement); // Append emoji to cell
+                            this.dataset.filled = 'true'; // Mark as filled
+                            this.dataset.emoji = currentEmoji; // Store emoji in dataset
+
+                            // Add portal to the list if it's a spiral
+                            if (currentEmoji === '🌀') {
+                                const portalCoords = { x: Math.floor(i % 40), y: Math.floor(i / 40) };
+                                portals.push(portalCoords); // Add portal coordinates
+                                localStorage.setItem('portals', JSON.stringify(portals)); // Update local storage
+                            }
+                        } else if (currentColor) {
+                            const colorBlockElement = document.createElement('div'); // Create a div for the color block
+                            colorBlockElement.style.backgroundColor = currentColor; // Set the background color
+                            colorBlockElement.className = 'color-block'; // Add class for styling
+                            this.innerHTML = ''; // Clear previous content
+                            this.appendChild(colorBlockElement); // Append color block
+                            this.dataset.filled = 'true'; // Mark as filled
+                            this.dataset.colorBlock = currentColor; // Store the color for further usage
+                        }
+
+                        // Save to localStorage when a cell is placed
+                        saveMap();
                     }
-                } else {
-                    if (!this.dataset.filled) {
-                        this.innerHTML = currentEmoji === 'color' ? '' : currentEmoji;
-                        this.style.backgroundColor = currentEmoji === 'color' ? selectedColor : 'transparent';
-                        this.dataset.filled = true;
-                        saveGridState();
-                        placeSound.play();  // Play the sound when placing an emoji
-                    }
-                }
-            });
-            grid.appendChild(cell);
-        }
-
-        // Load saved grid and emojis from local storage
-        loadGridState();
-        loadEmojis();
-        loadCoins();
-        loadCustomColors(); // Load custom colors
-
-        // Function to spawn coins at set intervals
-        function startCoinTimer() {
-            coinTimerDisplay.textContent = `Next Coin in: ${coinCountdown}s`;
-            const coinTimerInterval = setInterval(() => {
-                coinCountdown--;
-                coinTimerDisplay.textContent = `Next Coin in: ${coinCountdown}s`;
-                if (coinCountdown <= 0) {
-                    spawnCoin();
-                    coinCountdown = 60; // Reset countdown after coin spawn
-                    clearInterval(coinTimerInterval); // Clear and restart the interval
-                    startCoinTimer();
-                }
-            }, 1000);
-        }
-
-        function spawnCoin() {
-            if (!coinSpawned) {
-                let x = Math.floor(Math.random() * 40);
-                let y = Math.floor(Math.random() * 40);
-                const targetCell = grid.children[y * 40 + x];
-                if (!targetCell.dataset.filled && targetCell.innerHTML === '') { // Ensure a coin spawns in an empty cell
-                    targetCell.innerHTML = '<div class="coin">💰</div>';
-                    coinPosition = { x, y };
-                    coinSpawned = true; // Mark that a coin has been spawned
-                    coinCountdown = 60; // Reset the countdown when a coin is spawned
-                    coinTimerDisplay.textContent = `Next Coin in: ${coinCountdown}s`;
-                }
-            } else {
-                // Coin already spawned, just reset the countdown
-                coinCountdown = 60;
+                });
+                grid.appendChild(cell);
             }
-        }
 
-        // Check for coin collection
-        function checkCoinCollection() {
-            if (position.x === coinPosition.x && position.y === coinPosition.y) {
-                coins++;
+            // Load previous map state from local storage
+            loadMap();
+
+            // Move player smoothly to their position
+            function movePlayer(newPos) {
+                player.style.transform = `translate(${(newPos.x * 20)}px, ${(newPos.y * 20)}px)`;
+                position = newPos; // Update player position
+                savePlayerPosition(); // Save player's position in local storage
+            }
+
+            // Spawn player at the loaded position
+            movePlayer(position);
+
+            // Update Coordinates and Timer on screen
+            function updateDisplay() {
+                coordinatesDisplay.textContent = `Coordinates: (${position.x}, ${position.y})`;
                 coinsDisplay.textContent = `Coins: ${coins}`;
-                coinCollectSound.play();  // Play the sound when collecting a coin
-                const targetCell = grid.children[coinPosition.y * 40 + coinPosition.x];
-                targetCell.innerHTML = ''; // Remove the coin from the grid
-                coinSpawned = false; // Reset the coin spawn status
-                spawnCoin(); // Spawn a new coin
-                saveCoins();
+                coinTimerDisplay.textContent = `Next Coin in: ${coinCountdown}s`;
             }
-        }
 
-        // Function to load emojis from local storage
-        function loadEmojis() {
-            const savedEmojis = JSON.parse(localStorage.getItem('emojis')) || [];
-            savedEmojis.forEach(emoji => {
-                addEmojiToList(emoji);
-            });
-        }
+            // Handle spawning coin
+            function spawnCoin() {
+                // Avoid generating coins in filled cells
+                let coinPosition;
+                do {
+                    coinPosition = Math.floor(Math.random() * 1600);
+                } while (grid.children[coinPosition].dataset.filled); // Ensure coin is not placed on a filled block
 
-        // Function to add emoji button to the toolbox if it doesn't already exist
-        function addEmojiToList(emoji) {
-            const emojiButton = document.createElement('div');
-            emojiButton.className = 'emoji-button';
-            emojiButton.innerHTML = emoji; // Changed from textContent to innerHTML for images
-            emojiButton.addEventListener('click', function () {
-                currentEmoji = this.innerHTML; // Use innerHTML for images
-                isDeleting = false;
-            });
-            emojiList.appendChild(emojiButton);
-        }
-
-        // Function to add image to the toolbar if it doesn't already exist
-        function addImageToList(imageUrl) {
-            if (![...emojiList.children].some(img => img.firstChild && img.firstChild.src === imageUrl)) {
-                const imageButton = document.createElement('div');
-                imageButton.className = 'emoji-button';
-                const img = document.createElement('img');
-                img.src = imageUrl;
-                img.alt = "Image";
-                img.className = "uploaded-image";
-
-                imageButton.appendChild(img);
-                imageButton.addEventListener('click', function () {
-                    currentEmoji = `<img src="${imageUrl}" alt="Image" class="uploaded-image" />`;
-                    isDeleting = false;
-                });
-                emojiList.appendChild(imageButton);
+                currentCoin = grid.children[coinPosition];
+                currentCoin.innerHTML = '<span class="coin">💰</span>'; // Place coin in the random position
+                currentCoin.dataset.filled = true; // Mark as filled
+                currentCoin.dataset.coin = 'true'; // Store coin dataset
             }
-        }
 
-        // Handle adding a custom emoji
-        addEmojiButton.addEventListener('click', function () {
-            const newEmoji = customEmojiInput.value.trim();
-            if (newEmoji && !emojiList.innerHTML.includes(newEmoji)) {
-                addEmojiToList(newEmoji);
-                saveEmojis();
-                customEmojiInput.value = ''; // Clear input field
+            // Countdown for new coin spawning
+            function startCoinTimer() {
+                timerInterval = setInterval(() => {
+                    coinCountdown--;
+                    if (coinCountdown <= 0) {
+                        spawnCoin();
+                        coinCountdown = 60; // Reset the countdown
+                    }
+                    updateDisplay();
+                }, 1000); // Update every second
             }
-        });
 
-        // Add color swatch from input hex code
-        addColorButton.addEventListener('click', function () {
-            const hexCode = colorInput.value.trim();
-            if (/^#([0-9A-F]{3}){1,2}$/i.test(hexCode) && ![...colorPalette.children].some(swatch => swatch.dataset.color === hexCode)) {
-                const colorSwatch = document.createElement('div');
-                colorSwatch.className = 'color-swatch';
-                colorSwatch.style.backgroundColor = hexCode;
-                colorSwatch.dataset.color = hexCode;
-                
-                colorSwatch.addEventListener('click', function () {
-                    selectedColor = this.dataset.color;
-                    currentEmoji = 'color';
-                    isDeleting = false;
-                });
+            // Handle player movement
+            document.addEventListener('keydown', function (event) {
+                let newPos = { ...position };
 
-                colorPalette.appendChild(colorSwatch);
-                saveCustomColors(); // Save custom colors to local storage
-                colorInput.value = ''; // Clear input field
-            } else {
-                alert('Please enter a valid hex code.');
-            }
-        });
+                if (event.key === 'w' && position.y > 0) newPos.y--;
+                else if (event.key === 's' && position.y < 39) newPos.y++;
+                else if (event.key === 'a' && position.x > 0) newPos.x--;
+                else if (event.key === 'd' && position.x < 39) newPos.x++;
 
-        // Handle text input for chat
-        input.addEventListener('keypress', function (event) {
-            if (event.key === 'Enter') {
-                const message = input.value.trim();
-                if (message) {
-                    const msgElement = document.createElement('div');
-                    msgElement.className = 'message';
-                    msgElement.textContent = `Player: ${message}`;
-                    chatLog.appendChild(msgElement);
-                    chatLog.scrollTop = chatLog.scrollHeight; // Scroll to the bottom of the chat log
+                const targetCell = grid.children[newPos.y * 40 + newPos.x];
 
-                    input.value = ''; // Clear input field
+                // Allow the player to move through the door and the spiral portal
+                if (!targetCell.dataset.filled || 
+                    targetCell.dataset.emoji === '🚪' || 
+                    targetCell.dataset.emoji === '🌀') {
+
+                    // Check for coin collection
+                    if (targetCell.dataset.coin) {
+                        coins++; // Increase coin count
+                        updateDisplay();
+                        targetCell.innerHTML = ''; // Remove the coin from the grid
+                        delete targetCell.dataset.filled; // Mark as empty
+                        delete targetCell.dataset.coin; // Remove coin dataset
+                        return; // Exit to avoid standard movement after coin collection
+                    }
+
+                    // Check for spiral teleportation
+                    if (targetCell.dataset.emoji === '🌀') {
+                        const otherPortals = portals.filter(portal => !(portal.x === newPos.x && portal.y === newPos.y));
+                        if (otherPortals.length > 0) {
+                            movePlayer(newPos);
+                            const randomPortal = otherPortals[Math.floor(Math.random() * otherPortals.length)];
+                            setTimeout(() => {
+                                movePlayer(randomPortal); // Teleport to the selected portal location
+                            }, 0); // Immediately after
+                            return; // Exit to prevent standard movement after teleport
+                        }
+                    }
+                    movePlayer(newPos); // Move player to the new position
                 }
-            }
-        });
 
-        // Handle file upload
-        imageUpload.addEventListener('change', function (event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const imgSrc = e.target.result;
-                    addImageToList(imgSrc);
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // Add Shrek to the emoji list
-        function addShrek() {
-            addImageToList('https://z0nyy.xyz/shrek.png');
-        }
-
-        // Handle emoji button clicks
-        document.querySelectorAll('.emoji-button').forEach(button => {
-            button.addEventListener('click', function () {
-                currentEmoji = this.innerHTML; // Use innerHTML for images
-                isDeleting = false;
+                updateDisplay();
             });
-        });
 
-        // Handle color swatch clicks
-        colorSwatches.forEach(swatch => {
-            swatch.addEventListener('click', function () {
-                selectedColor = this.dataset.color;
-                currentEmoji = 'color';
-                isDeleting = false;
+            // Delete block or emoji functionality
+            const deleteButton = document.getElementById('deleteButton');
+            let deleteMode = false; // Variable to track delete mode
+
+            deleteButton.addEventListener('click', function () {
+                deleteMode = !deleteMode; // Toggle delete mode
+                
+                // Optionally provide visual feedback for delete mode activation
+                deleteButton.style.color = deleteMode ? '#fff' : '#e74c3c'; // Change color
             });
-        });
 
-        // Handle delete button click
-        deleteButton.addEventListener('click', function () {
-            isDeleting = !isDeleting;
-            this.style.color = isDeleting ? '#c0392b' : '#e74c3c';
-        });
+            // Reset functionality
+            resetButton.addEventListener('click', function () {
+                Array.from(grid.children).forEach(cell => {
+                    cell.innerHTML = '';
+                    delete cell.dataset.filled; // Clear dataset for the reset
+                    delete cell.dataset.emoji; // Clear emoji from dataset
+                    delete cell.dataset.colorBlock; // Clear color block dataset
+                    delete cell.dataset.coin; // Clear coin dataset
+                });
+                coins = 0; // Reset coins
+                coinCountdown = 60; // Reset coin timer
+                position = { x: 20, y: 20 }; // Reset player position to (20, 20)
+                movePlayer(position); // Move player to reset position
+                updateDisplay();
+                clearInterval(timerInterval); // Stop timer
+                spawnCoin(); // Spawn new coin after reset
+                startCoinTimer(); // Restart coin timer
+                portals = []; // Reset portals
+                localStorage.removeItem('mapData'); // Clear saved map data from local storage
+                localStorage.removeItem('playerPosition'); // Clear saved player position
+                localStorage.removeItem('portals'); // Clear portals from local storage
+                localStorage.removeItem(localStorageKey); // Clear custom color blocks from local storage
+            });
 
-        // Move player with WASD keys and update grid based on player movement
-        document.addEventListener('keydown', function (event) {
-            let newPos = { ...position };
-
-            if (event.key === 'w' && position.y > 0) newPos.y--;
-            else if (event.key === 's' && position.y < 39) newPos.y++;
-            else if (event.key === 'a' && position.x > 0) newPos.x--;
-            else if (event.key === 'd' && position.x < 39) newPos.x++;
-
-            const targetCell = grid.children[newPos.y * 40 + newPos.x];
-            if (!targetCell.dataset.filled) {
-                position = newPos;
-                updatePlayerPosition();
-                updateCoordinates();
-                checkCoinCollection(); // Check for coin collection
-            }
-        });
-
-        function updatePlayerPosition() {
-            player.style.transform = `translate(${(position.x * 20)}px, ${(position.y * 20)}px)`;
-        }
-
-        function updateCoordinates() {
-            coordinatesDisplay.textContent = `Coordinates: (${position.x}, ${position.y})`;
-        }
-
-        // Timer function
-        function startTimer() {
-            timerInterval = setInterval(() => {
-                time++;
-                timerDisplay.textContent = `Time: ${time}s`;
-            }, 1000);
-        }
-
-        // Save grid state to local storage
-        function saveGridState() {
-            const gridState = [];
-            Array.from(grid.children).forEach(cell => {
-                gridState.push({
-                    emoji: cell.innerHTML, // Use innerHTML for images
-                    color: cell.style.backgroundColor !== 'transparent' ? cell.style.backgroundColor : null,
-                    filled: cell.dataset.filled ? true : false
+            // Block and emoji button functionality
+            const blockButtons = document.querySelectorAll('.block-button');
+            blockButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    currentItem = this.querySelector('img').src; // Get the image source from clicked block
+                    currentEmoji = ''; // Clear emoji selection
+                    currentColor = ''; // Clear color selection
+                    deleteButton.style.color = '#e74c3c'; // Ensure delete mode is turned off
+                    deleteMode = false; // Turn off delete mode when a block is selected
                 });
             });
-            localStorage.setItem('grid', JSON.stringify(gridState));
-        }
 
-        // Load saved grid from local storage
-        function loadGridState() {
-            const savedGrid = JSON.parse(localStorage.getItem('grid'));
-            if (savedGrid) {
-                for (let i = 0; i < savedGrid.length; i++) {
-                    const cell = grid.children[i];
-                    if (savedGrid[i].filled) {
-                        cell.style.backgroundColor = savedGrid[i].color || 'transparent';
-                        cell.innerHTML = savedGrid[i].emoji || ''; // Change to innerHTML for images
-                        cell.dataset.filled = true;
+            const emojiButtons = document.querySelectorAll('.emoji-button');
+            emojiButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    currentEmoji = this.dataset.emoji; // Get the emoji from clicked button
+                    currentItem = ''; // Clear block selection
+                    currentColor = ''; // Clear color selection
+                    deleteButton.style.color = '#e74c3c'; // Ensure delete mode is turned off
+                    deleteMode = false; // Turn off delete mode when an emoji is selected
+                });
+            });
+
+            // Add Emoji functionality
+            const addEmojiButton = document.getElementById('addEmojiButton');
+            addEmojiButton.addEventListener('click', function () {
+                const emojiCode = document.getElementById('emojiInput').value.trim();
+                if (emojiCode) {
+                    const emojiButton = document.createElement('div');
+                    emojiButton.className = 'emoji-button';
+                    emojiButton.dataset.emoji = emojiCode; // Store emoji in dataset
+                    emojiButton.textContent = emojiCode; // Set emoji text
+                    emojiButton.style.fontSize = '20px'; // Set emoji size
+                    
+                    // Adding click event to the new emoji button
+                    emojiButton.addEventListener('click', function () {
+                        currentEmoji = this.dataset.emoji; // Get the emoji from clicked button
+                        currentItem = ''; // Clear block selection
+                        currentColor = ''; // Clear color selection
+                        deleteButton.style.color = '#e74c3c'; // Ensure delete mode is turned off
+                        deleteMode = false; // Turn off delete mode when an emoji is selected
+                    });
+
+                    // Append the new emoji button to the emoji list
+                    document.getElementById('emojiList').appendChild(emojiButton);
+                    document.getElementById('emojiInput').value = ''; // Clear input field
+                } else {
+                    alert('Please enter an emoji.');
+                }
+            });
+
+            // Color block addition
+            const addColorButton = document.getElementById('addColorButton');
+            addColorButton.addEventListener('click', function () {
+                const colorCode = document.getElementById('colorInput').value.trim();
+                const isValidHex = /^#[0-9A-F]{6}$/i.test(colorCode); // Regex to validate hex color
+
+                if (isValidHex) {
+                    // Create a new block using a div element with hex background color
+                    const colorBlock = document.createElement('div');
+                    colorBlock.style.width = '20px'; // Block width
+                    colorBlock.style.height = '20px'; // Block height
+                    colorBlock.style.backgroundColor = colorCode; // Set hex color
+                    colorBlock.className = 'block-button'; // Optional: give it some similar styling
+
+                    // Adding click event to place the color block
+                    colorBlock.addEventListener('click', function () {
+                        currentItem = ''; // Clear image selection
+                        currentEmoji = ''; // Clear emoji selection
+                        currentColor = colorCode; // Use color code for placement
+                        deleteButton.style.color = '#e74c3c'; // Ensure delete mode is turned off
+                        deleteMode = false; // Turn off delete mode
+                    });
+
+                    // Append the block to the toolbox
+                    document.getElementById('blockImageList').appendChild(colorBlock);
+                    customColorBlocks.push(colorCode); // Save the color block
+                    localStorage.setItem(localStorageKey, JSON.stringify(customColorBlocks)); // Update local storage
+                } else {
+                    alert('Invalid hex code. Please use format: #FFFFFF');
+                }
+            });
+
+            // Save the current state of the map to local storage
+            function saveMap() {
+                const mapData = Array.from(grid.children).map((cell) => ({
+                    filled: cell.dataset.filled === 'true',
+                    emoji: cell.dataset.emoji || null,
+                    blockImage: cell.querySelector('img') ? cell.querySelector('img').src : null, // Capture block image
+                    colorBlock: cell.dataset.colorBlock || null, // Capture color if exists
+                    coin: cell.dataset.coin || null // Capture coin information
+                }));
+
+                localStorage.setItem('mapData', JSON.stringify(mapData));
+            }
+
+            // Load the previous map state from local storage
+            function loadMap() {
+                const savedMapData = localStorage.getItem('mapData');
+                if (savedMapData) {
+                    const mapData = JSON.parse(savedMapData);
+                    // Clear the grid before loading the new map
+                    Array.from(grid.children).forEach(cell => {
+                        cell.innerHTML = ''; // Clear all cells
+                        delete cell.dataset.filled; // Clear filled status
+                        delete cell.dataset.emoji; // Clear emoji from dataset
+                        delete cell.dataset.colorBlock; // Clear color block dataset
+                        delete cell.dataset.coin; // Clear coin dataset
+                    });
+
+                    // Populate grid with the uploaded data
+                    mapData.forEach((cellData, index) => {
+                        const cell = grid.children[index];
+                        if (cellData.filled) {
+                            cell.dataset.filled = 'true';
+                            if (cellData.emoji) {
+                                const emojiElement = document.createElement('div');
+                                emojiElement.textContent = cellData.emoji; // Set emoji text
+                                emojiElement.style.fontSize = '20px'; // Set emoji size
+                                cell.appendChild(emojiElement); // Append emoji to cell
+                                cell.dataset.emoji = cellData.emoji; // Store the emoji in the dataset
+                            } else if (cellData.blockImage) {
+                                const blockElement = document.createElement('img'); // Create an img for the block
+                                blockElement.src = cellData.blockImage; // Set the block image source
+                                blockElement.style.width = '20px'; // Set block size
+                                blockElement.style.height = '20px'; // Set block size
+                                cell.appendChild(blockElement); // Append the block image
+                            } else if (cellData.colorBlock) {
+                                const colorBlockElement = document.createElement('div'); // Create a div for the color block
+                                colorBlockElement.style.backgroundColor = cellData.colorBlock; // Set the background color
+                                colorBlockElement.className = 'color-block'; // Add class for styling
+                                colorBlockElement.style.width = '20px'; // Block width
+                                colorBlockElement.style.height = '20px'; // Block height
+                                cell.appendChild(colorBlockElement); // Append the color block
+                            }
+                        }
+                        // Load coins if they exist
+                        if (cellData.coin) {
+                            cell.innerHTML = '<span class="coin">💰</span>'; // Append the coin UI
+                            cell.dataset.filled = true; // Mark as filled
+                            cell.dataset.coin = 'true'; // Store coin dataset
+                        }
+                    });
+
+                    // After uploading the map, check the player's position
+                    checkPlayerPosition();
+                }
+                // Load custom color blocks into the toolbox
+                customColorBlocks.forEach(color => {
+                    const colorBlock = document.createElement('div');
+                    colorBlock.style.width = '20px'; // Block width
+                    colorBlock.style.height = '20px'; // Block height
+                    colorBlock.style.backgroundColor = color; // Set hex color
+                    colorBlock.className = 'block-button'; // Optional: give it some similar styling
+                    // Adding click event to support block placing
+                    colorBlock.addEventListener('click', function () {
+                        currentItem = ''; // Clear image selection
+                        currentEmoji = ''; // Clear emoji selection
+                        currentColor = color; // Use color code for placement
+                        deleteButton.style.color = '#e74c3c'; // Ensure delete mode is turned off
+                        deleteMode = false; // Turn off delete mode
+                    });
+                    document.getElementById('blockImageList').appendChild(colorBlock);
+                });
+            }
+
+            // Check and adjust player position if they are inside a block
+            function checkPlayerPosition() {
+                const playerCell = grid.children[position.y * 40 + position.x];
+                if (playerCell.dataset.filled) {
+                    // Find the first empty cell to relocate the player
+                    for (let i = 0; i < grid.children.length; i++) {
+                        if (!grid.children[i].dataset.filled) {
+                            position.x = i % 40; // Calculate new x position
+                            position.y = Math.floor(i / 40); // Calculate new y position
+                            movePlayer(position); // Move player to this empty position
+                            break; // Exit loop after finding the first empty cell
+                        }
                     }
                 }
             }
-        }
 
-        // Load coins from local storage
-        function loadCoins() {
-            coins = JSON.parse(localStorage.getItem('coins')) || 0;
-            coinsDisplay.textContent = `Coins: ${coins}`;
-        }
-
-        // Save coins to local storage
-        function saveCoins() {
-            localStorage.setItem('coins', JSON.stringify(coins));
-        }
-
-        // Save custom colors to local storage
-        function saveCustomColors() {
-            const customColors = [...colorPalette.children].map(swatch => swatch.dataset.color);
-            localStorage.setItem('customColors', JSON.stringify(customColors));
-        }
-
-        // Load custom colors from local storage
-        function loadCustomColors() {
-            const savedColors = JSON.parse(localStorage.getItem('customColors')) || [];
-            savedColors.forEach(color => {
-                const colorSwatch = document.createElement('div');
-                colorSwatch.className = 'color-swatch';
-                colorSwatch.style.backgroundColor = color;
-                colorSwatch.dataset.color = color;
-
-                colorSwatch.addEventListener('click', function () {
-                    selectedColor = this.dataset.color;
-                    currentEmoji = 'color';
-                    isDeleting = false;
-                });
-
-                colorPalette.appendChild(colorSwatch);
+            // Save the map to a JSON file
+            document.getElementById('saveMapButton').addEventListener('click', function () {
+                const mapData = localStorage.getItem('mapData');
+                if (mapData) {
+                    const blob = new Blob([mapData], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'map.json'; // File name for download
+                    a.click();
+                    URL.revokeObjectURL(url);
+                } else {
+                    alert('No map data available to save.');
+                }
             });
+
+            // Upload map functionality
+            document.getElementById('uploadMapButton').addEventListener('click', function () {
+                document.getElementById('uploadMapInput').click(); // Trigger file input
+            });
+
+            // Load a map from a JSON file
+            document.getElementById('uploadMapInput').addEventListener('change', function (event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const uploadedData = JSON.parse(e.target.result);
+                        
+                        // Clear the current map
+                        Array.from(grid.children).forEach(cell => {
+                            cell.innerHTML = '';
+                            delete cell.dataset.filled; // Clear dataset
+                            delete cell.dataset.emoji; // Clear emoji from dataset
+                            delete cell.dataset.colorBlock; // Clear color block dataset
+                            delete cell.dataset.coin; // Clear coin dataset
+                        });
+
+                        // Populate grid with the uploaded data
+                        uploadedData.forEach((cellData, index) => {
+                            const cell = grid.children[index];
+                            if (cellData.filled) {
+                                cell.dataset.filled = 'true';
+                                if (cellData.emoji) {
+                                    const emojiElement = document.createElement('div');
+                                    emojiElement.textContent = cellData.emoji; // Set emoji text
+                                    emojiElement.style.fontSize = '20px'; // Set emoji size
+                                    cell.appendChild(emojiElement); // Append emoji
+                                    cell.dataset.emoji = cellData.emoji; // Store emoji in dataset
+                                } else if (cellData.blockImage) {
+                                    const blockElement = document.createElement('img'); // Create an img for the block
+                                    blockElement.src = cellData.blockImage; // Set the block image source
+                                    blockElement.style.width = '20px'; // Set block size
+                                    blockElement.style.height = '20px'; // Set block size
+                                    cell.appendChild(blockElement); // Append the block image
+                                } else if (cellData.colorBlock) {
+                                    const colorBlockElement = document.createElement('div'); // Create a div for the color block
+                                    colorBlockElement.style.backgroundColor = cellData.colorBlock; // Set the background color
+                                    colorBlockElement.className = 'color-block'; // Add class for styling
+                                    colorBlockElement.style.width = '20px'; // Block width
+                                    colorBlockElement.style.height = '20px'; // Block height
+                                    cell.appendChild(colorBlockElement); // Append the color block
+                                }
+                            }
+                            // Load coins if they exist
+                            if (cellData.coin) {
+                                cell.innerHTML = '<span class="coin">💰</span>'; // Append the coin UI
+                                cell.dataset.filled = true; // Mark as filled
+                                cell.dataset.coin = 'true'; // Store coin dataset
+                            }
+                        });
+
+                        updateDisplay(); // Update the display after loading the new map
+                        // Reload portals from local storage to ensure they work post-upload
+                        portals = JSON.parse(localStorage.getItem('portals')) || [];
+                        saveMap(); // Save to local storage for safety
+                        // Check and adjust player position if necessary
+                        checkPlayerPosition();
+                    };
+                    reader.readAsText(file);
+                }
+            });
+
+            // Save player position to localStorage
+            function savePlayerPosition() {
+                localStorage.setItem('playerPosition', JSON.stringify(position));
+            }
         }
-
-        // Reset functionality
-        resetButton.addEventListener('click', function () {
-            Array.from(grid.children).forEach(cell => {
-                cell.innerHTML = '';
-                cell.style.backgroundColor = 'transparent';
-                delete cell.dataset.filled; // Clear dataset for the reset
-            });
-            time = 0;
-            timerDisplay.textContent = `Time: ${time}s`;
-            position = { x: 20, y: 20 };
-            updatePlayerPosition();
-
-            // Ensure preset emojis are added back to the toolbox
-            emojiList.innerHTML = ''; // Clear current emojis in the toolbox
-            presetEmojis.forEach(addEmojiToList); // Re-add preset emojis
-            addShrek(); // Re-add Shrek
-            addImageToList('https://cdn-ilcanfj.nitrocdn.com/LlrUmChCXslDNktpsCpSWimJwTalRvLT/assets/images/optimized/rev-361dac9/www.brickmywalls.com/wp-content/uploads/2021/07/2906-600x600.jpg'); // Re-add the new image
-            loadEmojis(); // Re-load custom emojis from storage
-            loadCustomColors(); // Re-load custom colors
-        });
-
-        // Toggle emoji size
-        toggleSizeButton.addEventListener('click', function () {
-            emojiSizeLarge = !emojiSizeLarge; // Toggle size state
-            const emojis = document.querySelectorAll('.emoji-button img');
-            emojis.forEach(emoji => {
-                emoji.classList.toggle('large-emoji', emojiSizeLarge);
-            });
-        });
-
-        // Start the timer and coin spawning when the script runs
-        startTimer();
-        startCoinTimer();
-
-        updatePlayerPosition(); // Initialize player position
     </script>
 </body>
-
 </html>
