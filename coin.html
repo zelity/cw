@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heads or Tails</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #result {
+            font-size: 24px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Flip a Coin!</h1>
+    <button id="flipButton">Flip Coin</button>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('flipButton').onclick = function() {
+            const result = Math.random() < 0.5 ? 'Heads' : 'Tails';
+            document.getElementById('result').innerText = result;
+        };
+    </script>
+
+</body>
+</html>
