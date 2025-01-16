@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>z0nyy's Calculator</title>
+    <title>Calculator</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -12,20 +12,16 @@
             padding: 0;
             background-color: #e9ecef;
             transition: background-image 0.5s;
-        }
-        header {
-            background-color: #343a40;
-            color: white;
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+            height: 100vh;
         }
         .calculator {
-            background: #fff;
+            background: white;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
             display: inline-block;
             margin-top: 50px;
+            position: relative;
         }
         #display {
             width: 100%;
@@ -80,6 +76,10 @@
             height: 50px;
             font-size: 24px;
             cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .settings:hover {
+            background-color: #0056b3;
         }
         .theme-options {
             display: none;
@@ -91,10 +91,16 @@
             border-radius: 10px;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
             z-index: 10;
+            max-width: 150px;
         }
         .theme-option {
             padding: 10px;
             cursor: pointer;
+            text-align: center;
+            border-bottom: 1px solid #ccc;
+        }
+        .theme-option:last-child {
+            border-bottom: none;
         }
         .theme-option:hover {
             background: #f0f0f0;
@@ -109,23 +115,19 @@
 </head>
 <body>
 
-<header>
-    <h1>z0nyy's Calculator</h1>
-</header>
-
 <button class="settings" onclick="toggleThemeOptions()">⚙</button>
 <div class="theme-options" id="themeOptions">
-    <div class="theme-option" onclick="setTheme('theme1')">Theme 1</div>
-    <div class="theme-option" onclick="setTheme('theme2')">Theme 2</div>
-    <div class="theme-option" onclick="setTheme('theme3')">Theme 3</div>
-    <div class="theme-option" onclick="setTheme('theme4')">Theme 4</div>
-    <div class="theme-option" onclick="setTheme('theme5')">Theme 5</div>
-    <div class="theme-option" onclick="setTheme('theme6')">Theme 6</div>
-    <div class="theme-option" onclick="setTheme('theme7')">Theme 7</div>
+    <div class="theme-option" onclick="setTheme('theme1')">Sunset Bliss</div>
+    <div class="theme-option" onclick="setTheme('theme2')">Ocean Wave</div>
+    <div class="theme-option" onclick="setTheme('theme3')">Lavender Field</div>
+    <div class="theme-option" onclick="setTheme('theme4')">Cherry Blossom</div>
+    <div class="theme-option" onclick="setTheme('theme5')">Golden Hour</div>
+    <div class="theme-option" onclick="setTheme('theme6')">Clear Sky</div>
+    <div class="theme-option" onclick="setTheme('theme7')">Fiery Sunset</div>
 </div>
 
 <div class="calculator">
-    <input type="text" id="display" disabled>
+    <input type="text" id="display" disabled placeholder="0">
     <div class="grid">
         <button class="button" onclick="clearDisplay()">C</button>
         <button class="button" onclick="appendToDisplay('/')">/</button>
@@ -161,13 +163,13 @@
 
 <script>
     const themes = {
-        theme1: 'linear-gradient(135deg, #FF5733, #FFC300)',
-        theme2: 'linear-gradient(135deg, #33FF57, #FFFC00)',
-        theme3: 'linear-gradient(135deg, #33C4FF, #A733FF)',
-        theme4: 'linear-gradient(135deg, #FF33A1, #FFC300)',
-        theme5: 'linear-gradient(135deg, #FFD700, #FF1493)',
-        theme6: 'linear-gradient(135deg, #00BFFF, #1E90FF)',
-        theme7: 'linear-gradient(135deg, #FF6347, #FF4500)',
+        theme1: 'linear-gradient(135deg, #FF5733, #FFC300)', // Sunset Bliss
+        theme2: 'linear-gradient(135deg, #33FF57, #FFFC00)', // Ocean Wave
+        theme3: 'linear-gradient(135deg, #33C4FF, #A733FF)', // Lavender Field
+        theme4: 'linear-gradient(135deg, #FF33A1, #FFC300)', // Cherry Blossom
+        theme5: 'linear-gradient(135deg, #FFD700, #FF1493)', // Golden Hour
+        theme6: 'linear-gradient(135deg, #00BFFF, #1E90FF)', // Clear Sky
+        theme7: 'linear-gradient(135deg, #FF6347, #FF4500)', // Fiery Sunset
     };
 
     function appendToDisplay(value) {
@@ -193,7 +195,7 @@
         var password = prompt("Please enter the password:");
         if (password === "games") {
             var win = window.open();
-            var url = "https://z0nyy.xyz/home1.html";
+            var url = "https://z0nyy.xyz/home1.html"; // Your URL here
             var iframe = win.document.createElement('iframe');
             iframe.style.width = "100%";
             iframe.style.height = "100%";
