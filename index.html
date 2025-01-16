@@ -11,6 +11,7 @@
             margin: 0;
             padding: 0;
             background-color: #e9ecef;
+            transition: background-image 0.5s;
         }
         header {
             background-color: #343a40;
@@ -67,6 +68,37 @@
             gap: 10px;
             justify-content: center;
         }
+        .settings {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .theme-options {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 70px;
+            right: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+        .theme-option {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .theme-option:hover {
+            background: #f0f0f0;
+        }
         @media (max-width: 600px) {
             .calculator {
                 width: 90%;
@@ -80,6 +112,17 @@
 <header>
     <h1>z0nyy's Calculator</h1>
 </header>
+
+<button class="settings" onclick="toggleThemeOptions()">⚙</button>
+<div class="theme-options" id="themeOptions">
+    <div class="theme-option" onclick="setTheme('theme1')">Theme 1</div>
+    <div class="theme-option" onclick="setTheme('theme2')">Theme 2</div>
+    <div class="theme-option" onclick="setTheme('theme3')">Theme 3</div>
+    <div class="theme-option" onclick="setTheme('theme4')">Theme 4</div>
+    <div class="theme-option" onclick="setTheme('theme5')">Theme 5</div>
+    <div class="theme-option" onclick="setTheme('theme6')">Theme 6</div>
+    <div class="theme-option" onclick="setTheme('theme7')">Theme 7</div>
+</div>
 
 <div class="calculator">
     <input type="text" id="display" disabled>
@@ -117,6 +160,16 @@
 </div>
 
 <script>
+    const themes = {
+        theme1: 'linear-gradient(135deg, #FF5733, #FFC300)',
+        theme2: 'linear-gradient(135deg, #33FF57, #FFFC00)',
+        theme3: 'linear-gradient(135deg, #33C4FF, #A733FF)',
+        theme4: 'linear-gradient(135deg, #FF33A1, #FFC300)',
+        theme5: 'linear-gradient(135deg, #FFD700, #FF1493)',
+        theme6: 'linear-gradient(135deg, #00BFFF, #1E90FF)',
+        theme7: 'linear-gradient(135deg, #FF6347, #FF4500)',
+    };
+
     function appendToDisplay(value) {
         document.getElementById('display').value += value;
     }
@@ -128,7 +181,6 @@
     function calculateResult() {
         let display = document.getElementById('display').value;
         try {
-            // Error handling for invalid calculations
             const result = Function('"use strict";return (' + display + ')')();
             document.getElementById('display').value = result;
         } catch (e) {
@@ -152,6 +204,27 @@
             alert("Incorrect password. Access denied.");
         }
     }
+
+    function toggleThemeOptions() {
+        const themeOptions = document.getElementById('themeOptions');
+        themeOptions.style.display = themeOptions.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function setTheme(theme) {
+        document.body.style.backgroundImage = themes[theme];
+        localStorage.setItem('selectedTheme', theme);
+        toggleThemeOptions();
+    }
+
+    function loadTheme() {
+        const savedTheme = localStorage.getItem('selectedTheme');
+        if (savedTheme && themes[savedTheme]) {
+            document.body.style.backgroundImage = themes[savedTheme];
+        }
+    }
+
+    // Load theme on page load
+    window.onload = loadTheme;
 </script>
 
 </body>
