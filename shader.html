@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradient Circle Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            padding: 30px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        #gradientCircle {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            margin: 20px auto;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            overflow: hidden;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        .color-picker-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .hex-code {
+            color: black;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            z-index: 1000;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        .popup button {
+            background-color: #007BFF;
+            padding: 10px 15px;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gradient Circle</h1>
+    
+    <div id="gradientCircle">Gradient Circle</div>
+    
+    <div class="color-picker-container">
+        <input type="color" id="color1" value="#ff7e5f">
+        <div class="hex-code" id="hex1">#ff7e5f</div>
+    </div>
+    
+    <div class="color-picker-container">
+        <input type="color" id="color2" value="#feb47b">
+        <div class="hex-code" id="hex2">#feb47b</div>
+    </div>
+
+    <button id="updateGradientButton">Update Gradient</button>
+    <button id="shaderNameButton">Make Shader Name</button>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <h2>Enter Gradient Name:</h2>
+        <input type="text" id="gradientName" placeholder="Gradient Name">
+        <button id="submitName">Submit</button>
+        <button id="closePopup">Close</button>
+    </div>
+
+    <script>
+        const shaderNameButton = document.getElementById('shaderNameButton');
+        const updateGradientButton = document.getElementById('updateGradientButton');
+        const popup = document.getElementById('popup');
+        const overlay = document.getElementById('overlay');
+        const gradientNameInput = document.getElementById('gradientName');
+        const submitNameButton = document.getElementById('submitName');
+        const closePopupButton = document.getElementById('closePopup');
+        const gradientCircle = document.getElementById('gradientCircle');
+        const color1Input = document.getElementById('color1');
+        const color2Input = document.getElementById('color2');
+        const hex1Display = document.getElementById('hex1');
+        const hex2Display = document.getElementById('hex2');
+
+        // Function to update the hex code display
+        function updateHexCodes() {
+            hex1Display.textContent = color1Input.value;
+            hex2Display.textContent = color2Input.value;
+        }
+
+        // Show the popup
+        shaderNameButton.addEventListener('click', () => {
+            overlay.style.display = 'block';
+            popup.style.display = 'block';
+            gradientNameInput.value = ''; // Clear previous input
+            gradientNameInput.focus(); // Focus on input
+        });
+
+        // Update the gradient
+        updateGradientButton.addEventListener('click', () => {
+            const color1 = color1Input.value;
+            const color2 = color2Input.value;
+            gradientCircle.style.background = `linear-gradient(to right, ${color1}, ${color2})`;
+            updateHexCodes(); // Update the displayed hex codes
+        });
+
+        // Submit the name
+        submitNameButton.addEventListener('click', () => {
+            const gradientName = gradientNameInput.value.trim();
+            if (gradientName) {
+                gradientCircle.textContent = gradientName;
+            } else {
+                alert("Please enter a name for the gradient.");
+            }
+            closePopup(); // Close the popup after submission
+        });
+
+        // Close the popup
+        function closePopup() {
+            overlay.style.display = 'none';
+            popup.style.display = 'none';
+        }
+        closePopupButton.addEventListener('click', closePopup);
+        overlay.addEventListener('click', closePopup);
+
+        // Update the hex codes initially
+        updateHexCodes();
+    </script>
+</body>
+</html>
