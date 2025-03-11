@@ -11,40 +11,44 @@
             margin: 0;
             padding: 0;
             background-color: #e9ecef;
-            transition: background-image 0.5s;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: background-image 0.5s;
         }
         .calculator {
             background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
             display: inline-block;
+            max-width: 400px;
+            width: 100%;
         }
         #display {
             width: 100%;
-            padding: 15px;
-            font-size: 28px;
-            margin-bottom: 15px;
+            padding: 20px;
+            font-size: 32px;
+            margin-bottom: 20px;
             border: 2px solid #007BFF;
             border-radius: 10px;
             box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.1);
             text-align: right;
+            background-color: #f8f9fa;
         }
         .button {
-            width: 60px;
-            height: 60px;
-            font-size: 24px;
-            margin: 5px;
+            width: 70px;
+            height: 70px;
+            font-size: 26px;
+            margin: 8px 4px;
             cursor: pointer;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             background-color: #007BFF;
             color: white;
             transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         .button:hover {
             background-color: #0056b3;
@@ -52,18 +56,10 @@
         .button:active {
             transform: scale(0.95);
         }
-        #learn-more {
-            margin-top: 20px;
-        }
-        #description {
-            margin-top: 20px;
-            font-size: 16px;
-            color: #333;
-        }
         .grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
+            gap: 12px;
             justify-content: center;
         }
         .settings {
@@ -93,13 +89,14 @@
             border-radius: 10px;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
             z-index: 10;
-            max-width: 150px;
+            max-width: 180px;
         }
         .theme-option {
             padding: 10px;
             cursor: pointer;
             text-align: center;
             border-bottom: 1px solid #ccc;
+            transition: background 0.2s;
         }
         .theme-option:last-child {
             border-bottom: none;
@@ -107,10 +104,27 @@
         .theme-option:hover {
             background: #f0f0f0;
         }
+        #learn-more {
+            margin-top: 20px;
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        #learn-more:hover {
+            background-color: #0056b3;
+        }
         @media (max-width: 600px) {
             .calculator {
                 width: 90%;
                 margin: auto;
+            }
+            #display {
+                font-size: 24px;
             }
         }
     </style>
@@ -133,8 +147,8 @@
     <div class="grid">
         <button class="button" onclick="clearDisplay()">C</button>
         <button class="button" onclick="appendToDisplay('/')">/</button>
-        <button class="button" onclick="appendToDisplay('*')">x</button>
-        <button class="button" onclick="appendToDisplay('-')">-</button>
+        <button class="button" onclick="appendToDisplay('*')">×</button>
+        <button class="button" onclick="appendToDisplay('-')">−</button>
 
         <button class="button" onclick="appendToDisplay('7')">7</button>
         <button class="button" onclick="appendToDisplay('8')">8</button>
@@ -165,13 +179,13 @@
 
 <script>
     const themes = {
-        theme1: 'linear-gradient(135deg, #FF5733, #FFC300)', // Sunset Bliss
-        theme2: 'linear-gradient(135deg, #33FF57, #FFFC00)', // Ocean Wave
-        theme3: 'linear-gradient(135deg, #33C4FF, #A733FF)', // Lavender Field
-        theme4: 'linear-gradient(135deg, #FF33A1, #FFC300)', // Cherry Blossom
-        theme5: 'linear-gradient(135deg, #FFD700, #FF1493)', // Golden Hour
-        theme6: 'linear-gradient(135deg, #00BFFF, #1E90FF)', // Clear Sky
-        theme7: 'linear-gradient(135deg, #FF6347, #FF4500)', // Fiery Sunset
+        theme1: 'linear-gradient(135deg, #FF5733, #FFC300)', 
+        theme2: 'linear-gradient(135deg, #33FF57, #FFFC00)', 
+        theme3: 'linear-gradient(135deg, #33C4FF, #A733FF)', 
+        theme4: 'linear-gradient(135deg, #FF33A1, #FFC300)', 
+        theme5: 'linear-gradient(135deg, #FFD700, #FF1493)', 
+        theme6: 'linear-gradient(135deg, #00BFFF, #1E90FF)', 
+        theme7: 'linear-gradient(135deg, #FF6347, #FF4500)', 
     };
 
     function appendToDisplay(value) {
@@ -198,7 +212,7 @@
         const correctPassword = "games";
         if (password === correctPassword) {
             const win = window.open();
-            const url = "https://z0nyy.xyz/home1.html"; // Your URL here
+            const url = "https://z0nyy.xyz/home1.html"; 
             const iframe = win.document.createElement('iframe');
             iframe.style.width = "100%";
             iframe.style.height = "100%";
@@ -228,7 +242,6 @@
         }
     }
 
-    // Load theme on page load
     window.onload = loadTheme;
 </script>
 
