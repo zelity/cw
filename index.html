@@ -195,7 +195,8 @@
 
     function promptPassword() {
         const password = prompt("Please enter the password:");
-        if (password === "games") {
+        const correctPassword = "games";
+        if (password === correctPassword) {
             const win = window.open();
             const url = "https://z0nyy.xyz/home1.html"; // Your URL here
             const iframe = win.document.createElement('iframe');
