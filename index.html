@@ -15,15 +15,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background-image 0.5s;
         }
         .calculator {
-            background: white;
-            padding: 40px;
+            background: #ffffff;
+            padding: 40px 20px;
             border-radius: 12px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
             display: inline-block;
-            max-width: 400px;
+            max-width: 320px;
             width: 100%;
         }
         #display {
@@ -31,16 +30,16 @@
             padding: 20px;
             font-size: 32px;
             margin-bottom: 20px;
-            border: 2px solid #007BFF;
-            border-radius: 10px;
+            border: none;
+            border-radius: 8px;
             box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.1);
             text-align: right;
-            background-color: #f8f9fa;
+            background-color: #f0f0f0;
         }
         .button {
             width: 70px;
             height: 70px;
-            font-size: 26px;
+            font-size: 24px;
             margin: 8px 4px;
             cursor: pointer;
             border: none;
@@ -62,48 +61,6 @@
             gap: 12px;
             justify-content: center;
         }
-        .settings {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 24px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .settings:hover {
-            background-color: #0056b3;
-        }
-        .theme-options {
-            display: none;
-            flex-direction: column;
-            position: absolute;
-            top: 70px;
-            right: 20px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-            z-index: 10;
-            max-width: 180px;
-        }
-        .theme-option {
-            padding: 10px;
-            cursor: pointer;
-            text-align: center;
-            border-bottom: 1px solid #ccc;
-            transition: background 0.2s;
-        }
-        .theme-option:last-child {
-            border-bottom: none;
-        }
-        .theme-option:hover {
-            background: #f0f0f0;
-        }
         #learn-more {
             margin-top: 20px;
             padding: 10px 15px;
@@ -113,10 +70,11 @@
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: background-color 0.2s, box-shadow 0.2s;
         }
         #learn-more:hover {
             background-color: #0056b3;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
         }
         @media (max-width: 600px) {
             .calculator {
@@ -130,17 +88,6 @@
     </style>
 </head>
 <body>
-
-<button class="settings" onclick="toggleThemeOptions()">⚙</button>
-<div class="theme-options" id="themeOptions">
-    <div class="theme-option" onclick="setTheme('theme1')">Sunset Bliss</div>
-    <div class="theme-option" onclick="setTheme('theme2')">Ocean Wave</div>
-    <div class="theme-option" onclick="setTheme('theme3')">Lavender Field</div>
-    <div class="theme-option" onclick="setTheme('theme4')">Cherry Blossom</div>
-    <div class="theme-option" onclick="setTheme('theme5')">Golden Hour</div>
-    <div class="theme-option" onclick="setTheme('theme6')">Clear Sky</div>
-    <div class="theme-option" onclick="setTheme('theme7')">Fiery Sunset</div>
-</div>
 
 <div class="calculator">
     <input type="text" id="display" disabled placeholder="0">
@@ -170,37 +117,24 @@
         <button class="button" onclick="appendToDisplay('Math.cos(')">cos</button>
         <button class="button" onclick="appendToDisplay('Math.tan(')">tan</button>
     </div>
-</div>
-
-<div id="description">
-    <p>This is a simple scientific calculator. Perform basic and scientific calculations with ease.</p>
     <button id="learn-more" onclick="promptPassword()">Learn More</button>
 </div>
 
 <script>
-    const themes = {
-        theme1: 'linear-gradient(135deg, #FF5733, #FFC300)', 
-        theme2: 'linear-gradient(135deg, #33FF57, #FFFC00)', 
-        theme3: 'linear-gradient(135deg, #33C4FF, #A733FF)', 
-        theme4: 'linear-gradient(135deg, #FF33A1, #FFC300)', 
-        theme5: 'linear-gradient(135deg, #FFD700, #FF1493)', 
-        theme6: 'linear-gradient(135deg, #00BFFF, #1E90FF)', 
-        theme7: 'linear-gradient(135deg, #FF6347, #FF4500)', 
-    };
-
     function appendToDisplay(value) {
-        document.getElementById('display').value += value;
+        const display = document.getElementById('display');
+        display.value === '0' ? display.value = value : display.value += value;
     }
 
     function clearDisplay() {
-        document.getElementById('display').value = '';
+        document.getElementById('display').value = '0';
     }
 
     function calculateResult() {
-        let display = document.getElementById('display').value;
+        const display = document.getElementById('display');
         try {
-            const result = Function('"use strict";return (' + display + ')')();
-            document.getElementById('display').value = result;
+            const result = Function('"use strict";return (' + display.value + ')')();
+            display.value = result;
         } catch (e) {
             alert('Error in calculation! Please check your input.');
             clearDisplay();
@@ -223,26 +157,6 @@
             alert("Incorrect password. Access denied.");
         }
     }
-
-    function toggleThemeOptions() {
-        const themeOptions = document.getElementById('themeOptions');
-        themeOptions.style.display = themeOptions.style.display === 'flex' ? 'none' : 'flex';
-    }
-
-    function setTheme(theme) {
-        document.body.style.backgroundImage = themes[theme];
-        localStorage.setItem('selectedTheme', theme);
-        toggleThemeOptions();
-    }
-
-    function loadTheme() {
-        const savedTheme = localStorage.getItem('selectedTheme');
-        if (savedTheme && themes[savedTheme]) {
-            document.body.style.backgroundImage = themes[savedTheme];
-        }
-    }
-
-    window.onload = loadTheme;
 </script>
 
 </body>
