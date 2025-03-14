@@ -102,16 +102,18 @@
         .theme-selector {
             margin-top: 15px;
             display: flex;
-            justify-content: space-around;
+            flex-direction: column; 
             width: 100%;
+            align-items: center;
         }
         .theme-option {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
             cursor: pointer;
             border: 2px solid transparent;
             transition: border 0.3s;
+            margin: 5px;
         }
         .theme-option:hover {
             border: 2px solid #007BFF;
@@ -123,9 +125,11 @@
             flex-direction: column;
             margin-top: 20px;
             width: 100%;
+            align-items: center;
         }
         .color-input {
             margin: 10px 0;
+            width: 80%; /* Adjust width of color inputs */
         }
         .preview {
             width: 100%;
@@ -133,6 +137,7 @@
             border-radius: 12px;
             margin-bottom: 10px;
             background-color: #ffffff;
+            border: 2px solid #ccc;
         }
 
         /* Settings Icon */
@@ -239,6 +244,24 @@
 <div class="emoji" onclick="promptPassword()">❓</div>
 
 <script>
+    // Initial theme setup with local storage
+    const defaultTheme = {
+        primaryColor: '#007BFF',
+        secondaryColor: '#f1f1f1'
+    };
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const savedTheme = JSON.parse(localStorage.getItem('calculatorTheme'));
+        if (savedTheme) {
+            setTheme(savedTheme.theme);
+            document.getElementById('color1').value = savedTheme.primaryColor;
+            document.getElementById('color2').value = savedTheme.secondaryColor;
+            updatePreview();
+        } else {
+            setTheme('theme1'); // Applying default theme
+        }
+    });
+
     document.addEventListener('keydown', function(event) {
         const display = document.getElementById('display');
         if ((event.key >= '0' && event.key <= '9') || 
@@ -306,31 +329,37 @@
                 body.style.backgroundColor = '#e9ecef';
                 calculator.style.background = 'linear-gradient(135deg, #ffffff, #f1f1f1)';
                 updateButtonColors('#007BFF', '#ffffff');
+                saveTheme(theme, '#007BFF', '#f1f1f1');
                 break;
             case 'theme2':
                 body.style.backgroundColor = '#d4edda';
                 calculator.style.background = 'linear-gradient(135deg, #c3e6cb, #d4edda)';
                 updateButtonColors('#28a745', '#c3e6cb');
+                saveTheme(theme, '#28a745', '#c3e6cb');
                 break;
             case 'theme3':
                 body.style.backgroundColor = '#f8d7da';
                 calculator.style.background = 'linear-gradient(135deg, #f5c6cb, #f8d7da)';
                 updateButtonColors('#dc3545', '#f5c6cb');
+                saveTheme(theme, '#dc3545', '#f5c6cb');
                 break;
             case 'theme4':
                 body.style.backgroundColor = '#fff3cd';
                 calculator.style.background = 'linear-gradient(135deg, #ffeeba, #fff3cd)';
                 updateButtonColors('#ffc107', '#ffeeba');
+                saveTheme(theme, '#ffc107', '#ffeeba');
                 break;
             case 'theme5':
                 body.style.backgroundColor = '#d1ecf1';
                 calculator.style.background = 'linear-gradient(135deg, #bee5eb, #d1ecf1)';
                 updateButtonColors('#17a2b8', '#bee5eb');
+                saveTheme(theme, '#17a2b8', '#bee5eb');
                 break;
             case 'theme6':
                 body.style.backgroundColor = '#e9ecef';
                 calculator.style.background = 'linear-gradient(135deg, #f8f9fa, #e9ecef)';
                 updateButtonColors('#6f42c1', '#f8f9fa');
+                saveTheme(theme, '#6f42c1', '#f8f9fa');
                 break;
         }
     }
@@ -361,7 +390,12 @@
         document.body.style.backgroundColor = secondaryColor;
         document.querySelector('.calculator').style.background = `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})`;
         updateButtonColors(primaryColor, secondaryColor);
+        saveTheme('custom', primaryColor, secondaryColor);
         alert("Theme created successfully!");
+    }
+
+    function saveTheme(theme, primaryColor, secondaryColor) {
+        localStorage.setItem('calculatorTheme', JSON.stringify({theme, primaryColor, secondaryColor}));
     }
 </script>
 
