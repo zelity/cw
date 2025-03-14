@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
+            background-color: #e9ecef;
             margin: 0;
             display: flex;
             justify-content: center;
@@ -16,17 +16,17 @@
             transition: background-color 0.3s;
         }
         .calculator {
-            background: #ffffff;
+            background: linear-gradient(135deg, #ffffff, #f1f1f1);
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             width: 400px;
             transition: background 0.3s;
         }
         #display {
             width: 100%;
             padding: 20px;
-            font-size: 32px;
+            font-size: 36px;
             margin-bottom: 20px;
             border: 2px solid #007BFF;
             border-radius: 10px;
@@ -34,12 +34,14 @@
             background-color: #f9f9f9;
             box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
             color: #333;
+            transition: background-color 0.3s;
+            outline: none;
         }
         .button {
-            width: 90px;
+            width: 85px;
             height: 70px;
-            font-size: 26px;
-            margin: 10px 5px;
+            font-size: 24px;
+            margin: 10px;
             cursor: pointer;
             border: none;
             border-radius: 12px;
@@ -47,12 +49,14 @@
             color: white;
             transition: background-color 0.3s, transform 0.1s;
             box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
         .button:hover {
             background-color: #0056b3;
         }
         .button:active {
             transform: scale(0.95);
+            box-shadow: 0 2px 7px rgba(0, 0, 0, 0.2);
         }
         .grid {
             display: grid;
@@ -74,7 +78,7 @@
         }
         #learn-more:hover {
             background-color: #0056b3;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
         /* Theme option styles */
         .theme-selector {
@@ -83,15 +87,15 @@
             justify-content: space-around;
         }
         .theme-option {
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             cursor: pointer;
-            border: 2px solid transparent;
+            border: 3px solid transparent;
             transition: border 0.3s;
         }
         .theme-option:hover {
-            border: 2px solid #007BFF;
+            border: 3px solid #007BFF;
         }
         /* Different theme colors */
         .theme1 { background-color: #007BFF; }
@@ -110,7 +114,7 @@
                 font-size: 28px;
             }
             .button {
-                width: 70px;
+                width: 65px;
                 height: 60px;
                 font-size: 20px;
             }
@@ -148,7 +152,7 @@
         <button class="button" onclick="appendToDisplay('Math.tan(')">tan</button>
     </div>
     <button id="learn-more" onclick="promptPassword()">Learn More</button>
-    
+
     <div class="theme-selector">
         <div class="theme-option theme1" onclick="setTheme('theme1')"></div>
         <div class="theme-option theme2" onclick="setTheme('theme2')"></div>
@@ -210,7 +214,7 @@
 
         switch(theme) {
             case 'theme1':
-                body.style.backgroundColor = '#f4f4f4';
+                body.style.backgroundColor = '#e9ecef';
                 calculator.style.backgroundColor = '#ffffff';
                 break;
             case 'theme2':
