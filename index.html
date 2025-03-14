@@ -3,80 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Calculator</title>
+    <title>Stylish Calculator</title>
     <style>
-        /* General styling for body */
         body {
             font-family: 'Arial', sans-serif;
+            background-color: #e9ecef;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(135deg, #e9ecef, #ffffff);
+            color: #333;
         }
-
-        .container {
-            position: relative;
-            width: 380px; /* Adjusted width for improved layout */
-        }
-
-        /* Calculator styling */
         .calculator {
-            background: linear-gradient(135deg, #ffffff, #f9f9f9);
-            border-radius: 20px;
+            background: linear-gradient(135deg, #ffffff, #f1f1f1);
             padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s, box-shadow 0.3s;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            width: 400px;
+            position: relative;
         }
-
-        /* Display input styling */
         #display {
             width: 100%;
             padding: 20px;
             font-size: 36px;
             margin-bottom: 20px;
             border: 2px solid #007BFF;
-            border-radius: 15px;
+            border-radius: 10px;
             text-align: right;
-            background-color: #f1f1f1;
+            background-color: #f9f9f9;
             color: #333;
             outline: none;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s;
         }
-
-        /* Button styling */
         .button {
-            width: 80px; /* Uniform button sizes */
-            height: 80px;
+            width: 85px;
+            height: 70px;
             font-size: 24px;
             margin: 10px;
             cursor: pointer;
             border: none;
-            border-radius: 15px;
+            border-radius: 12px;
             background-color: #007BFF;
             color: white;
             transition: background-color 0.3s, transform 0.1s;
             box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
         }
-
         .button:hover {
-            background-color: #0069d9;
+            background-color: #0056b3;
         }
-
         .button:active {
             transform: scale(0.95);
             box-shadow: 0 2px 7px rgba(0, 0, 0, 0.2);
         }
-
-        /* Grid layout for buttons */
         .grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 15px; /* Increased gap for better spacing */
+            gap: 10px;
+            justify-content: center;
         }
 
-        /* Settings menu and theme selector styles */
+        /* Settings Menu and Theme Selector Styles */
         .settings-menu {
             display: none;
             position: fixed;
@@ -85,41 +72,34 @@
             right: 0;
             bottom: 0;
             background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
+            border-radius: 10px;
             padding: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             z-index: 2;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
         }
-
-        /* Closing button styling */
         #close-settings {
             background-color: #dc3545;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            padding: 12px 20px;
+            padding: 8px 16px;
             transition: background-color 0.3s;
+            width: 100px;
             margin-bottom: 20px;
             font-size: 16px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
-
         #close-settings:hover {
             background-color: #c82333;
         }
-
         h3 {
             text-align: center;
-            margin: 15px 0;
-            color: #007BFF; /* Theme color for headings */
-            font-weight: bold;
+            margin: 10px 0;
         }
 
-        /* Theme selectors */
+        /* Theme Selectors */
         .theme-selector {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
@@ -127,28 +107,25 @@
             margin-bottom: 20px;
             width: 100%;
         }
-
         .theme-option {
+            width: 100%;
             height: 100px;
-            border-radius: 15px;
+            border-radius: 10px;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            border: 2px solid transparent;
+            transition: border 0.3s, transform 0.3s;
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: bold;
-            color: white; /* Text color */
-            text-align: center;
-            font-size: 16px; /* Improved font size for better readability */
+            color: white; /* Text color on hover */
         }
-
-        /* Hover effect on theme selection */
         .theme-option:hover {
+            border: 2px solid #007BFF;
             transform: scale(1.05);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
-        /* New theme creation section styling */
+        /* New Theme Creation Section */
         .color-picker {
             display: flex;
             flex-direction: column;
@@ -156,55 +133,45 @@
             width: 100%;
             align-items: center;
         }
-
         .color-input {
             margin: 10px 0;
             border: 2px solid #007BFF;
             border-radius: 5px;
-            padding: 8px;
-            width: 80%;
-            transition: border-color 0.3s;
+            padding: 6px;
+            width: 80%; /* Adjust width of color inputs */
         }
-
-        .color-input:hover {
-            border-color: #0056b3; /* Darker shade on hover */
-        }
-
         .preview {
             width: 80%;
             height: 80px;
-            border-radius: 15px;
+            border-radius: 12px;
             margin-bottom: 10px;
             border: 2px solid #007BFF;
-            background: linear-gradient(135deg, #007BFF, #f1f1f1);
         }
 
-        /* Settings icon */
+        /* Settings Icon */
         #settings-icon {
             position: fixed;
-            bottom: 20px;
+            bottom: 90px;
             right: 20px;
-            font-size: 40px;
+            font-size: 36px;
             cursor: pointer;
             background: transparent;
             border: none;
             transition: transform 0.3s;
         }
-
         #settings-icon:hover {
             transform: scale(1.1);
         }
 
-        /* Emoji styles */
+        /* Emoji Styles */
         .emoji {
             position: fixed;
             bottom: 20px;
             left: 20px;
-            font-size: 38px;
+            font-size: 36px;
             cursor: pointer;
             transition: transform 0.3s;
         }
-
         .emoji:hover {
             transform: scale(1.2);
         }
@@ -213,14 +180,13 @@
         @media (max-width: 600px) {
             .calculator {
                 width: 90%;
-                padding: 20px; /* Adjusted padding for smaller devices */
+                margin: auto;
             }
-
             #display {
                 font-size: 28px;
             }
-
             .button {
+                width: 65px;
                 height: 60px;
                 font-size: 20px;
             }
@@ -229,35 +195,33 @@
 </head>
 <body>
 
-<div class="container">
-    <div class="calculator">
-        <input type="text" id="display" disabled placeholder="0">
-        <div class="grid">
-            <button class="button" onclick="clearDisplay()">C</button>
-            <button class="button" onclick="appendToDisplay('/')">/</button>
-            <button class="button" onclick="appendToDisplay('*')">×</button>
-            <button class="button" onclick="appendToDisplay('-')">−</button>
+<div class="calculator">
+    <input type="text" id="display" disabled placeholder="0">
+    <div class="grid">
+        <button class="button" onclick="clearDisplay()">C</button>
+        <button class="button" onclick="appendToDisplay('/')">/</button>
+        <button class="button" onclick="appendToDisplay('*')">×</button>
+        <button class="button" onclick="appendToDisplay('-')">−</button>
 
-            <button class="button" onclick="appendToDisplay('7')">7</button>
-            <button class="button" onclick="appendToDisplay('8')">8</button>
-            <button class="button" onclick="appendToDisplay('9')">9</button>
-            <button class="button" onclick="appendToDisplay('+')">+</button>
+        <button class="button" onclick="appendToDisplay('7')">7</button>
+        <button class="button" onclick="appendToDisplay('8')">8</button>
+        <button class="button" onclick="appendToDisplay('9')">9</button>
+        <button class="button" onclick="appendToDisplay('+')">+</button>
 
-            <button class="button" onclick="appendToDisplay('4')">4</button>
-            <button class="button" onclick="appendToDisplay('5')">5</button>
-            <button class="button" onclick="appendToDisplay('6')">6</button>
-            <button class="button" onclick="calculateResult()">=</button>
+        <button class="button" onclick="appendToDisplay('4')">4</button>
+        <button class="button" onclick="appendToDisplay('5')">5</button>
+        <button class="button" onclick="appendToDisplay('6')">6</button>
+        <button class="button" onclick="calculateResult()">=</button>
 
-            <button class="button" onclick="appendToDisplay('1')">1</button>
-            <button class="button" onclick="appendToDisplay('2')">2</button>
-            <button class="button" onclick="appendToDisplay('3')">3</button>
-            <button class="button" onclick="appendToDisplay('0')">0</button>
+        <button class="button" onclick="appendToDisplay('1')">1</button>
+        <button class="button" onclick="appendToDisplay('2')">2</button>
+        <button class="button" onclick="appendToDisplay('3')">3</button>
+        <button class="button" onclick="appendToDisplay('0')">0</button>
 
-            <button class="button" onclick="appendToDisplay('Math.PI')">π</button>
-            <button class="button" onclick="appendToDisplay('Math.sin(')">sin</button>
-            <button class="button" onclick="appendToDisplay('Math.cos(')">cos</button>
-            <button class="button" onclick="appendToDisplay('Math.tan(')">tan</button>
-        </div>
+        <button class="button" onclick="appendToDisplay('Math.PI')">π</button>
+        <button class="button" onclick="appendToDisplay('Math.sin(')">sin</button>
+        <button class="button" onclick="appendToDisplay('Math.cos(')">cos</button>
+        <button class="button" onclick="appendToDisplay('Math.tan(')">tan</button>
     </div>
 
     <div class="settings-menu" id="settings-menu">
@@ -274,22 +238,24 @@
         
         <h3>Custom Theme</h3>
         <div class="color-picker">
+            <label for="color1">Choose Primary Color:</label>
             <input type="color" id="color1" class="color-input" value="#007BFF" onchange="updatePreview()">
-            <input type="color" id="color2" class="color-input" value="#f3f3f3" onchange="updatePreview()">
+            <label for="color2">Choose Secondary Color:</label>
+            <input type="color" id="color2" class="color-input" value="#f1f1f1" onchange="updatePreview()">
             <div class="preview" id="preview"></div>
             <button class="button" onclick="createTheme()">Create Theme</button>
         </div>
     </div>
-
-    <button id="settings-icon" onclick="toggleSettings()">⚙️</button>
-    <div class="emoji" onclick="promptPassword()">❓</div>
 </div>
+
+<button id="settings-icon" onclick="toggleSettings()">⚙️</button>
+<div class="emoji" onclick="promptPassword()">❓</div>
 
 <script>
     // Initial theme setup with local storage
     const defaultTheme = {
         primaryColor: '#007BFF',
-        secondaryColor: '#f3f3f3'
+        secondaryColor: '#f1f1f1'
     };
     
     document.addEventListener('DOMContentLoaded', function() {
@@ -313,7 +279,7 @@
         if (event.key === 'Enter') {
             calculateResult();
         }
-        if (event.key === 'Escape') {
+        if (event.key === 'Backspace') {
             clearDisplay();
         }
     });
@@ -366,41 +332,41 @@
         const calculator = document.querySelector('.calculator');
         const body = document.body;
 
-        // Set body and calculator styles based on selected theme
+        // Setting body and calculator styles based on selected theme
         switch(theme) {
             case 'theme1':
-                body.style.backgroundColor = '#e9ecef'; // Light gray
-                calculator.style.background = '#ffffff'; // White
+                body.style.backgroundColor = '#f0f8ff';
+                calculator.style.background = '#ffffff';
                 updateButtonColors('#007BFF', '#f1f1f1');
-                saveTheme(theme, '#007BFF', '#f3f3f3');
+                saveTheme(theme, '#007BFF', '#f1f1f1');
                 break;
             case 'theme2':
-                body.style.backgroundColor = '#d4edda'; // Light green
-                calculator.style.background = '#c3e6cb'; // Slightly darker green
-                updateButtonColors('#28a745', '#c3e6cb');
+                body.style.backgroundColor = '#d4edda';
+                calculator.style.background = '#c3e6cb';
+                updateButtonColors('#28a745', '#d4edda');
                 saveTheme(theme, '#28a745', '#c3e6cb');
                 break;
             case 'theme3':
-                body.style.backgroundColor = '#f8d7da'; // Light red
-                calculator.style.background = '#f5c6cb'; // Slightly darker red
+                body.style.backgroundColor = '#f8d7da';
+                calculator.style.background = '#f5c6cb';
                 updateButtonColors('#dc3545', '#f5c6cb');
                 saveTheme(theme, '#dc3545', '#f5c6cb');
                 break;
             case 'theme4':
-                body.style.backgroundColor = '#fff3cd'; // Light yellow
-                calculator.style.background = '#ffeeba'; // Slightly darker yellow
+                body.style.backgroundColor = '#fff3cd';
+                calculator.style.background = '#ffeeba';
                 updateButtonColors('#ffc107', '#ffeeba');
                 saveTheme(theme, '#ffc107', '#ffeeba');
                 break;
             case 'theme5':
-                body.style.backgroundColor = '#d1ecf1'; // Light blue
-                calculator.style.background = '#bee5eb'; // Slightly darker blue
+                body.style.backgroundColor = '#d1ecf1';
+                calculator.style.background = '#bee5eb';
                 updateButtonColors('#17a2b8', '#bee5eb');
                 saveTheme(theme, '#17a2b8', '#bee5eb');
                 break;
             case 'theme6':
-                body.style.backgroundColor = '#e9ecef'; // Light gray
-                calculator.style.background = '#f8f9fa'; // Slightly lighter gray
+                body.style.backgroundColor = '#e9ecef';
+                calculator.style.background = '#f8f9fa';
                 updateButtonColors('#6f42c1', '#f8f9fa');
                 saveTheme(theme, '#6f42c1', '#f8f9fa');
                 break;
@@ -410,10 +376,10 @@
     function updateButtonColors(primary, background) {
         const buttons = document.querySelectorAll('.button');
         buttons.forEach(button => {
-            button.style.backgroundColor = primary; // Button color
+            button.style.backgroundColor = primary;
         });
-        document.getElementById('display').style.borderColor = primary; // Display border color
-        document.getElementById('settings-icon').style.backgroundColor = background; // Settings icon color
+        document.getElementById('display').style.borderColor = primary;
+        document.getElementById('settings-icon').style.backgroundColor = background;
     }
 
     function toggleSettings() {
