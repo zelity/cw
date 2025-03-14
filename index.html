@@ -15,6 +15,7 @@
             height: 100vh;
             position: relative;
             transition: background-color 0.3s;
+            color: #333;
         }
         .calculator {
             background: linear-gradient(135deg, #ffffff, #f1f1f1);
@@ -34,7 +35,6 @@
             border-radius: 10px;
             text-align: right;
             background-color: #f9f9f9;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
             color: #333;
             transition: background-color 0.3s;
             outline: none;
@@ -51,7 +51,6 @@
             color: white;
             transition: background-color 0.3s, transform 0.1s;
             box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-            position: relative;
         }
         .button:hover {
             background-color: #0056b3;
@@ -66,22 +65,7 @@
             gap: 10px;
             justify-content: center;
         }
-        #learn-more {
-            padding: 12px;
-            font-size: 18px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            width: 100%;
-            transition: background-color 0.3s, box-shadow 0.3s;
-        }
-        #learn-more:hover {
-            background-color: #0056b3;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        }
-
+        
         /* Settings Menu Styles */
         .settings-menu {
             display: none;
@@ -89,7 +73,7 @@
             top: 115%;
             left: 0;
             right: 0;
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.95);
             border-radius: 10px;
             padding: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
@@ -104,6 +88,7 @@
             cursor: pointer;
             padding: 8px;
             transition: background-color 0.3s;
+            width: 100%;
         }
         #close-settings:hover {
             background-color: #c82333;
@@ -140,6 +125,8 @@
             width: 100%;
             height: 75px;
             border-radius: 12px;
+            margin-bottom: 10px;
+            background-color: #ffffff;
         }
 
         /* Settings Icon */
@@ -218,8 +205,7 @@
         <button class="button" onclick="appendToDisplay('Math.cos(')">cos</button>
         <button class="button" onclick="appendToDisplay('Math.tan(')">tan</button>
     </div>
-    <button id="learn-more" onclick="promptPassword()">Learn More</button>
-
+    
     <div class="settings-menu" id="settings-menu">
         <button id="close-settings" onclick="toggleSettings()">Close Settings</button>
         <div class="theme-selector">
@@ -263,7 +249,7 @@
         const display = document.getElementById('display');
         if (display.value === '0' && value !== 'C') {
             display.value = value;
-        } else {
+        } else if (display.value.length < 12) { // Limiting display length
             display.value += value;
         }
     }
@@ -347,7 +333,6 @@
             button.style.backgroundColor = primary;
         });
         document.getElementById('display').style.borderColor = primary;
-        document.getElementById('learn-more').style.backgroundColor = primary;
         document.getElementById('settings-icon').style.backgroundColor = background;
     }
 
