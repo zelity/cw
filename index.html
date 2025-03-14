@@ -13,7 +13,6 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            position: relative;
             color: #333;
         }
         .calculator {
@@ -23,7 +22,6 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             width: 400px;
             position: relative;
-            z-index: 1; /* Ensure it's above the overlay */
         }
         #display {
             width: 100%;
@@ -36,6 +34,7 @@
             background-color: #f9f9f9;
             color: #333;
             outline: none;
+            transition: border-color 0.3s;
         }
         .button {
             width: 85px;
@@ -64,7 +63,7 @@
             justify-content: center;
         }
 
-        /* Settings Menu Styles */
+        /* Settings Menu and Theme Selector Styles */
         .settings-menu {
             display: none;
             position: fixed;
@@ -74,15 +73,13 @@
             bottom: 0;
             background-color: rgba(255, 255, 255, 0.95);
             border-radius: 10px;
-            padding: 15px;
+            padding: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            z-index: 2; /* Overlay on top of calculator */
-            justify-content: center;
+            z-index: 2;
+            flex-direction: column;
             align-items: center;
-            flex-direction: column; /* Stack contents vertically */
         }
         #close-settings {
-            margin-bottom: 10px;
             background-color: #dc3545;
             color: white;
             border: none;
@@ -90,33 +87,42 @@
             cursor: pointer;
             padding: 8px 16px;
             transition: background-color 0.3s;
-            width: 100%;
+            width: 100px;
+            margin-bottom: 20px;
             font-size: 16px;
         }
         #close-settings:hover {
             background-color: #c82333;
         }
+        h3 {
+            text-align: center;
+            margin: 10px 0;
+        }
 
-        /* Enhanced Theme option styles */
+        /* Theme Selectors */
         .theme-selector {
-            margin-top: 15px;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); /* Responsive grid */
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
             gap: 10px;
+            margin-bottom: 20px;
             width: 100%;
         }
         .theme-option {
-            width: 80px;
-            height: 80px;
+            width: 100%;
+            height: 100px;
             border-radius: 10px;
             cursor: pointer;
             border: 2px solid transparent;
             transition: border 0.3s, transform 0.3s;
-            position: relative; /* For hover effects */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: white; /* Text color on hover */
         }
         .theme-option:hover {
             border: 2px solid #007BFF;
-            transform: scale(1.05); /* Subtle zoom on hover */
+            transform: scale(1.05);
         }
 
         /* New Theme Creation Section */
@@ -136,17 +142,16 @@
         }
         .preview {
             width: 80%;
-            height: 75px;
+            height: 80px;
             border-radius: 12px;
             margin-bottom: 10px;
-            background-color: #ffffff;
             border: 2px solid #007BFF;
         }
 
         /* Settings Icon */
         #settings-icon {
             position: fixed;
-            bottom: 90px; /* Adjusted to fit above the question mark */
+            bottom: 90px;
             right: 20px;
             font-size: 36px;
             cursor: pointer;
@@ -221,16 +226,17 @@
 
     <div class="settings-menu" id="settings-menu">
         <button id="close-settings" onclick="toggleSettings()">Close Settings</button>
-        <h3 style="text-align:center;">Theme Selector</h3>
+        <h3>Theme Selector</h3>
         <div class="theme-selector">
-            <div class="theme-option theme1" onclick="setTheme('theme1')" style="background-color: #007BFF;"></div>
-            <div class="theme-option theme2" onclick="setTheme('theme2')" style="background-color: #28a745;"></div>
-            <div class="theme-option theme3" onclick="setTheme('theme3')" style="background-color: #dc3545;"></div>
-            <div class="theme-option theme4" onclick="setTheme('theme4')" style="background-color: #ffc107;"></div>
-            <div class="theme-option theme5" onclick="setTheme('theme5')" style="background-color: #17a2b8;"></div>
-            <div class="theme-option theme6" onclick="setTheme('theme6')" style="background-color: #6f42c1;"></div>
+            <div class="theme-option" style="background-color: #007BFF;" onclick="setTheme('theme1')">Theme 1</div>
+            <div class="theme-option" style="background-color: #28a745;" onclick="setTheme('theme2')">Theme 2</div>
+            <div class="theme-option" style="background-color: #dc3545;" onclick="setTheme('theme3')">Theme 3</div>
+            <div class="theme-option" style="background-color: #ffc107;" onclick="setTheme('theme4')">Theme 4</div>
+            <div class="theme-option" style="background-color: #17a2b8;" onclick="setTheme('theme5')">Theme 5</div>
+            <div class="theme-option" style="background-color: #6f42c1;" onclick="setTheme('theme6')">Theme 6</div>
         </div>
-        <h3 style="text-align:center;">Custom Theme</h3>
+        
+        <h3>Custom Theme</h3>
         <div class="color-picker">
             <label for="color1">Choose Primary Color:</label>
             <input type="color" id="color1" class="color-input" value="#007BFF" onchange="updatePreview()">
@@ -326,41 +332,41 @@
         const calculator = document.querySelector('.calculator');
         const body = document.body;
 
-        // Set styles based on selected theme
+        // Setting body and calculator styles based on selected theme
         switch(theme) {
             case 'theme1':
-                body.style.backgroundColor = '#e9ecef';
-                calculator.style.background = 'linear-gradient(135deg, #ffffff, #f1f1f1)';
-                updateButtonColors('#007BFF', '#ffffff');
+                body.style.backgroundColor = '#f0f8ff';
+                calculator.style.background = '#ffffff';
+                updateButtonColors('#007BFF', '#f1f1f1');
                 saveTheme(theme, '#007BFF', '#f1f1f1');
                 break;
             case 'theme2':
                 body.style.backgroundColor = '#d4edda';
-                calculator.style.background = 'linear-gradient(135deg, #c3e6cb, #d4edda)';
-                updateButtonColors('#28a745', '#c3e6cb');
+                calculator.style.background = '#c3e6cb';
+                updateButtonColors('#28a745', '#d4edda');
                 saveTheme(theme, '#28a745', '#c3e6cb');
                 break;
             case 'theme3':
                 body.style.backgroundColor = '#f8d7da';
-                calculator.style.background = 'linear-gradient(135deg, #f5c6cb, #f8d7da)';
+                calculator.style.background = '#f5c6cb';
                 updateButtonColors('#dc3545', '#f5c6cb');
                 saveTheme(theme, '#dc3545', '#f5c6cb');
                 break;
             case 'theme4':
                 body.style.backgroundColor = '#fff3cd';
-                calculator.style.background = 'linear-gradient(135deg, #ffeeba, #fff3cd)';
+                calculator.style.background = '#ffeeba';
                 updateButtonColors('#ffc107', '#ffeeba');
                 saveTheme(theme, '#ffc107', '#ffeeba');
                 break;
             case 'theme5':
                 body.style.backgroundColor = '#d1ecf1';
-                calculator.style.background = 'linear-gradient(135deg, #bee5eb, #d1ecf1)';
+                calculator.style.background = '#bee5eb';
                 updateButtonColors('#17a2b8', '#bee5eb');
                 saveTheme(theme, '#17a2b8', '#bee5eb');
                 break;
             case 'theme6':
                 body.style.backgroundColor = '#e9ecef';
-                calculator.style.background = 'linear-gradient(135deg, #f8f9fa, #e9ecef)';
+                calculator.style.background = '#f8f9fa';
                 updateButtonColors('#6f42c1', '#f8f9fa');
                 saveTheme(theme, '#6f42c1', '#f8f9fa');
                 break;
