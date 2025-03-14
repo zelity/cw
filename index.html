@@ -23,6 +23,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             width: 400px;
             transition: background 0.3s;
+            position: relative;
         }
         #display {
             width: 100%;
@@ -65,8 +66,7 @@
             gap: 10px;
             justify-content: center;
         }
-        #learn-more, #settings {
-            margin-top: 20px;
+        #learn-more {
             padding: 12px;
             font-size: 18px;
             background-color: #007BFF;
@@ -77,10 +77,38 @@
             width: 100%;
             transition: background-color 0.3s, box-shadow 0.3s;
         }
-        #learn-more:hover, #settings:hover {
+        #learn-more:hover {
             background-color: #0056b3;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
+
+        /* Settings Menu Styles */
+        .settings-menu {
+            display: none;
+            position: absolute;
+            top: 115%;
+            left: 0;
+            right: 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            z-index: 10;
+        }
+        #close-settings {
+            margin-bottom: 10px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 8px;
+            transition: background-color 0.3s;
+        }
+        #close-settings:hover {
+            background-color: #c82333;
+        }
+
         /* Theme option styles */
         .theme-selector {
             margin-top: 15px;
@@ -98,18 +126,10 @@
         .theme-option:hover {
             border: 2px solid #007BFF;
         }
-        /* Different theme colors */
-        .theme1 { background-color: #007BFF; }
-        .theme2 { background-color: #28a745; }
-        .theme3 { background-color: #dc3545; }
-        .theme4 { background-color: #ffc107; }
-        .theme5 { background-color: #17a2b8; }
-        .theme6 { background-color: #6f42c1; }
-
+        
         /* New Theme Creation */
         .color-picker {
-            display: none;
-            justify-content: center;
+            display: flex;
             flex-direction: column;
             margin-top: 20px;
         }
@@ -141,7 +161,7 @@
         /* Emoji Styles */
         .emoji {
             position: fixed;
-            bottom: 20px;
+            bottom: 80px;
             left: 20px;
             font-size: 32px;
             cursor: pointer;
@@ -200,22 +220,24 @@
     </div>
     <button id="learn-more" onclick="promptPassword()">Learn More</button>
 
-    <div class="theme-selector">
-        <div class="theme-option theme1" onclick="setTheme('theme1')"></div>
-        <div class="theme-option theme2" onclick="setTheme('theme2')"></div>
-        <div class="theme-option theme3" onclick="setTheme('theme3')"></div>
-        <div class="theme-option theme4" onclick="setTheme('theme4')"></div>
-        <div class="theme-option theme5" onclick="setTheme('theme5')"></div>
-        <div class="theme-option theme6" onclick="setTheme('theme6')"></div>
-    </div>
-
-    <div class="color-picker">
-        <label for="color1">Choose Primary Color:</label>
-        <input type="color" id="color1" class="color-input" value="#007BFF">
-        <label for="color2">Choose Secondary Color:</label>
-        <input type="color" id="color2" class="color-input" value="#f1f1f1">
-        <div class="preview" id="preview"></div>
-        <button class="button" onclick="createTheme()">Create Theme</button>
+    <div class="settings-menu" id="settings-menu">
+        <button id="close-settings" onclick="toggleSettings()">Close Settings</button>
+        <div class="theme-selector">
+            <div class="theme-option theme1" onclick="setTheme('theme1')"></div>
+            <div class="theme-option theme2" onclick="setTheme('theme2')"></div>
+            <div class="theme-option theme3" onclick="setTheme('theme3')"></div>
+            <div class="theme-option theme4" onclick="setTheme('theme4')"></div>
+            <div class="theme-option theme5" onclick="setTheme('theme5')"></div>
+            <div class="theme-option theme6" onclick="setTheme('theme6')"></div>
+        </div>
+        <div class="color-picker">
+            <label for="color1">Choose Primary Color:</label>
+            <input type="color" id="color1" class="color-input" value="#007BFF" onchange="updatePreview()">
+            <label for="color2">Choose Secondary Color:</label>
+            <input type="color" id="color2" class="color-input" value="#f1f1f1" onchange="updatePreview()">
+            <div class="preview" id="preview"></div>
+            <button class="button" onclick="createTheme()">Create Theme</button>
+        </div>
     </div>
 </div>
 
@@ -223,6 +245,20 @@
 <div class="emoji" onclick="promptPassword()">❓</div>
 
 <script>
+    document.addEventListener('keydown', function(event) {
+        const display = document.getElementById('display');
+        if ((event.key >= '0' && event.key <= '9') || 
+            ['+', '-', '*', '/'].includes(event.key)) {
+            appendToDisplay(event.key);
+        }
+        if (event.key === 'Enter') {
+            calculateResult();
+        }
+        if (event.key === 'Backspace') {
+            clearDisplay();
+        }
+    });
+
     function appendToDisplay(value) {
         const display = document.getElementById('display');
         if (display.value === '0' && value !== 'C') {
@@ -316,9 +352,8 @@
     }
 
     function toggleSettings() {
-        const colorPicker = document.querySelector('.color-picker');
-        colorPicker.style.display = colorPicker.style.display === 'flex' ? 'none' : 'flex';
-        updatePreview();
+        const settingsMenu = document.getElementById('settings-menu');
+        settingsMenu.style.display = settingsMenu.style.display === 'block' ? 'none' : 'block';
     }
 
     function updatePreview() {
