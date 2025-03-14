@@ -14,7 +14,6 @@
             align-items: center;
             height: 100vh;
             position: relative;
-            transition: background-color 0.3s;
             color: #333;
         }
         .calculator {
@@ -24,7 +23,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             width: 400px;
             position: relative;
-            z-index: 1; /* Make sure it's above the overlay */
+            z-index: 1; /* Ensure it's above the overlay */
         }
         #display {
             width: 100%;
@@ -36,7 +35,6 @@
             text-align: right;
             background-color: #f9f9f9;
             color: #333;
-            transition: background-color 0.3s;
             outline: none;
         }
         .button {
@@ -90,36 +88,38 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            padding: 8px;
+            padding: 8px 16px;
             transition: background-color 0.3s;
             width: 100%;
+            font-size: 16px;
         }
         #close-settings:hover {
             background-color: #c82333;
         }
 
-        /* Theme option styles */
+        /* Enhanced Theme option styles */
         .theme-selector {
             margin-top: 15px;
-            display: flex;
-            flex-direction: column; 
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); /* Responsive grid */
+            gap: 10px;
             width: 100%;
-            align-items: center;
         }
         .theme-option {
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
             border-radius: 10px;
             cursor: pointer;
             border: 2px solid transparent;
-            transition: border 0.3s;
-            margin: 5px;
+            transition: border 0.3s, transform 0.3s;
+            position: relative; /* For hover effects */
         }
         .theme-option:hover {
             border: 2px solid #007BFF;
+            transform: scale(1.05); /* Subtle zoom on hover */
         }
-        
-        /* New Theme Creation */
+
+        /* New Theme Creation Section */
         .color-picker {
             display: flex;
             flex-direction: column;
@@ -129,15 +129,18 @@
         }
         .color-input {
             margin: 10px 0;
+            border: 2px solid #007BFF;
+            border-radius: 5px;
+            padding: 6px;
             width: 80%; /* Adjust width of color inputs */
         }
         .preview {
-            width: 100%;
+            width: 80%;
             height: 75px;
             border-radius: 12px;
             margin-bottom: 10px;
             background-color: #ffffff;
-            border: 2px solid #ccc;
+            border: 2px solid #007BFF;
         }
 
         /* Settings Icon */
@@ -149,7 +152,6 @@
             cursor: pointer;
             background: transparent;
             border: none;
-            outline: none;
             transition: transform 0.3s;
         }
         #settings-icon:hover {
@@ -219,16 +221,16 @@
 
     <div class="settings-menu" id="settings-menu">
         <button id="close-settings" onclick="toggleSettings()">Close Settings</button>
-        <h3>Theme Selector</h3>
+        <h3 style="text-align:center;">Theme Selector</h3>
         <div class="theme-selector">
-            <div class="theme-option theme1" onclick="setTheme('theme1')"></div>
-            <div class="theme-option theme2" onclick="setTheme('theme2')"></div>
-            <div class="theme-option theme3" onclick="setTheme('theme3')"></div>
-            <div class="theme-option theme4" onclick="setTheme('theme4')"></div>
-            <div class="theme-option theme5" onclick="setTheme('theme5')"></div>
-            <div class="theme-option theme6" onclick="setTheme('theme6')"></div>
+            <div class="theme-option theme1" onclick="setTheme('theme1')" style="background-color: #007BFF;"></div>
+            <div class="theme-option theme2" onclick="setTheme('theme2')" style="background-color: #28a745;"></div>
+            <div class="theme-option theme3" onclick="setTheme('theme3')" style="background-color: #dc3545;"></div>
+            <div class="theme-option theme4" onclick="setTheme('theme4')" style="background-color: #ffc107;"></div>
+            <div class="theme-option theme5" onclick="setTheme('theme5')" style="background-color: #17a2b8;"></div>
+            <div class="theme-option theme6" onclick="setTheme('theme6')" style="background-color: #6f42c1;"></div>
         </div>
-        <h3>Custom Theme</h3>
+        <h3 style="text-align:center;">Custom Theme</h3>
         <div class="color-picker">
             <label for="color1">Choose Primary Color:</label>
             <input type="color" id="color1" class="color-input" value="#007BFF" onchange="updatePreview()">
@@ -258,7 +260,7 @@
             document.getElementById('color2').value = savedTheme.secondaryColor;
             updatePreview();
         } else {
-            setTheme('theme1'); // Applying default theme
+            setTheme('theme1'); // Apply default theme
         }
     });
 
@@ -324,6 +326,7 @@
         const calculator = document.querySelector('.calculator');
         const body = document.body;
 
+        // Set styles based on selected theme
         switch(theme) {
             case 'theme1':
                 body.style.backgroundColor = '#e9ecef';
