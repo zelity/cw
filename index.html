@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modern Calculator</title>
     <style>
+        /* General styling for body */
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
@@ -17,36 +18,39 @@
 
         .container {
             position: relative;
-            width: 350px; /* Adjusted width for a cleaner look */
+            width: 380px; /* Adjusted width for improved layout */
         }
 
+        /* Calculator styling */
         .calculator {
-            background: white;
+            background: linear-gradient(135deg, #ffffff, #f9f9f9);
             border-radius: 20px;
-            padding: 20px;
+            padding: 30px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, box-shadow 0.3s;
         }
 
+        /* Display input styling */
         #display {
             width: 100%;
-            padding: 15px;
-            font-size: 32px;
-            margin-bottom: 10px;
+            padding: 20px;
+            font-size: 36px;
+            margin-bottom: 20px;
             border: 2px solid #007BFF;
             border-radius: 15px;
             text-align: right;
-            background-color: #f9f9f9;
+            background-color: #f1f1f1;
             color: #333;
             outline: none;
             box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
+        /* Button styling */
         .button {
-            width: 75px; /* Adjusted button width */
-            height: 75px; /* Adjusted button height */
+            width: 80px; /* Uniform button sizes */
+            height: 80px;
             font-size: 24px;
-            margin: 5px; /* Reduced margin for a denser layout */
+            margin: 10px;
             cursor: pointer;
             border: none;
             border-radius: 15px;
@@ -65,13 +69,14 @@
             box-shadow: 0 2px 7px rgba(0, 0, 0, 0.2);
         }
 
+        /* Grid layout for buttons */
         .grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
+            gap: 15px; /* Increased gap for better spacing */
         }
 
-        /* Settings Menu and Theme Selector Styles */
+        /* Settings menu and theme selector styles */
         .settings-menu {
             display: none;
             position: fixed;
@@ -89,16 +94,18 @@
             justify-content: center;
         }
 
+        /* Closing button styling */
         #close-settings {
             background-color: #dc3545;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            padding: 10px 20px;
+            padding: 12px 20px;
             transition: background-color 0.3s;
             margin-bottom: 20px;
             font-size: 16px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         #close-settings:hover {
@@ -107,11 +114,12 @@
 
         h3 {
             text-align: center;
-            margin: 10px 0;
-            color: #007BFF;
+            margin: 15px 0;
+            color: #007BFF; /* Theme color for headings */
+            font-weight: bold;
         }
 
-        /* Theme Selectors */
+        /* Theme selectors */
         .theme-selector {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
@@ -124,22 +132,23 @@
             height: 100px;
             border-radius: 15px;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: bold;
             color: white; /* Text color */
             text-align: center;
+            font-size: 16px; /* Improved font size for better readability */
         }
 
         /* Hover effect on theme selection */
         .theme-option:hover {
             transform: scale(1.05);
-            border: 2px solid #007BFF;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
-        /* New Theme Creation Section */
+        /* New theme creation section styling */
         .color-picker {
             display: flex;
             flex-direction: column;
@@ -154,6 +163,11 @@
             border-radius: 5px;
             padding: 8px;
             width: 80%;
+            transition: border-color 0.3s;
+        }
+
+        .color-input:hover {
+            border-color: #0056b3; /* Darker shade on hover */
         }
 
         .preview {
@@ -165,12 +179,12 @@
             background: linear-gradient(135deg, #007BFF, #f1f1f1);
         }
 
-        /* Settings Icon */
+        /* Settings icon */
         #settings-icon {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            font-size: 36px;
+            font-size: 40px;
             cursor: pointer;
             background: transparent;
             border: none;
@@ -181,12 +195,12 @@
             transform: scale(1.1);
         }
 
-        /* Emoji Styles */
+        /* Emoji styles */
         .emoji {
             position: fixed;
             bottom: 20px;
             left: 20px;
-            font-size: 36px;
+            font-size: 38px;
             cursor: pointer;
             transition: transform 0.3s;
         }
@@ -199,7 +213,7 @@
         @media (max-width: 600px) {
             .calculator {
                 width: 90%;
-                margin: auto;
+                padding: 20px; /* Adjusted padding for smaller devices */
             }
 
             #display {
@@ -207,7 +221,6 @@
             }
 
             .button {
-                width: 60px;
                 height: 60px;
                 font-size: 20px;
             }
@@ -262,7 +275,7 @@
         <h3>Custom Theme</h3>
         <div class="color-picker">
             <input type="color" id="color1" class="color-input" value="#007BFF" onchange="updatePreview()">
-            <input type="color" id="color2" class="color-input" value="#f1f1f1" onchange="updatePreview()">
+            <input type="color" id="color2" class="color-input" value="#f3f3f3" onchange="updatePreview()">
             <div class="preview" id="preview"></div>
             <button class="button" onclick="createTheme()">Create Theme</button>
         </div>
@@ -276,7 +289,7 @@
     // Initial theme setup with local storage
     const defaultTheme = {
         primaryColor: '#007BFF',
-        secondaryColor: '#f1f1f1'
+        secondaryColor: '#f3f3f3'
     };
     
     document.addEventListener('DOMContentLoaded', function() {
@@ -353,41 +366,41 @@
         const calculator = document.querySelector('.calculator');
         const body = document.body;
 
-        // Setting body and calculator styles based on the selected theme
+        // Set body and calculator styles based on selected theme
         switch(theme) {
             case 'theme1':
-                body.style.backgroundColor = '#e9ecef';
-                calculator.style.background = '#ffffff';
-                updateButtonColors('#007BFF', '#f9f9f9');
-                saveTheme(theme, '#007BFF', '#f9f9f9');
+                body.style.backgroundColor = '#e9ecef'; // Light gray
+                calculator.style.background = '#ffffff'; // White
+                updateButtonColors('#007BFF', '#f1f1f1');
+                saveTheme(theme, '#007BFF', '#f3f3f3');
                 break;
             case 'theme2':
-                body.style.backgroundColor = '#d4edda';
-                calculator.style.background = '#c3e6cb';
+                body.style.backgroundColor = '#d4edda'; // Light green
+                calculator.style.background = '#c3e6cb'; // Slightly darker green
                 updateButtonColors('#28a745', '#c3e6cb');
                 saveTheme(theme, '#28a745', '#c3e6cb');
                 break;
             case 'theme3':
-                body.style.backgroundColor = '#f8d7da';
-                calculator.style.background = '#f5c6cb';
+                body.style.backgroundColor = '#f8d7da'; // Light red
+                calculator.style.background = '#f5c6cb'; // Slightly darker red
                 updateButtonColors('#dc3545', '#f5c6cb');
                 saveTheme(theme, '#dc3545', '#f5c6cb');
                 break;
             case 'theme4':
-                body.style.backgroundColor = '#fff3cd';
-                calculator.style.background = '#ffeeba';
+                body.style.backgroundColor = '#fff3cd'; // Light yellow
+                calculator.style.background = '#ffeeba'; // Slightly darker yellow
                 updateButtonColors('#ffc107', '#ffeeba');
                 saveTheme(theme, '#ffc107', '#ffeeba');
                 break;
             case 'theme5':
-                body.style.backgroundColor = '#d1ecf1';
-                calculator.style.background = '#bee5eb';
+                body.style.backgroundColor = '#d1ecf1'; // Light blue
+                calculator.style.background = '#bee5eb'; // Slightly darker blue
                 updateButtonColors('#17a2b8', '#bee5eb');
                 saveTheme(theme, '#17a2b8', '#bee5eb');
                 break;
             case 'theme6':
-                body.style.backgroundColor = '#e9ecef';
-                calculator.style.background = '#f8f9fa';
+                body.style.backgroundColor = '#e9ecef'; // Light gray
+                calculator.style.background = '#f8f9fa'; // Slightly lighter gray
                 updateButtonColors('#6f42c1', '#f8f9fa');
                 saveTheme(theme, '#6f42c1', '#f8f9fa');
                 break;
@@ -397,10 +410,10 @@
     function updateButtonColors(primary, background) {
         const buttons = document.querySelectorAll('.button');
         buttons.forEach(button => {
-            button.style.backgroundColor = primary;
+            button.style.backgroundColor = primary; // Button color
         });
-        document.getElementById('display').style.borderColor = primary;
-        document.getElementById('settings-icon').style.backgroundColor = background;
+        document.getElementById('display').style.borderColor = primary; // Display border color
+        document.getElementById('settings-icon').style.backgroundColor = background; // Settings icon color
     }
 
     function toggleSettings() {
