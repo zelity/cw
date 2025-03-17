@@ -1,296 +1,361 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Classroom</title>
     <link rel="icon" type="image/x-icon" href="data:image/jpeg;base64,...">
     <style>
         body {
             background-image: url('https://www.animaker.com/hub/wp-content/uploads/2022/10/ezgif.com-gif-maker-12-1.gif');
             background-repeat: no-repeat;
-            background-size: 100% 100%;
-            font-family: Arial, sans-serif;
+            background-size: cover;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
+            color: white;
+            overflow-y: hidden;  
+            transition: background-image 0.5s ease; /* Transition effect for background change */
         }
-        header {
-            background-color: #59505a; 
-            color: rgb(255, 0, 0);
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(89, 80, 90, 0.9);
+            padding: 15px 20px;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        nav h1 {
+            margin: 0;
+            font-size: 24px;
             text-align: center;
-            padding: 10px;
+            flex-grow: 1;
+        }
+        #home-button {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        #home-button img {
+            width: 100%;
+            height: 100%;
+        }
+        #home-button:hover {
+            transform: scale(1.1); /* Slight zoom effect on hover */
         }
         main {
-            padding: 20px;
+            padding: 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
+            flood: rgba(0, 0, 0, 0.5);  
+            border-radius: 10px;
+            margin: 20px;
         }
         button {
-            padding: 10px 20px;
-            background-color: #59505a;
-            color: rgb(255, 255, 255);
+            padding: 12px 25px;
+            background-color: rgba(255, 0, 0, 0.8);
+            color: white;
             border: none;
             cursor: pointer;
             margin-top: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            font-size: 16px; /* Adjusted for better readability */
+        }
+        button:hover {
+            background-color: rgba(255, 0, 0, 1);
         }
         select {
-            padding: 10px;
+            padding: 12px;
             margin-top: 10px;
-        }
-        #go-back-button {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
         }
         iframe {
             width: 100%;
             height: 450px;
             border: none;
             margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
-        footer {
-            text-align: center;
-            margin-top: 20px;
+        #fullscreen-icon {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        /* Change Background Button Style */
+        #change-bg-icon {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            width: 50px; 
+            cursor: pointer;
+            z-index: 1000;
         }
     </style>
 </head>
 <body>
-<header>
-    <h1>⭐Welcome to nux._.xul's game player version 1.2⭐</h1>
-</header>
+<nav>
+    <h1>nux.-.xul's game viewer</h1>
+    <a id="home-button" href="https://zelity.github.io/cw/home1.html">
+        <img src="https://media.istockphoto.com/id/1312128591/vector/home-icon-vector-house-sign.jpg?s=612x612&w=0&k=20&c=jxUT546g8Cfgv1SiAfh2Eos46XI3DqYvPLhxGFaobpE=" alt="Go Back to Homepage">
+    </a>
+</nav>
 <main>
     <iframe id="gameFrame" src="" frameborder="0"></iframe>
     <select id="gameSelector">
-        <option value="">a select a game</option>
+        <option value="">Select a game</option>
+        <option value="">a download new versions</option>
+        <option value="https://rahhh.zanity.net">a unblocked browser -laggy-</option>
+      <option value="https://deepai.org/chat">ai</option>
+        <option value="https://www.desmos.com/scientific">a calculator</option>
+         <option value="https://binbashbanana.github.io/webretro/">a emulator</option>
+        <option value="https://www.lategames.net/roms/">a download roms</option>
+       <option value="https://reunbozdo.github.io/">block blast</option>
+            
+            <option value="https://super-hex.io">super-hex.io</option>
+          <option value="https://games-site.github.io/projects/death-run-3d/index.html">death run 3D</option>
+            <option value="https://games-site.github.io/projects/ctr-time-travel/index.html">cut the rope time travel</option>
     
-   
-    <option value="">a download new versions</option>
-    <option value="https://rahhh.zanity.net">a unblocked browser -laggy-</option>
-  <option value="https://deepai.org/chat">ai</option>
-    <option value="https://www.desmos.com/scientific">a calculator</option>
-     <option value="https://binbashbanana.github.io/webretro/">a emulator</option>
-    <option value="https://www.lategames.net/roms/">a download roms</option>
-   <option value="https://reunbozdo.github.io/">block blast</option>
-        
-        <option value="https://super-hex.io">super-hex.io</option>
-      <option value="https://games-site.github.io/projects/death-run-3d/index.html">death run 3D</option>
-        <option value="https://games-site.github.io/projects/ctr-time-travel/index.html">cut the rope time travel</option>
-
-              <option value="https://www.jopi.com/embed.php?game=bacon-may-die">bacon may die</option>     
-          <option value="https://www.jopi.com/embed.php?game=ninja-hands">ninja hands</option>
-          <option value="https://www.jopi.com/embed.php?game=superfighters">super fighters</option>
-          <option value="https://www.jopi.com/embed.php?game=state-io">state io </option>
-         <option value="https://www.jopi.com/embed.php?game=deadshot-io">dead shot</option>
-        <option value="https://www.jopi.com/embed.php?game=kick-the-buddy">kick the buddy</option>
-        <option value="https://www.jopi.com/embed.php?game=doodle-jump">doodle jump</option>
-         <option value="https://www.jopi.com/embed.php?game=tomb-of-the-mask">tomb of the mask</option>
-        <option value="https://www.onlinegames.io/games/2023/code/four-colors/index.html">uno</option>
-        <option value="https://wormax.io">wormax.io</option>
-           <option value="https://mrmine.com/game/">mr mine</option>
-    <option value="https://frayfight.com/game/">fray fight</option>
-        <option value="https://grindcraft.com/game.php">grind craft</option>
-        <option value="https://clickerheroes.com/play.html">clicker hero</option>
-        <option value="https://brutal.io">brutal.io</option>
-    <option value="https://mope.io">mope.io</option>
-    <option value="https://narwhale.io">narwhale.io</option>
-    <option value="https://germs.io">germs.io</option>
-    <option value="https://oceanar.io">oceanar.io</option>
-    <option value="https://bois.io">bois.io</option>
-    <option value="https://taming.io">taming.io</option>
-    <option value="https://starblast.io">starblast.io</option>
-    <option value="https://crowdcity.io">crowdcity.io</option>
-    <option value="https://combines.io/?utm_medium=41&utm_content=58&utm_source=gameads&utm_campaign=17465505416&utm_term=crowdcity.io">combines.io</option>
-    <option value="https://lastmagestanding.com">lastmagestanding.com</option>
-    <option value="https://venge.io">venge.io</option>
-    <option value="https://stabfish.io">stabfish.io</option>
-    <option value="https://theempiregame.com/#google_vignette">theempiregame.com</option>
-    <option value="https://blocktanks.io">blocktanks.io</option>
-    <option value="https://starve.io">starve.io</option>
-    <option value="https://minigiants.io/?v=1.6.74">minigiants.io</option>
-    <option value="https://florr.io">florr.io</option>
-    <option value="https://krew.io">krew.io</option>
-    <option value="https://devast.io">devast.io</option>
-    <option value="https://warbrokers.io/signin.php">warbrokers.io</option>
-    <option value="https://repuls.io">repuls.io</option>
-    <option value="https://brutalmania.io/?v=1.2.63">brutalmania.io</option>
-    <option value="https://snowball-io.io">snowball-io.io</option>
-    <option value="https://www.creatur.io">creatur.io</option>
-    <option value="https://kugeln.io">kugeln.io</option>
-    <option value="https://gartic.io">gartic.io</option>
-    <option value="https://defly.io">defly.io</option>
-    <option value="https://pung.io">pung.io</option>
-    <option value="https://junon.io">junon.io</option>
-    <option value="https://swordz.io">swordz.io</option>
-    <option value="https://betrayal.io">betrayal.io</option>
-    <option value="https://craftnite.io">craftnite.io</option>
-    <option value="https://dynast.io">dynast.io</option>
-    <option value="https://drednot.io">drednot.io</option>
-    <option value="https://buildroyale.io">buildroyale.io</option>
-    <option value="https://nightpoint.io">nightpoint.io</option>
-    <option value="https://ninja.io">ninja.io</option>
-    <option value="https://yorg.io">yorg.io</option>
-    <option value="https://warscrap.io">warscrap.io</option>
-    <option value="https://stomped.io">stomped.io</option>
-    <option value="https://chompers.io/?v=1.1.33">chompers.io</option>
-    <option value="https://wings.io">wings.io</option>
-    <option value="https://wanderers.io">wanderers.io</option>
-    <option value="https://hordes.io">hordes.io</option>
-        <option value="https://neal.fun/asteroid-launcher/">astroid launcher</option>
-   <option value="https://kdata1.com/2020/12/arm-of-revenge-trial/">arm of revenge</option>
-   <option value="https://unblocked-games.s3.amazonaws.com/games/2021/unity3/armedforces-io/unblocked.html">armedforces-io</option>
-   <option value="https://www.addictinggames.com/embed/html5-games/10000278">braains.io</option>
-   <option value="https://xlegends.github.io/bitlife/">bitlife</option>
-<option value=" https://trinculo54.github.io/Boxel-rebound-hope/Older/">boxel-rebound</option>
-    <option value="https://blumgislime.github.io/">blumgislime</option>
-    <option value="https://ludicrous.icu/gfiles/html5/breakout/">breakout</option>
-    <option value="https://9bob.net/iframe/Baldis-Basics-v143">baldies basics</option>
-   <option value="https://cdn2.addictinggames.com/addictinggames-content/ag-assets/content-items/html5-games/bubble-shooter-classic/index.html">bubble shooter</option>  
- <option value="https://js13kgames.com/games/bounce-back/index.html">bounce back</option>  
-   <option value="https://bonk.io/">Bonk.io</option>
-    <option value="https://html5.gamedistribution.com/eeb8ab27ae274875bced4fff94b8bfd7/?timestamp=-62135596800&countryCode=en-GB&siteid=88&channelid=1&siteLocale=en-GB&locale=en-GB&gd_sdk_referrer_url=https%3A%2F%2Fwww.games.co.uk%2Fgame%2Foffroad-muddy-trucks">muddy trucks</option>
-        
-    <option value="https://ludicrous.icu/gfiles/html5/crossyroad/play/">crossy road</option>
-    <option value="https://sd592g.github.io/zj684od4lfg/">minecraft</option>
-   <option value=" https://static.arcadespot.com/retroemulator.php?system=snes&game=2015/11/super-mario-world.smc">m super mario bros</option>
-    <option value=" https://static.arcadespot.com/retroemulator.php?system=n64&game=2017/06/mario-kart-64.zip">mario kart 64</option>
-      <option value="https://f.kbhgames.com/r/n64/game.php?file=Paper%20Mario%20(USA).zip">m paper mario </option>
-  
-      <option value="https://static.arcadespot.com/retroemulator.php?system=gba&game=2016/02/pokemon-sapphire.zip">pokemon sapphire</option>
-    <option value="https://static.arcadespot.com/retroemulator.php?system=nds&game=2017/10/Pokemon-Platinum-Version.zip">Pokemon Platinum Version</option>
-    <option value="https://static.arcadespot.com/retroemulator.php?system=gba&game=2015/10/pokemon-emerald.zip">pokemon emerald</option>
-    <option value="https://static.arcadespot.com/retroemulator.php?system=gba&game=2016/02/pokemon-fire-red.zip">pokemon fire-red</option>
-    <option value="https://www.addictinggames.com/embed/html5-games/10000529">toms adventure </option>
-     <option value="https://cdn2.addictinggames.com/addictinggames-content/ag-assets/content-items/html5-games/number-knight/index.html">number knight</option>
-     <option value="https://cdn2.addictinggames.com/addictinggames-content/ag-assets/content-items/html5-games/trash-factory/index.html">trash factory</option>
-     <option value="https://cdn2.addictinggames.com/addictinggames-content/ag-assets/content-items/html5-games/little-wizard/index.html">little wizard</option>
-     <option value="https://www.addictinggames.com/embed/html5-games/10000418">time freeze</option>
-     <option value="https://cdn2.addictinggames.com/addictinggames-content/ag-assets/content-items/html5-games/oasis/index.html">oasis</option>
-     <option value="https://www.addictinggames.com/embed/html5-games/10000401">fold paper</option>
-     <option value="https://www.addictinggames.com/embed/html5-games/10000343">pvpz.io</option>
-   <option value="https://www.torn.com">torn game</option>
-     <option value="https://www.addictinggames.com/embed/html5-games/10000332">endless shape shifter</option>
-     <option value="https://www.addictinggames.com/embed/html5-games/10000319">sandstrike.io</option>
-      <option value="https://www.addictinggames.com/embed/html5-games/10000529">dont fall in lava</option>
-  
-     <option value="https://www.addictinggames.com/embed/html5-games/10000284">stickmanwar.io</option>
-    <option value="https://basket-bros.github.io/a9/volley-random/">volley ball randoms</option>
-     <option value="https://html5.gamedistribution.com/256133caac9c4ed99a57386493663ab1/?gd_sdk_referrer_url=https://unblocked-games.org/flying-car-simulator/">Flying car simulator</option>
-    <option value="https://games.gamesplaza.com/ext/distribution/pull_pin/index.html?utm_referrer=max&bm.source=www.coolgames.com&dist.version=2">pull the pin</option>
-    <option value="https://2048.io/">2048</option>
-    <option value="https://html5.gamedistribution.com/2ccf176ff7c34c93951cf4995589f787/?gd_sdk_referrer_url=https://unblocked-games.org/knife-hit/">knife hit </option>
-   
-    <option value="https://lolbeans.io/">lol bean</option>
-<option value="https://9bob.net/iframe/City-Stunts">city stunt</option>
-<option value="https://9bob.net/iframe/Spongebob-You-are-Fired">Spongebob You are Fired</option>
-
-<option value="https://9bob.net/iframe/Fireboy-And-Watergirl-2-the-Light-Temple">Fireboy And Watergirl 2 the Light Temple</option>
-<option value="https://neal.fun/spend/">spend bill gates money</option>
-<option value="https://neal.fun/rocks/">stack rocks</option>
-<option value="https://neal.fun/design-the-next-iphone/">design new iphone!!</option>
-
-<option value="https://www.linerider.com/">line rider</option>
-<option value="https://www.google.com/logos/2019/july4th19/r6/july4th19.html?hl=en">doodle basketball</option>
-<option value="https://paint.toys/">paint toys</option>
-<option value="https://zombsroyale.io/">zombs royale</option>
-<option value="https://kdata1.com/2017/09/drift-hunters-2/">drift hunters</option>
-<option value="https://www.geo-fs.com/geofs.php?v=3.7">flight simulator</option>
-<option value="https://slowroads.io/">slow-roads</option>
-<option value="https://www.addictinggames.com/embed/html5-games/23484">diep.io</option>
-<option value="https://cdn2.addictinggames.com/addictinggames-content/ag-assets/content-items/html5-games/its-raining-monkeys/index.html">its raining monkeys</option>    
-
-    <option value="https://cdn2.addictinggames.com/addictinggames-content/ag-assets/content-items/html5-games/theimpossiblequiz/index.html">the impossible quiz</option> 
-<option value="https://www.addictinggames.com/embed/html5-games/10000305">shin arena</option>
-<option value="https://www.addictinggames.com/embed/html5-games/10000661">fire crush</option>
-<option value="https://www.addictinggames.com/embed/html5-games/10000659">deepest sword</option>
-<option value="https://deadshot.io/">dead shot</option>
-<option value="https://justfall.lol/">just fall</option>
-<option value="https://bandit.rip/">bandit.rip</option>
-<option value="https://tanuki-sunset.vercel.app/">tanuki sunset</option>
-<option value="https://kdata1.com/2015/9/stick-fight-2/">stick fight 2 </option>
-<option value="https://fnf.kdata1.com/fnf-v291/">friday night funkin</option>
-<option value="https://kdata1.com/2021/06/smw-road-toinfinity/">mario fan game</option>
-<option value="https://kdata1.com/2018/10/rooftopsnipers/">roof top sniper</option>
-<option value="https://kdata1.com/2019/05/superhot/">super hot</option>
-<option value="https://kdata1.com/2019/09/94686/">ant art tycoon</option>
-<option value="https://kdata1.com/2020/02/Soccer_Random/">soccer randoms</option>
-<option value="https://kdata1.com/2017/09/life-the-game/">life the game</option>
-<option value="https://kdata1.com/2021/12/PlugIn_EN_WebBuild_1.3/">plug in</option>
-<option value="https://kdata1.com/2016/12/toon-shooters-2/">toon shooter</option>
-
-<option value="https://kdata1.com/2017/02/happy-room/ ">happy room</option>
-<option value="https://www.tbsnews.net/game-stack/v0.18/index.html">stack blocks</option>
-<option value="https://geometrydash-lite.com/">geometry dash</option>
-<option value="https://zombsroyale.io/">zombs royale</option>
-<option value="https://.splix.io">splix io</option>
-<option value="https://9bob.net/iframe/Lego-Gotham-City-Speed">Lego Gotham City Speed</option>
-<option value="https://9bob.net/iframe/Plants-Zombies-Original-">plants vs zombies</option>
-<option value="https://9bob.net/iframe/Cut-the-Rope-Experiments">Cut the Rope Experiments</option>
-<option value="https://9bob.net/iframe/Car-Drift-Racers-2">Car Drift Racers 2</option>
-<option value="https://storage.y8.com/y8-studio/unity_webgl/bitlaslt/slope_v_1_2_5/?key=9757549&value=80527">slope</option>
-<option value="https://9bob.net/iframe/Moto-Xm-Pool-Party">Moto-Xm-Pool-Party</option>
-<option value="https://9bob.net/iframe/Stickman-Hook">stickman hook</option>    
-<option value="https://9bob.net/iframe/Fireboy-and-Watergirl">Fireboy-and-Watergirl</option>
-
-<option value="https://cookieclicker2.io">cookie clicker</option>
-<option value="https://play.fancade.com/5E9F40DA7F9C9FA8">recoil</option>
-<option value="https://smashkarts.io/">smash karts</option>
-<option value="https://gooberdash.winterpixel.io">goober dash</option>
-<option value="https://surviv.io/">surviv.io</option>
-<option value="https://yohoho.io">yohoho.io</option>
-<option value="https://yohoho.io">blockpost</option>
-<option value="https://shellshock.io/">shellshock.io</option>
- <option value=" https://moomoo.io/">moomoo.io</option>
-<option value="https://evowars.io/">evowars.io</option>
-<option value="https://powerline.io/">powerline.io</option>
-
-<option value="https://classwork.cc/cookie-clicker-unblocked/">Cookie Clicker</option>
-     <option value="https://files.gamezhero.com/game/905/1d1/9051d1173be765fb/data/index.html">subway surfers</option>
-     <option value="https://html5.gamedistribution.com/3b79a8537ebc414fb4f9672a9b8c68c8/?gd_sdk_referrer_url=https://snowrider3d.com/snow-rider-3d">snow rider 3-d</option>
-     <option value="https://html5.gamedistribution.com/acc0242bb60842fcb0aa806b6e14ff6a/?gd_sdk_referrer_url=https://gamedistribution.com/games/lode-retro-adventure">LODE RETRO ADVENTURE </option>
-     <option value="https://mystifying-goodall-147690.netlify.app">choppy orc</option>
-   <option value="https://scratch.mit.edu/projects/407561251/embed">mario maker </option>
-   <option value="https://html5.gamedistribution.com/3dbd133d0cd9468bafdf2c9812290f4b/?gd_sdk_referrer_url=https://gamedistribution.com/games/basketball-legends-2020">basketball legends</option>
-   <option value="https://goosegame.io">goose game</option>
-   <option value="https://bestgradex.com/games/monkey-mart/index.html">monkey mart</option>
-   <option value="https://bestgradex.com/games/drive-mad/index.html">drive mad</option>
-
-   <option value="https://bestgradex.com/games/moto-x3m/index.html">moto 3xm</option>
-   <option value="https://unblockedgamesgg.com/games/html5/run-3/index.html">run 3</option>
-
-    <option value="https://bestgradex.com/games/drive-mad/index.html">drive-mad</option>
-  
-  <option value="https://html5.gamedistribution.com/a186dc9ac7f548f884db8ff54df6dd9f/?gd_sdk_referrer_url=https://gamedistribution.com/games/fruit-ninja-2">fruit ninja</option>
-    <option value="https://html5.gamedistribution.com/26d9c4da689e4b2599917eab8735a381/">cut the rope</option>
-    <option value="https://suikagame.com/">watermellon silka game</option>
-    <option value="https://neal.fun/infinite-craft/">infinite craft</option>
-    <option value="https://paper-io.com/">Paper.io</option>
-    <option value="https://hole-io.com/">Hole.io</option>
+                  <option value="https://www.jopi.com/embed.php?game=bacon-may-die">bacon may die</option>     
+              <option value="https://www.jopi.com/embed.php?game=ninja-hands">ninja hands</option>
+              <option value="https://www.jopi.com/embed.php?game=superfighters">super fighters</option>
+              <option value="https://www.jopi.com/embed.php?game=state-io">state io </option>
+             <option value="https://www.jopi.com/embed.php?game=deadshot-io">dead shot</option>
+            <option value="https://www.jopi.com/embed.php?game=kick-the-buddy">kick the buddy</option>
+            <option value="https://www.jopi.com/embed.php?game=doodle-jump">doodle jump</option>
+             <option value="https://www.jopi.com/embed.php?game=tomb-of-the-mask">tomb of the mask</option>
+            <option value="https://www.onlinegames.io/games/2023/code/four-colors/index.html">uno</option>
+            <option value="https://wormax.io">wormax.io</option>
+               <option value="https://mrmine.com/game/">mr mine</option>
+        <option value="https://frayfight.com/game/">fray fight</option>
+            <option value="https://grindcraft.com/game.php">grind craft</option>
+            <option value="https://clickerheroes.com/play.html">clicker hero</option>
+            <option value="https://brutal.io">brutal.io</option>
+        <option value="https://mope.io">mope.io</option>
+        <option value="https://narwhale.io">narwhale.io</option>
+        <option value="https://germs.io">germs.io</option>
+        <option value="https://oceanar.io">oceanar.io</option>
+        <option value="https://bois.io">bois.io</option>
+        <option value="https://taming.io">taming.io</option>
+        <option value="https://starblast.io">starblast.io</option>
+        <option value="https://crowdcity.io">crowdcity.io</option>
+        <option value="https://combines.io/?utm_medium=41&utm_content=58&utm_source=gameads&utm_campaign=17465505416&utm_term=crowdcity.io">combines.io</option>
+        <option value="https://lastmagestanding.com">lastmagestanding.com</option>
+        <option value="https://venge.io">venge.io</option>
+        <option value="https://stabfish.io">stabfish.io</option>
+        <option value="https://theempiregame.com/#google_vignette">theempiregame.com</option>
+        <option value="https://blocktanks.io">blocktanks.io</option>
+        <option value="https://starve.io">starve.io</option>
+        <option value="https://minigiants.io/?v=1.6.74">minigiants.io</option>
+        <option value="https://florr.io">florr.io</option>
+        <option value="https://krew.io">krew.io</option>
+        <option value="https://devast.io">devast.io</option>
+        <option value="https://warbrokers.io/signin.php">warbrokers.io</option>
+        <option value="https://repuls.io">repuls.io</option>
+        <option value="https://brutalmania.io/?v=1.2.63">brutalmania.io</option>
+        <option value="https://snowball-io.io">snowball-io.io</option>
+        <option value="https://www.creatur.io">creatur.io</option>
+        <option value="https://kugeln.io">kugeln.io</option>
+        <option value="https://gartic.io">gartic.io</option>
+        <option value="https://defly.io">defly.io</option>
+        <option value="https://pung.io">pung.io</option>
+        <option value="https://junon.io">junon.io</option>
+        <option value="https://swordz.io">swordz.io</option>
+        <option value="https://betrayal.io">betrayal.io</option>
+        <option value="https://craftnite.io">craftnite.io</option>
+        <option value="https://dynast.io">dynast.io</option>
+        <option value="https://drednot.io">drednot.io</option>
+        <option value="https://buildroyale.io">buildroyale.io</option>
+        <option value="https://nightpoint.io">nightpoint.io</option>
+        <option value="https://ninja.io">ninja.io</option>
+        <option value="https://yorg.io">yorg.io</option>
+        <option value="https://warscrap.io">warscrap.io</option>
+        <option value="https://stomped.io">stomped.io</option>
+        <option value="https://chompers.io/?v=1.1.33">chompers.io</option>
+        <option value="https://wings.io">wings.io</option>
+        <option value="https://wanderers.io">wanderers.io</option>
+        <option value="https://hordes.io">hordes.io</option>
+            <option value="https://neal.fun/asteroid-launcher/">astroid launcher</option>
+       <option value="https://kdata1.com/2020/12/arm-of-revenge-trial/">arm of revenge</option>
+       <option value="https://unblocked-games.s3.amazonaws.com/games/2021/unity3/armedforces-io/unblocked.html">armedforces-io</option>
+       <option value="https://www.addictinggames.com/embed/html5-games/10000278">braains.io</option>
+       <option value="https://xlegends.github.io/bitlife/">bitlife</option>
+    <option value=" https://trinculo54.github.io/Boxel-rebound-hope/Older/">boxel-rebound</option>
+        <option value="https://blumgislime.github.io/">blumgislime</option>
+        <option value="https://ludicrous.icu/gfiles/html5/breakout/">breakout</option>
+        <option value="https://9bob.net/iframe/Baldis-Basics-v143">baldies basics</option>
+       <option value="https://cdn2.addictinggames.com/addictinggames-content/ag-assets/content-items/html5-games/bubble-shooter-classic/index.html">bubble shooter</option>  
+     <option value="https://js13kgames.com/games/bounce-back/index.html">bounce back</option>  
+       <option value="https://bonk.io/">Bonk.io</option>
+        <option value="https://html5.gamedistribution.com/eeb8ab27ae274875bced4fff94b8bfd7/?timestamp=-62135596800&countryCode=en-GB&siteid=88&channelid=1&siteLocale=en-GB&locale=en-GB&gd_sdk_referrer_url=https%3A%2F%2Fwww.games.co.uk%2Fgame%2Foffroad-muddy-trucks">muddy trucks</option>
+            
+        <option value="https://ludicrous.icu/gfiles/html5/crossyroad/play/">crossy road</option>
+        <option value="https://sd592g.github.io/zj684od4lfg/">minecraft</option>
+       <option value=" https://static.arcadespot.com/retroemulator.php?system=snes&game=2015/11/super-mario-world.smc">m super mario bros</option>
+        <option value=" https://static.arcadespot.com/retroemulator.php?system=n64&game=2017/06/mario-kart-64.zip">mario kart 64</option>
+          <option value="https://f.kbhgames.com/r/n64/game.php?file=Paper%20Mario%20(USA).zip">m paper mario </option>
+      
+          <option value="https://static.arcadespot.com/retroemulator.php?system=gba&game=2016/02/pokemon-sapphire.zip">pokemon sapphire</option>
+        <option value="https://static.arcadespot.com/retroemulator.php?system=nds&game=2017/10/Pokemon-Platinum-Version.zip">Pokemon Platinum Version</option>
+        <option value="https://static.arcadespot.com/retroemulator.php?system=gba&game=2015/10/pokemon-emerald.zip">pokemon emerald</option>
+        <option value="https://static.arcadespot.com/retroemulator.php?system=gba&game=2016/02/pokemon-fire-red.zip">pokemon fire-red</option>
+        <option value="https://www.addictinggames.com/embed/html5-games/10000529">toms adventure </option>
+         <option value="https://cdn2.addictinggames.com/addictinggames-content/ag-assets/content-items/html5-games/number-knight/index.html">number knight</option>
+         <option value="https://cdn2.addictinggames.com/addictinggames-content/ag-assets/content-items/html5-games/trash-factory/index.html">trash factory</option>
+         <option value="https://cdn2.addictinggames.com/addictinggames-content/ag-assets/content-items/html5-games/little-wizard/index.html">little wizard</option>
+         <option value="https://www.addictinggames.com/embed/html5-games/10000418">time freeze</option>
+         <option value="https://cdn2.addictinggames.com/addictinggames-content/ag-assets/content-items/html5-games/oasis/index.html">oasis</option>
+         <option value="https://www.addictinggames.com/embed/html5-games/10000401">fold paper</option>
+         <option value="https://www.addictinggames.com/embed/html5-games/10000343">pvpz.io</option>
+       <option value="https://www.torn.com">torn game</option>
+         <option value="https://www.addictinggames.com/embed/html5-games/10000332">endless shape shifter</option>
+         <option value="https://www.addictinggames.com/embed/html5-games/10000319">sandstrike.io</option>
+          <option value="https://www.addictinggames.com/embed/html5-games/10000529">dont fall in lava</option>
+      
+         <option value="https://www.addictinggames.com/embed/html5-games/10000284">stickmanwar.io</option>
+        <option value="https://basket-bros.github.io/a9/volley-random/">volley ball randoms</option>
+         <option value="https://html5.gamedistribution.com/256133caac9c4ed99a57386493663ab1/?gd_sdk_referrer_url=https://unblocked-games.org/flying-car-simulator/">Flying car simulator</option>
+        <option value="https://games.gamesplaza.com/ext/distribution/pull_pin/index.html?utm_referrer=max&bm.source=www.coolgames.com&dist.version=2">pull the pin</option>
+        <option value="https://2048.io/">2048</option>
+        <option value="https://html5.gamedistribution.com/2ccf176ff7c34c93951cf4995589f787/?gd_sdk_referrer_url=https://unblocked-games.org/knife-hit/">knife hit </option>
+       
+        <option value="https://lolbeans.io/">lol bean</option>
+    <option value="https://9bob.net/iframe/City-Stunts">city stunt</option>
+    <option value="https://9bob.net/iframe/Spongebob-You-are-Fired">Spongebob You are Fired</option>
     
-    <option value="https://krunker.io/">Krunker.io</option>
-    <option value="https://nesbox.com/emulator/">NES Emulator</option>
-    <option value="https://www.retrogames.cc/">Retro Games</option>
-    <option value="https://ludicrous.icu/gfiles/html5/pacman/">Pac-Man</option>
- <option value="https://player03.com/run/3/beta/">Run 3 Unblocked</option>
-<option value="https://freegalaga.com/">Galaga</option>
-<option value="https://helixjumponline.com/">helix jump</option>
- <option value="https://www.kogama.com/">Kogama</option>
-    <option value="http://scribbles.io/">Scribbles.io</option>
-    <option value="https://www.braains.io/">Braains.io</option>
-    <option value="">Movies Coming Soon!</option>
+    <option value="https://9bob.net/iframe/Fireboy-And-Watergirl-2-the-Light-Temple">Fireboy And Watergirl 2 the Light Temple</option>
+    <option value="https://neal.fun/spend/">spend bill gates money</option>
+    <option value="https://neal.fun/rocks/">stack rocks</option>
+    <option value="https://neal.fun/design-the-next-iphone/">design new iphone!!</option>
+    
+    <option value="https://www.linerider.com/">line rider</option>
+    <option value="https://www.google.com/logos/2019/july4th19/r6/july4th19.html?hl=en">doodle basketball</option>
+    <option value="https://paint.toys/">paint toys</option>
+    <option value="https://zombsroyale.io/">zombs royale</option>
+    <option value="https://kdata1.com/2017/09/drift-hunters-2/">drift hunters</option>
+    <option value="https://www.geo-fs.com/geofs.php?v=3.7">flight simulator</option>
+    <option value="https://slowroads.io/">slow-roads</option>
+    <option value="https://www.addictinggames.com/embed/html5-games/23484">diep.io</option>
+    <option value="https://cdn2.addictinggames.com/addictinggames-content/ag-assets/content-items/html5-games/its-raining-monkeys/index.html">its raining monkeys</option>    
+    
+        <option value="https://cdn2.addictinggames.com/addictinggames-content/ag-assets/content-items/html5-games/theimpossiblequiz/index.html">the impossible quiz</option> 
+    <option value="https://www.addictinggames.com/embed/html5-games/10000305">shin arena</option>
+    <option value="https://www.addictinggames.com/embed/html5-games/10000661">fire crush</option>
+    <option value="https://www.addictinggames.com/embed/html5-games/10000659">deepest sword</option>
+    <option value="https://deadshot.io/">dead shot</option>
+    <option value="https://justfall.lol/">just fall</option>
+    <option value="https://bandit.rip/">bandit.rip</option>
+    <option value="https://tanuki-sunset.vercel.app/">tanuki sunset</option>
+    <option value="https://kdata1.com/2015/9/stick-fight-2/">stick fight 2 </option>
+    <option value="https://fnf.kdata1.com/fnf-v291/">friday night funkin</option>
+    <option value="https://kdata1.com/2021/06/smw-road-toinfinity/">mario fan game</option>
+    <option value="https://kdata1.com/2018/10/rooftopsnipers/">roof top sniper</option>
+    <option value="https://kdata1.com/2019/05/superhot/">super hot</option>
+    <option value="https://kdata1.com/2019/09/94686/">ant art tycoon</option>
+    <option value="https://kdata1.com/2020/02/Soccer_Random/">soccer randoms</option>
+    <option value="https://kdata1.com/2017/09/life-the-game/">life the game</option>
+    <option value="https://kdata1.com/2021/12/PlugIn_EN_WebBuild_1.3/">plug in</option>
+    <option value="https://kdata1.com/2016/12/toon-shooters-2/">toon shooter</option>
+    
+    <option value="https://kdata1.com/2017/02/happy-room/ ">happy room</option>
+    <option value="https://www.tbsnews.net/game-stack/v0.18/index.html">stack blocks</option>
+    <option value="https://geometrydash-lite.com/">geometry dash</option>
+    <option value="https://zombsroyale.io/">zombs royale</option>
+    <option value="https://.splix.io">splix io</option>
+    <option value="https://9bob.net/iframe/Lego-Gotham-City-Speed">Lego Gotham City Speed</option>
+    <option value="https://9bob.net/iframe/Plants-Zombies-Original-">plants vs zombies</option>
+    <option value="https://9bob.net/iframe/Cut-the-Rope-Experiments">Cut the Rope Experiments</option>
+    <option value="https://9bob.net/iframe/Car-Drift-Racers-2">Car Drift Racers 2</option>
+    <option value="https://storage.y8.com/y8-studio/unity_webgl/bitlaslt/slope_v_1_2_5/?key=9757549&value=80527">slope</option>
+    <option value="https://9bob.net/iframe/Moto-Xm-Pool-Party">Moto-Xm-Pool-Party</option>
+    <option value="https://9bob.net/iframe/Stickman-Hook">stickman hook</option>    
+    <option value="https://9bob.net/iframe/Fireboy-and-Watergirl">Fireboy-and-Watergirl</option>
+    
+    <option value="https://cookieclicker2.io">cookie clicker</option>
+    <option value="https://play.fancade.com/5E9F40DA7F9C9FA8">recoil</option>
+    <option value="https://smashkarts.io/">smash karts</option>
+    <option value="https://gooberdash.winterpixel.io">goober dash</option>
+    <option value="https://surviv.io/">surviv.io</option>
+    <option value="https://yohoho.io">yohoho.io</option>
+    <option value="https://yohoho.io">blockpost</option>
+    <option value="https://shellshock.io/">shellshock.io</option>
+     <option value=" https://moomoo.io/">moomoo.io</option>
+    <option value="https://evowars.io/">evowars.io</option>
+    <option value="https://powerline.io/">powerline.io</option>
+    
+    <option value="https://classwork.cc/cookie-clicker-unblocked/">Cookie Clicker</option>
+         <option value="https://files.gamezhero.com/game/905/1d1/9051d1173be765fb/data/index.html">subway surfers</option>
+         <option value="https://html5.gamedistribution.com/3b79a8537ebc414fb4f9672a9b8c68c8/?gd_sdk_referrer_url=https://snowrider3d.com/snow-rider-3d">snow rider 3-d</option>
+         <option value="https://html5.gamedistribution.com/acc0242bb60842fcb0aa806b6e14ff6a/?gd_sdk_referrer_url=https://gamedistribution.com/games/lode-retro-adventure">LODE RETRO ADVENTURE </option>
+         <option value="https://mystifying-goodall-147690.netlify.app">choppy orc</option>
+       <option value="https://scratch.mit.edu/projects/407561251/embed">mario maker </option>
+       <option value="https://html5.gamedistribution.com/3dbd133d0cd9468bafdf2c9812290f4b/?gd_sdk_referrer_url=https://gamedistribution.com/games/basketball-legends-2020">basketball legends</option>
+       <option value="https://goosegame.io">goose game</option>
+       <option value="https://bestgradex.com/games/monkey-mart/index.html">monkey mart</option>
+       <option value="https://bestgradex.com/games/drive-mad/index.html">drive mad</option>
+    
+       <option value="https://bestgradex.com/games/moto-x3m/index.html">moto 3xm</option>
+       <option value="https://unblockedgamesgg.com/games/html5/run-3/index.html">run 3</option>
+    
+        <option value="https://bestgradex.com/games/drive-mad/index.html">drive-mad</option>
+      
+      <option value="https://html5.gamedistribution.com/a186dc9ac7f548f884db8ff54df6dd9f/?gd_sdk_referrer_url=https://gamedistribution.com/games/fruit-ninja-2">fruit ninja</option>
+        <option value="https://html5.gamedistribution.com/26d9c4da689e4b2599917eab8735a381/">cut the rope</option>
+        <option value="https://suikagame.com/">watermellon silka game</option>
+        <option value="https://neal.fun/infinite-craft/">infinite craft</option>
+        <option value="https://paper-io.com/">Paper.io</option>
+        <option value="https://hole-io.com/">Hole.io</option>
+        
+        <option value="https://krunker.io/">Krunker.io</option>
+        <option value="https://nesbox.com/emulator/">NES Emulator</option>
+        <option value="https://www.retrogames.cc/">Retro Games</option>
+        <option value="https://ludicrous.icu/gfiles/html5/pacman/">Pac-Man</option>
+     <option value="https://player03.com/run/3/beta/">Run 3 Unblocked</option>
+    <option value="https://freegalaga.com/">Galaga</option>
+    <option value="https://helixjumponline.com/">helix jump</option>
+     <option value="https://www.kogama.com/">Kogama</option>
+        <option value="http://scribbles.io/">Scribbles.io</option>
+        <option value="https://www.braains.io/">Braains.io</option>
+        <option value="">Movies Coming Soon!</option>
     </select>
     <button onclick="playGame()">Play</button>
-    <button onclick="toggleFullScreen()">Full Screen</button>
-    <button onclick="changeBackground()">Change Background</button>
-    <button onclick="hidetab()">Hide Tab From Teachers</button>
-    <a id="go-back-button" href="https://zelity.github.io/cw/home1.html">Go Back to Homepage</a>
+
+    <!-- Fullscreen Icon -->
+    <img id="fullscreen-icon" src="https://cdn-icons-png.flaticon.com/512/266/266200.png" alt="Fullscreen" onclick="toggleFullScreen()">
+
+    <!-- Change Background Icon -->
+    <img id="change-bg-icon" src="https://static.thenounproject.com/png/5647816-200.png" alt="Change Background" onclick="showBackgroundPopup()">
 </main>
 <footer>
 </footer>
 
 <script>
+    // Original background
+    const originalBackground = 'https://www.animaker.com/hub/wp-content/uploads/2022/10/ezgif.com-gif-maker-12-1.gif';
+
+    // Load saved background from local storage if it exists
+    window.onload = function() {
+        const savedBackground = localStorage.getItem('customBackground');
+        if (savedBackground) {
+            document.body.style.backgroundImage = `url(${savedBackground})`;
+        } else {
+            document.body.style.backgroundImage = `url(${originalBackground})`; // Ensure original background on first load
+        }
+    };
+
     function playGame() {
         var gameUrl = document.getElementById("gameSelector").value;
         if (gameUrl) {
@@ -309,24 +374,42 @@
         }
     }
 
-    function changeBackground() {
-        var backgroundImage = prompt("Enter the image URL for the background:");
-        if (backgroundImage) {
-            alert("Background image changed to: " + backgroundImage);
-            document.body.style.backgroundImage = "url('" + backgroundImage + "')";
+    function showBackgroundPopup() {
+        const choice = prompt("Enter 'upload' to upload an image, 'link' to provide an image URL, or 'reset' to reset to the original background.");
+        if (choice === 'upload') {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = (event) => {
+                const file = event.target.files[0];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.body.style.backgroundImage = `url(${e.target.result})`;
+                    localStorage.setItem('customBackground', e.target.result); // Save to local storage
+                };
+                reader.readAsDataURL(file);
+            };
+            input.click();
+        } else if (choice === 'link') {
+            const url = prompt("Please enter the image URL:");
+            if (url) {
+                document.body.style.backgroundImage = `url(${url})`;
+                localStorage.setItem('customBackground', url); // Save to local storage
+            }
+        } else if (choice === 'reset') {
+            document.body.style.backgroundImage = `url(${originalBackground})`; // Reset to the original background
+            localStorage.removeItem('customBackground'); // Remove from local storage
+        } else {
+            alert("Invalid choice. Please enter 'upload', 'link', or 'reset'.");
         }
     }
 
-    function hidetab() {
-        var win = window.open();
-        var url = "https://zelity.github.io/nuxzul-games/games.html";
-        var iframe = win.document.createElement('iframe');
-        iframe.style.width = "100%";
-        iframe.style.height = "100%";
-        iframe.style.border = "none";
-        iframe.src = url;
-        win.document.body.appendChild(iframe);
-    }
+    // Add event listener for keydown
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'f' || event.key === 'F') {
+            toggleFullScreen();
+        }
+    });
 
     // Function to alphabetically sort the game options
     function sortGameOptions() {
@@ -345,8 +428,6 @@
         // Append the sorted options back to the dropdown
         options.forEach(option => select.appendChild(option));
     }
-
-  
 </script>
 </body>
 </html>
