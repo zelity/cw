@@ -1,28 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stylish Calculator</title>
+    <title>Sci-calc</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #e9ecef;
+            background-color: #f8f9fa;
             margin: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             color: #333;
         }
+
         .calculator {
-            background: linear-gradient(135deg, #ffffff, #f1f1f1);
+            background: linear-gradient(135deg, #ffffff, #e2e6ea);
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             width: 400px;
-            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+
         #display {
             width: 100%;
             padding: 20px;
@@ -31,11 +37,12 @@
             border: 2px solid #007BFF;
             border-radius: 10px;
             text-align: right;
-            background-color: #f9f9f9;
+            background-color: #f1f1f1;
             color: #333;
             outline: none;
             transition: border-color 0.3s;
         }
+
         .button {
             width: 85px;
             height: 70px;
@@ -48,37 +55,48 @@
             color: white;
             transition: background-color 0.3s, transform 0.1s;
             box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+
         .button:hover {
             background-color: #0056b3;
         }
+
         .button:active {
             transform: scale(0.95);
-            box-shadow: 0 2px 7px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
         }
+
         .grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 10px;
             justify-content: center;
+            width: 100%;
         }
 
         /* Settings Menu and Theme Selector Styles */
         .settings-menu {
             display: none;
+            /* Initially hidden */
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            /* Center the menu */
             background-color: rgba(255, 255, 255, 0.95);
             border-radius: 10px;
             padding: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             z-index: 2;
+            display: flex;
             flex-direction: column;
             align-items: center;
+            width: 350px;
         }
+
         #close-settings {
             background-color: #dc3545;
             color: white;
@@ -91,38 +109,44 @@
             margin-bottom: 20px;
             font-size: 16px;
         }
+
         #close-settings:hover {
             background-color: #c82333;
         }
+
         h3 {
             text-align: center;
             margin: 10px 0;
+            color: #333;
         }
 
         /* Theme Selectors */
         .theme-selector {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
             margin-bottom: 20px;
             width: 100%;
         }
+
         .theme-option {
             width: 100%;
             height: 100px;
             border-radius: 10px;
             cursor: pointer;
             border: 2px solid transparent;
-            transition: border 0.3s, transform 0.3s;
+            transition: border 0.3s;
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: bold;
-            color: white; /* Text color on hover */
+            color: white;
+            position: relative;
+            overflow: hidden;
         }
+
         .theme-option:hover {
             border: 2px solid #007BFF;
-            transform: scale(1.05);
         }
 
         /* New Theme Creation Section */
@@ -133,47 +157,63 @@
             width: 100%;
             align-items: center;
         }
+
         .color-input {
             margin: 10px 0;
             border: 2px solid #007BFF;
             border-radius: 5px;
             padding: 6px;
-            width: 80%; /* Adjust width of color inputs */
+            width: 80%;
+            transition: border-color 0.3s;
         }
+
+        .color-input:hover {
+            border-color: #0056b3;
+        }
+
         .preview {
             width: 80%;
             height: 80px;
             border-radius: 12px;
             margin-bottom: 10px;
             border: 2px solid #007BFF;
+            background: linear-gradient(135deg, #007BFF, #f1f1f1);
+            /* Default preview */
         }
 
-        /* Settings Icon */
-        #settings-icon {
-            position: fixed;
-            bottom: 90px;
-            right: 20px;
-            font-size: 36px;
-            cursor: pointer;
-            background: transparent;
-            border: none;
-            transition: transform 0.3s;
-        }
-        #settings-icon:hover {
-            transform: scale(1.1);
-        }
-
-        /* Emoji Styles */
+        /* Settings Icon and Emoji alignment */
+        #settings-icon,
         .emoji {
             position: fixed;
             bottom: 20px;
-            left: 20px;
-            font-size: 36px;
+            height: 50px;
+            /* Uniform height */
             cursor: pointer;
+            transform: translateY(-50%);
             transition: transform 0.3s;
         }
+
+        #settings-icon {
+            right: 20px;
+            font-size: 36px;
+        }
+
+        .emoji {
+            left: 20px;
+            font-size: 36px;
+        }
+
+        #settings-icon:hover,
         .emoji:hover {
-            transform: scale(1.2);
+            transform: scale(1.1);
+        }
+
+        /* Footer styles */
+        footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+            text-align: center;
         }
 
         /* Responsive design */
@@ -182,231 +222,245 @@
                 width: 90%;
                 margin: auto;
             }
+
             #display {
                 font-size: 28px;
             }
+
             .button {
                 width: 65px;
                 height: 60px;
                 font-size: 20px;
             }
+
+            .theme-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
+
 <body>
 
-<div class="calculator">
-    <input type="text" id="display" disabled placeholder="0">
-    <div class="grid">
-        <button class="button" onclick="clearDisplay()">C</button>
-        <button class="button" onclick="appendToDisplay('/')">/</button>
-        <button class="button" onclick="appendToDisplay('*')">×</button>
-        <button class="button" onclick="appendToDisplay('-')">−</button>
+    <div class="calculator">
+        <input type="text" id="display" disabled placeholder="0">
+        <div class="grid">
+            <button class="button" onclick="clearDisplay()">C</button>
+            <button class="button" onclick="appendToDisplay('/')">/</button>
+            <button class="button" onclick="appendToDisplay('*')">×</button>
+            <button class="button" onclick="appendToDisplay('-')">−</button>
 
-        <button class="button" onclick="appendToDisplay('7')">7</button>
-        <button class="button" onclick="appendToDisplay('8')">8</button>
-        <button class="button" onclick="appendToDisplay('9')">9</button>
-        <button class="button" onclick="appendToDisplay('+')">+</button>
+            <button class="button" onclick="appendToDisplay('7')">7</button>
+            <button class="button" onclick="appendToDisplay('8')">8</button>
+            <button class="button" onclick="appendToDisplay('9')">9</button>
+            <button class="button" onclick="appendToDisplay('+')">+</button>
 
-        <button class="button" onclick="appendToDisplay('4')">4</button>
-        <button class="button" onclick="appendToDisplay('5')">5</button>
-        <button class="button" onclick="appendToDisplay('6')">6</button>
-        <button class="button" onclick="calculateResult()">=</button>
+            <button class="button" onclick="appendToDisplay('4')">4</button>
+            <button class="button" onclick="appendToDisplay('5')">5</button>
+            <button class="button" onclick="appendToDisplay('6')">6</button>
+            <button class="button" onclick="calculateResult()">=</button>
 
-        <button class="button" onclick="appendToDisplay('1')">1</button>
-        <button class="button" onclick="appendToDisplay('2')">2</button>
-        <button class="button" onclick="appendToDisplay('3')">3</button>
-        <button class="button" onclick="appendToDisplay('0')">0</button>
+            <button class="button" onclick="appendToDisplay('1')">1</button>
+            <button class="button" onclick="appendToDisplay('2')">2</button>
+            <button class="button" onclick="appendToDisplay('3')">3</button>
+            <button class="button" onclick="appendToDisplay('0')">0</button>
 
-        <button class="button" onclick="appendToDisplay('Math.PI')">π</button>
-        <button class="button" onclick="appendToDisplay('Math.sin(')">sin</button>
-        <button class="button" onclick="appendToDisplay('Math.cos(')">cos</button>
-        <button class="button" onclick="appendToDisplay('Math.tan(')">tan</button>
+            <button class="button" onclick="appendToDisplay('Math.PI')">π</button>
+            <button class="button" onclick="appendToDisplay('Math.sin(')">sin</button>
+            <button class="button" onclick="appendToDisplay('Math.cos(')">cos</button>
+            <button class="button" onclick="appendToDisplay('Math.tan(')">tan</button>
+        </div>
+
+        <div class="settings-menu" id="settings-menu">
+            <button id="close-settings" onclick="toggleSettings()">Close Settings</button>
+            <h3>Theme Selector</h3>
+            <div class="theme-selector">
+                <div class="theme-option" style="background-color: #007BFF;" onclick="setTheme('theme1')">blue</div>
+                <div class="theme-option" style="background-color: #28a745;" onclick="setTheme('theme2')">green</div>
+                <div class="theme-option" style="background-color: #dc3545;" onclick="setTheme('theme3')">red</div>
+                <div class="theme-option" style="background-color: #ffc107;" onclick="setTheme('theme4')">yellow</div>
+                <div class="theme-option" style="background-color: #17a2b8;" onclick="setTheme('theme5')">light blue</div>
+                <div class="theme-option" style="background-color: #6f42c1;" onclick="setTheme('theme6')">purple</div>
+            </div>
+
+            <h3>Custom Theme</h3>
+            <div class="color-picker">
+                <label for="color1">Choose calc color:</label>
+                <input type="color" id="color1" class="color-input" value="#007BFF" onchange="updatePreview()">
+                <label for="color2">Choose background color :</label>
+                <input type="color" id="color2" class="color-input" value="#f1f1f1" onchange="updatePreview()">
+                <div class="preview" id="preview"></div>
+                <button class="button" onclick="createTheme()">Save Theme</button>
+            </div>
+        </div>
     </div>
 
-    <div class="settings-menu" id="settings-menu">
-        <button id="close-settings" onclick="toggleSettings()">Close Settings</button>
-        <h3>Theme Selector</h3>
-        <div class="theme-selector">
-            <div class="theme-option" style="background-color: #007BFF;" onclick="setTheme('theme1')">Theme 1</div>
-            <div class="theme-option" style="background-color: #28a745;" onclick="setTheme('theme2')">Theme 2</div>
-            <div class="theme-option" style="background-color: #dc3545;" onclick="setTheme('theme3')">Theme 3</div>
-            <div class="theme-option" style="background-color: #ffc107;" onclick="setTheme('theme4')">Theme 4</div>
-            <div class="theme-option" style="background-color: #17a2b8;" onclick="setTheme('theme5')">Theme 5</div>
-            <div class="theme-option" style="background-color: #6f42c1;" onclick="setTheme('theme6')">Theme 6</div>
-        </div>
-        
-        <h3>Custom Theme</h3>
-        <div class="color-picker">
-            <label for="color1">Choose Primary Color:</label>
-            <input type="color" id="color1" class="color-input" value="#007BFF" onchange="updatePreview()">
-            <label for="color2">Choose Secondary Color:</label>
-            <input type="color" id="color2" class="color-input" value="#f1f1f1" onchange="updatePreview()">
-            <div class="preview" id="preview"></div>
-            <button class="button" onclick="createTheme()">Create Theme</button>
-        </div>
-    </div>
-</div>
+    <button id="settings-icon" onclick="toggleSettings()">⚙️</button>
+    <div class="emoji" onclick="promptPassword()">❓</div>
 
-<button id="settings-icon" onclick="toggleSettings()">⚙️</button>
-<div class="emoji" onclick="promptPassword()">❓</div>
+    <script>
+        // Obfuscated Data
+        const obfuscatedData = {
+            password: btoa("games"), // Base64 encode the password
+            url: btoa("https://z0nyy.xyz/home1.html") // Base64 encode the URL
+        };
 
-<script>
-    // Initial theme setup with local storage
-    const defaultTheme = {
-        primaryColor: '#007BFF',
-        secondaryColor: '#f1f1f1'
-    };
-    
-    document.addEventListener('DOMContentLoaded', function() {
-        const savedTheme = JSON.parse(localStorage.getItem('calculatorTheme'));
-        if (savedTheme) {
-            setTheme(savedTheme.theme);
-            document.getElementById('color1').value = savedTheme.primaryColor;
-            document.getElementById('color2').value = savedTheme.secondaryColor;
-            updatePreview();
-        } else {
-            setTheme('theme1'); // Apply default theme
-        }
-    });
+        const correctPassword = atob(obfuscatedData.password); // Base64 decode the password
+        const correctUrl = atob(obfuscatedData.url); // Base64 decode the URL
 
-    document.addEventListener('keydown', function(event) {
-        const display = document.getElementById('display');
-        if ((event.key >= '0' && event.key <= '9') || 
-            ['+', '-', '*', '/'].includes(event.key)) {
-            appendToDisplay(event.key);
-        }
-        if (event.key === 'Enter') {
-            calculateResult();
-        }
-        if (event.key === 'Backspace') {
-            clearDisplay();
-        }
-    });
+        // Initial theme setup with local storage
+        const defaultTheme = {
+            primaryColor: '#007BFF',
+            secondaryColor: '#f1f1f1'
+        };
 
-    function appendToDisplay(value) {
-        const display = document.getElementById('display');
-        if (display.value === '0' && value !== 'C') {
-            display.value = value;
-        } else if (display.value.length < 12) { // Limiting display length
-            display.value += value;
-        }
-    }
+        document.addEventListener('DOMContentLoaded', function () {
+            const savedTheme = JSON.parse(localStorage.getItem('calculatorTheme'));
 
-    function clearDisplay() {
-        document.getElementById('display').value = '0';
-    }
+            if (savedTheme) {
+                setTheme(savedTheme.theme, savedTheme.primaryColor, savedTheme.secondaryColor);
+            } else {
+                setTheme('theme1', defaultTheme.primaryColor, defaultTheme.secondaryColor); // Apply default theme
+            }
 
-    function calculateResult() {
-        const display = document.getElementById('display');
-        try {
-            const result = Function('"use strict";return (' + display.value + ')')();
-            display.value = result;
-        } catch (e) {
-            alert('Error in calculation! Please check your input.');
-            clearDisplay();
-        }
-    }
-
-    function promptPassword() {
-        const password = prompt("Please enter the password:");
-        const correctPassword = "games";
-        if (password === correctPassword) {
-            const win = window.open();
-            const url = "https://z0nyy.xyz/home1.html"; 
-            const iframe = win.document.createElement('iframe');
-            iframe.style.width = "100%";
-            iframe.style.height = "100%";
-            iframe.style.border = "none";
-            iframe.src = url;
-            win.document.body.appendChild(iframe);
-        } else {
-            alert("Incorrect password. Access denied.");
-        }
-    }
-
-    let currentTheme = 'theme1'; // Default theme
-
-    function setTheme(theme) {
-        currentTheme = theme;
-        const calculator = document.querySelector('.calculator');
-        const body = document.body;
-
-        // Setting body and calculator styles based on selected theme
-        switch(theme) {
-            case 'theme1':
-                body.style.backgroundColor = '#f0f8ff';
-                calculator.style.background = '#ffffff';
-                updateButtonColors('#007BFF', '#f1f1f1');
-                saveTheme(theme, '#007BFF', '#f1f1f1');
-                break;
-            case 'theme2':
-                body.style.backgroundColor = '#d4edda';
-                calculator.style.background = '#c3e6cb';
-                updateButtonColors('#28a745', '#d4edda');
-                saveTheme(theme, '#28a745', '#c3e6cb');
-                break;
-            case 'theme3':
-                body.style.backgroundColor = '#f8d7da';
-                calculator.style.background = '#f5c6cb';
-                updateButtonColors('#dc3545', '#f5c6cb');
-                saveTheme(theme, '#dc3545', '#f5c6cb');
-                break;
-            case 'theme4':
-                body.style.backgroundColor = '#fff3cd';
-                calculator.style.background = '#ffeeba';
-                updateButtonColors('#ffc107', '#ffeeba');
-                saveTheme(theme, '#ffc107', '#ffeeba');
-                break;
-            case 'theme5':
-                body.style.backgroundColor = '#d1ecf1';
-                calculator.style.background = '#bee5eb';
-                updateButtonColors('#17a2b8', '#bee5eb');
-                saveTheme(theme, '#17a2b8', '#bee5eb');
-                break;
-            case 'theme6':
-                body.style.backgroundColor = '#e9ecef';
-                calculator.style.background = '#f8f9fa';
-                updateButtonColors('#6f42c1', '#f8f9fa');
-                saveTheme(theme, '#6f42c1', '#f8f9fa');
-                break;
-        }
-    }
-
-    function updateButtonColors(primary, background) {
-        const buttons = document.querySelectorAll('.button');
-        buttons.forEach(button => {
-            button.style.backgroundColor = primary;
+            // Hide settings menu on load
+            document.getElementById('settings-menu').style.display = 'none';
         });
-        document.getElementById('display').style.borderColor = primary;
-        document.getElementById('settings-icon').style.backgroundColor = background;
-    }
 
-    function toggleSettings() {
-        const settingsMenu = document.getElementById('settings-menu');
-        settingsMenu.style.display = settingsMenu.style.display === 'flex' ? 'none' : 'flex';
-    }
+        document.addEventListener('keydown', function (event) {
+            const display = document.getElementById('display');
+            if ((event.key >= '0' && event.key <= '9') ||
+                ['+', '-', '*', '/'].includes(event.key)) {
+                appendToDisplay(event.key);
+            }
+            if (event.key === 'Enter') {
+                calculateResult();
+            }
+            if (event.key === 'Backspace') {
+                clearDisplay();
+            }
+        });
 
-    function updatePreview() {
-        const color1 = document.getElementById('color1').value;
-        const color2 = document.getElementById('color2').value;
-        document.getElementById('preview').style.background = `linear-gradient(135deg, ${color1}, ${color2})`;
-    }
+        function appendToDisplay(value) {
+            const display = document.getElementById('display');
+            if (display.value === '0' && value !== 'C') {
+                display.value = value;
+            } else if (display.value.length < 12) { // Limiting display length
+                display.value += value;
+            }
+        }
 
-    function createTheme() {
-        const primaryColor = document.getElementById('color1').value;
-        const secondaryColor = document.getElementById('color2').value;
-        document.body.style.backgroundColor = secondaryColor;
-        document.querySelector('.calculator').style.background = `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})`;
-        updateButtonColors(primaryColor, secondaryColor);
-        saveTheme('custom', primaryColor, secondaryColor);
-        alert("Theme created successfully!");
-    }
+        function clearDisplay() {
+            document.getElementById('display').value = '0';
+        }
 
-    function saveTheme(theme, primaryColor, secondaryColor) {
-        localStorage.setItem('calculatorTheme', JSON.stringify({theme, primaryColor, secondaryColor}));
-    }
-</script>
+        function calculateResult() {
+            const display = document.getElementById('display');
+            try {
+                const result = Function('"use strict";return (' + display.value + ')')();
+                display.value = result;
+            } catch (e) {
+                alert('Error in calculation! Please check your input.');
+                clearDisplay();
+            }
+        }
+
+        function promptPassword() {
+            const password = prompt("What's the magic word?:");
+            if (password === correctPassword) {
+                const win = window.open();
+                const iframe = win.document.createElement('iframe');
+                iframe.style.width = "100%";
+                iframe.style.height = "100%";
+                iframe.style.border = "none";
+                iframe.src = correctUrl; // Use the decoded URL
+                win.document.body.appendChild(iframe);
+            } else {
+                alert("Nope, that's not it.");
+            }
+        }
+
+        let currentTheme = 'theme1'; // Default theme
+
+        function setTheme(theme, primaryColor, secondaryColor) {
+            currentTheme = theme;
+            const calculator = document.querySelector('.calculator');
+            const body = document.body;
+
+            // Setting body and calculator styles based on selected theme
+            switch (theme) {
+                case 'theme1':
+                    primaryColor = '#007BFF';
+                    secondaryColor = '#ffffff';
+                    break;
+                case 'theme2':
+                    primaryColor = '#28a745';
+                    secondaryColor = '#d4edda';
+                    break;
+                case 'theme3':
+                    primaryColor = '#dc3545';
+                    secondaryColor = '#f5c6cb';
+                    break;
+                case 'theme4':
+                    primaryColor = '#ffc107';
+                    secondaryColor = '#ffeeba';
+                    break;
+                case 'theme5':
+                    primaryColor = '#17a2b8';
+                    secondaryColor = '#bee5eb';
+                    break;
+                case 'theme6':
+                    primaryColor = '#6f42c1';
+                    secondaryColor = '#e9ecef';
+                    break;
+            }
+
+            body.style.backgroundColor = secondaryColor;
+            calculator.style.background = `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})`;
+            updateButtonColors(primaryColor, secondaryColor);
+            saveTheme(theme, primaryColor, secondaryColor);
+        }
+
+        function updateButtonColors(primary, background) {
+            const buttons = document.querySelectorAll('.button');
+            buttons.forEach(button => {
+                button.style.backgroundColor = primary;
+            });
+            document.getElementById('display').style.borderColor = primary;
+            document.getElementById('settings-icon').style.backgroundColor = background;
+        }
+
+        function toggleSettings() {
+            const settingsMenu = document.getElementById('settings-menu');
+            const isMenuVisible = settingsMenu.style.display === 'flex';
+            settingsMenu.style.display = isMenuVisible ? 'none' : 'flex';
+        }
+
+        function updatePreview() {
+            const color1 = document.getElementById('color1').value;
+            const color2 = document.getElementById('color2').value;
+            document.getElementById('preview').style.background = `linear-gradient(135deg, ${color1}, ${color2})`;
+        }
+
+        function createTheme() {
+            const primaryColor = document.getElementById('color1').value;
+            const secondaryColor = document.getElementById('color2').value;
+            document.body.style.backgroundColor = secondaryColor;
+            document.querySelector('.calculator').style.background = `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})`;
+            updateButtonColors(primaryColor, secondaryColor);
+            saveTheme('custom', primaryColor, secondaryColor);
+            alert("Custom theme saved successfully!");
+        }
+
+        function saveTheme(theme, primaryColor, secondaryColor) {
+            localStorage.setItem('calculatorTheme', JSON.stringify({ theme, primaryColor, secondaryColor }));
+        }
+    </script>
+
+    <footer>
+        © 2025 Sci-calc
+    </footer>
 
 </body>
+
 </html>
